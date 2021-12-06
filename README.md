@@ -8,3 +8,4 @@ Resources:
     - https://www.youtube.com/watch?v=ceNaZzEoUhk
     - https://www.youtube.com/watch?v=xUfdQHEYh1w
     - https://www.youtube.com/watch?v=ceNaZzEoUhk&list=PL7_TuD9ZDMhg5uLHLyd8em13XBKfjzCzR&index=7
+    - [Conférences 42sh 2019 - Architecture d'un shell](https://www.youtube.com/watch?v=oIFRiwFRSRY)
