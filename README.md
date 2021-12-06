@@ -9,3 +9,4 @@ Resources:
 ](https://www.youtube.com/watch?v=xUfdQHEYh1w)
     - [Conférences 42sh 2019 - Architecture d'un shell](https://www.youtube.com/watch?v=oIFRiwFRSRY)
     - [Conférences Redirection et Pipe 42SH - 2019](https://www.youtube.com/watch?v=ceNaZzEoUhk)
+    - [Minishell - playlist](https://www.youtube.com/playlist?list=PL7_TuD9ZDMhg5uLHLyd8em13XBKfjzCzR)
