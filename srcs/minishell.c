@@ -6,7 +6,6 @@
 
 #include "../incs/lexer.h"
 
-
 void	ft_putstr_fd(char *str, int fd)
 {
 	while(*str)
@@ -22,7 +21,7 @@ void ft_print_title(void)
 	int	fd;
 	int	ret;
 
-	fd = open("./prompt_string.txt", O_RDONLY);
+	fd = open("./others/prompt_string.txt", O_RDONLY);
 	ret = read(fd, buffer, 2048);
 	buffer[ret] = '\0';
 	printf("%s", buffer);
@@ -33,11 +32,8 @@ int main()
 	char *line;
 	char *prompt;
 
-	prompt = "|( o)═( o)| >";
+	prompt = "\n|( o)═( o)| >";
 	ft_print_title();
-	printf("> is: %d\n", CHAR_GREATER);
-	printf("| is: %d\n", CHAR_PIPE);
-	printf("< is: %d\n", CHAR_LESSER);
 	while (1)
 	{
 		line = readline(prompt);
