@@ -6,11 +6,11 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 15:48:37 by jahuang           #+#    #+#             */
-/*   Updated: 2021/12/08 18:14:22 by jahuang          ###   ########.fr       */
+/*   Updated: 2021/12/09 11:05:43 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
 /*
 **	Create the node(struct) to be stored in the hash table array.

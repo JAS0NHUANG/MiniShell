@@ -6,11 +6,11 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 15:47:54 by jahuang           #+#    #+#             */
-/*   Updated: 2021/12/08 18:14:12 by jahuang          ###   ########.fr       */
+/*   Updated: 2021/12/09 11:05:40 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
 /*
 **	Create and initialize the hash table.

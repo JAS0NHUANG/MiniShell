@@ -6,11 +6,11 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 15:42:04 by jahuang           #+#    #+#             */
-/*   Updated: 2021/12/08 18:14:32 by jahuang          ###   ########.fr       */
+/*   Updated: 2021/12/09 11:04:49 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
 /*
 **	Functions to free the hash table.

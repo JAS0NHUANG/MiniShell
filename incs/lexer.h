@@ -1,6 +1,8 @@
 #ifndef LEXER_H
 # define LEXER_H
 
+#include <stdlib.h>
+
 enum char_type {
 	CHAR_GENERAL = -1,
 	CHAR_PIPE = '|',
@@ -27,5 +29,6 @@ typedef struct	s_token {
 t_token	*ft_init_token(void);
 void	ft_add_token(char *content);
 int		ft_get_type(char *content);
+char	**ft_split(char const *s, char c);
 
 #endif

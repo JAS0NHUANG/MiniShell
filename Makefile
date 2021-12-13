@@ -29,6 +29,7 @@ SRCS		=	minishell.c \
 
 INCS		=	hashtable.h \
 				lexer.h \
+				ft_split.c \
 
 # **************************************************************************** #
 #       LIBRARIES                                                              #
