@@ -6,11 +6,24 @@
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 11:58:01 by antton-t          #+#    #+#             */
-/*   Updated: 2021/12/13 12:02:52 by antton-t         ###   ########.fr       */
+/*   Updated: 2021/12/13 18:31:10 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/lexer.h"
+#include "lexer.h"
+
+void	ft_doingfree(char **split, int count)
+{
+	int	i;
+
+	i = 0;
+	while (i < count)
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
+}
 
 int	ft_doingmalloc(char **split, char const *s, char c)
 {
