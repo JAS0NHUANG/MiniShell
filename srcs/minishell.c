@@ -6,7 +6,7 @@
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:32:58 by antton-t          #+#    #+#             */
-/*   Updated: 2021/12/14 17:25:53 by antton-t         ###   ########.fr       */
+/*   Updated: 2021/12/14 17:52:02 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int main()
 	while (1)
 	{
 		line = readline(prompt);
+		if (strlen(line) != 0)
+			add_history(line);
 		printf("line: %s\n", line);
 		start = ft_start_lexer(line);
 
@@ -58,6 +60,7 @@ while (start != NULL)
 	printf("%s \n",start->value);
 	start = start->next;
 }
+		//ft_free(start);
 	}
 
 }
