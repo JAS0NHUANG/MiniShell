@@ -1,9 +1,9 @@
 # **************************************************************************** #
 #       COMANDS                                                                #
 # **************************************************************************** #
-CC			=	gcc
-RM			=	rm -rf
-AR			=	ar rcs
+CC		=	gcc
+RM		=	rm -rf
+AR		=	ar rcs
 
 # **************************************************************************** #
 #       TITLE                                                                  #
@@ -25,11 +25,9 @@ DEBUG		=	-g3
 SRCS_DIR	=	srcs
 INCS_DIR	=	incs
 
-SRCS		=	minishell.c ft_split.c ft_start_lexer.c\
-				ft_copy.c \
+SRCS		=	minishell.c \
 
 INCS		=	hashtable.h \
-				lexer.h \
 
 # **************************************************************************** #
 #       LIBRARIES                                                              #
@@ -40,21 +38,21 @@ INCS		=	hashtable.h \
 # **************************************************************************** #
 OBJS		=	$(addprefix $(SRCS_DIR)/,$(SRCS:.c=.o))
 
-%.o			:	%.c
-				$(CC) $(CFLAGS) -I $(INCS_DIR) -c $< -o $@
+%.o		:	%.c
+			$(CC) $(CFLAGS) -I $(INCS_DIR) -c $< -o $@
 
 $(NAME)		:	$(OBJS)
-				$(CC) -o $@ $(OBJS) -I $(INCS_DIR) $(READLINE)
+			$(CC) -o $@ $(OBJS) -I $(INCS_DIR) $(READLINE)
 
-all			:	$(NAME)
+all		:	$(NAME)
 
 clean		:
-				$(RM) $(OBJS)
+			$(RM) $(OBJS)
 
 fclean		:	clean
-				$(RM) $(NAME)
+			$(RM) $(NAME)
 
-re			:	fclean all
+re		:	fclean all
 
 # **************************************************************************** #
 #       PHONY                                                                  #

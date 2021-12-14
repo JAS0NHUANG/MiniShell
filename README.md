@@ -1,8 +1,3 @@
-- Use hash table to store envirenment variables:  
-	[Wikipedia - Hash table](https://en.wikipedia.org/wiki/Hash_table)  
-
-- [RTFM](notes/man_bash_note.md)
-
 Resources:  
   - https://harm-smits.github.io/42docs/projects/minishell
   - https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf
