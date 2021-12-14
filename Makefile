@@ -26,6 +26,7 @@ SRCS_DIR	=	srcs
 INCS_DIR	=	incs
 
 SRCS		=	minishell.c ft_split.c ft_start_lexer.c\
+				ft_copy.c \
 
 INCS		=	hashtable.h \
 				lexer.h \

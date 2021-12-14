@@ -6,7 +6,7 @@
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:31:33 by antton-t          #+#    #+#             */
-/*   Updated: 2021/12/13 20:12:50 by antton-t         ###   ########.fr       */
+/*   Updated: 2021/12/14 17:27:42 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,95 +24,76 @@ t_token	*ft_token_create(void)
 	return (out);
 }
 
-int	ft_count_size(char *src, int i)
+int	ft_count_size(char *line)
 {
-	int	size;
+	int		count;
+	char	*ptr;
 
-	size = 0;
-	while (src[i] == ' ' && src[i])
-		i++;
-	while (src[i] != '|' && src[i] != '<' && src[i] != '>' && src[i] != ' '
-		&& src[i])
+	ptr = line;
+	count = 0;
+	while (*ptr)
 	{
-		i++;
-		size++;
+		while (*ptr != '|' && *ptr != '<' && *ptr != '>' && *ptr != ' ' && *ptr != '\0')
+		{
+			count++;
+			ptr++;
+		}
+		if (count != 0)
+			return (count);
+		if ((*ptr != '|' || *ptr != '<' || *ptr != '>') && *ptr)
+		{
+			if ((ptr[0] == '<' && ptr[1] == '<') || (ptr[0] == '>' && ptr[1] == '>'))
+				return (2);
+			else
+				return (1);
+		}
+		return (0);
 	}
-	if (size > 0)
-		return (size);
-	if (src[i] == '|' || src[i] == '<' || src[i] == '>')
-	{
-		if ((src[i] == '<' && src[i + 1] == '<' ) || (src[i] == '>'
-				&& src[i] == '>'))
-			return (2);
-		else
-			return (1);
-	}
-	return (size);
+	return (0);
 }
 
-t_token	*ft_fill_chain_lst(char *str, int i, int count)
+t_token	*ft_fill_lst(t_token *out, char *line, int count)
 {
-	t_token	*out;
-	int		j;
-
-	j = 0;
-	out = ft_token_create();
-	out->value = (char *)malloc(sizeof(char) * (count + 1));
-	if (out->value == NULL)
-		return (NULL);
-	while (j < count)
-	{
-		out->value[j] = str[i];
-		j++;
-		i++;
-	}
-	out->value[j] = 0;
-	return (out);
-}
-
-t_token	*ft_fill_lst(t_token *out, char *src, int i, int count)
-{
-	t_token	*ptr;
-	int		j;
+	t_token *next;
 	t_token	*new;
 
-	j = 0;
-	ptr = out;
-	while (ptr->next != NULL)
-		ptr = ptr->next;
-	new = ft_token_create();
-	if (new == NULL)
-		return (NULL);
-	new->value = (char *)malloc(sizeof(char) * (count + 1));
-	if (new->value == NULL)
-		return (NULL);
-	ptr->next = new;
-	while (j < count)
+	if (out == NULL)
 	{
-		new->value[j] = src[i];
-		j++;
-		i++;
+		out = ft_copy(count, line);
+		if (out == NULL)
+			return (NULL);
+		return (out);
 	}
-	new->value[j] = 0;
+	else
+	{
+		next = out;
+		while (next->next != NULL)
+			next = next->next;
+		new = ft_copy(count, line);
+		next->next = new;
+	}
 	return (out);
 }
+
 
 t_token	*ft_start_lexer(char *line)
 {
 	t_token	*out;
-	int		i;
 	int		count;
 
-	i = 0;
 	count = 0;
-	while (line[i])
+	out = NULL;
+	while (*line)
 	{
-		count = ft_count_size(line, i);
-		if (i == 0)
-			out = ft_fill_chain_lst(line, i, count);
+		if (*line == ' ')
+		line++;
 		else
-			out = ft_fill_lst(out, line, i, count);
-		i = i + count;
+		{
+			count = ft_count_size(line);
+			out = ft_fill_lst(out, line, count);
+			while (count--)
+				line++;
+		}
 	}
 	return (out);
 }

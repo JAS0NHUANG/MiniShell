@@ -32,5 +32,7 @@ void	ft_add_token(char *content);
 int		ft_get_type(char *content);
 char	**ft_split(char const *s, char c);
 t_token	*ft_start_lexer(char *line);
-
+t_token	*ft_copy(int count, char *line);
+int		ft_count_size(char *line);
+t_token	*ft_token_create(void);
 #endif
