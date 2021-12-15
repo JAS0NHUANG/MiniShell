@@ -6,7 +6,7 @@
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:32:58 by antton-t          #+#    #+#             */
-/*   Updated: 2021/12/14 17:52:02 by antton-t         ###   ########.fr       */
+/*   Updated: 2021/12/15 15:49:36 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,12 @@ void ft_print_title(void)
 	printf("%s", buffer);
 }
 
-int main()
+int main(int argc, char **argv, char **env)
 {
 	char *input;
 	char *prompt;
+	(void)	argc;
+	(void)	argv;
 	/* I think token_list is better then start? */
 	t_token	*token_list;
 
@@ -48,10 +50,16 @@ int main()
 		*/
 		printf("User input: %s\n", input);
 		token_list = ft_lexer(input);
+		while (token_list->next != NULL)
+		{
+		//	printf("%s \n",token_list->value);
+			token_list = token_list->next;
+		}
 		while (token_list != NULL)
 		{
 			printf("%s \n",token_list->value);
-			token_list = token_list->next;
+			token_list = token_list->prev;
 		}
+	ft_parsing_dollar(token_list, env);
 	}
 }

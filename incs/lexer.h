@@ -24,9 +24,11 @@ enum token_type {
 typedef struct	s_token {
 	char *value;
 	int	token_type;
+	struct s_token *prev;
 	struct s_token *next;
 }				t_token;
 
 t_token	*ft_lexer(char *input);
+void	ft_parsing_dollar(t_token *token_list);
 
 #endif

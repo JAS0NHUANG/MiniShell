@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_start_lexer.c                                   :+:      :+:    :+:   */
+/*   ft_lexer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:31:33 by antton-t          #+#    #+#             */
-/*   Updated: 2021/12/14 17:27:42 by antton-t         ###   ########.fr       */
+/*   Updated: 2021/12/15 11:43:48 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,17 @@ static t_token	*ft_fill_list(t_token *token_list, char *input, int token_len)
 
 	new = ft_create_token(token_len, input);
 	if (token_list == NULL)
+	{
 		token_list = new; 
+		token_list->prev = NULL;
+	}
 	else
 	{
 		holder = token_list;
 		while (holder->next != NULL)
 			holder = holder->next;
 		holder->next = new;
+		new->prev = holder;
 	}
 	return (token_list);
 }
