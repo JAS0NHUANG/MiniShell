@@ -18,15 +18,6 @@
 
 #include "lexer.h"
 
-void	ft_putstr_fd(char *str, int fd)
-{
-	while(*str)
-	{
-		write(fd, str, 1);
-		str++;
-	}
-}
-
 void ft_print_title(void)
 {
 	char buffer[2048 + 1];
@@ -41,26 +32,26 @@ void ft_print_title(void)
 
 int main()
 {
-	char *line;
+	char *input;
 	char *prompt;
-	t_token	*start;
+	/* I think token_list is better then start? */
+	t_token	*token_list;
 
 	prompt = "\n|( o)═( o)| >";
 	ft_print_title();
 	while (1)
 	{
-		line = readline(prompt);
+		input = readline(prompt);
+		/* this functionality can be added after?
 		if (strlen(line) != 0)
 			add_history(line);
-		printf("line: %s\n", line);
-		start = ft_start_lexer(line);
-
-while (start != NULL)
-{
-	printf("%s \n",start->value);
-	start = start->next;
-}
-		//ft_free(start);
+		*/
+		printf("User input: %s\n", input);
+		token_list = ft_lexer(input);
+		while (token_list != NULL)
+		{
+			printf("%s \n",token_list->value);
+			token_list = token_list->next;
+		}
 	}
-
 }

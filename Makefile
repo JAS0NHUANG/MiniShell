@@ -1,9 +1,9 @@
 # **************************************************************************** #
 #       COMANDS                                                                #
 # **************************************************************************** #
-CC			=	gcc
-RM			=	rm -rf
-AR			=	ar rcs
+CC		=	gcc
+RM		=	rm -rf
+AR		=	ar rcs
 
 # **************************************************************************** #
 #       TITLE                                                                  #
@@ -25,11 +25,11 @@ DEBUG		=	-g3
 SRCS_DIR	=	srcs
 INCS_DIR	=	incs
 
-SRCS		=	minishell.c ft_split.c ft_start_lexer.c\
-				ft_copy.c \
+SRCS		=	minishell.c \
+			/lexer/ft_lexer.c \
 
 INCS		=	hashtable.h \
-				lexer.h \
+			lexer.h \
 
 # **************************************************************************** #
 #       LIBRARIES                                                              #
