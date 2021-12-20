@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 11:25:03 by antton-t          #+#    #+#             */
-/*   Updated: 2021/12/16 16:36:17 by antton-t         ###   ########.fr       */
+/*   Updated: 2021/12/20 17:54:50 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int		ft_transform_dollar(char *str, char **env)
 			{
 				k++;
 				l++;
-				if (env[j][k] == '=')
+				if (env[j][k] == '=' && str[l] == 0)
 				{
 printf("MARCHE\n");
 					return (1);
@@ -89,6 +89,17 @@ int		ft_check_token_prev(t_token *token_list)
 	return (0);
 }
 
+char	*ft_change_dollar(char *str)
+{
+	char	*tmp;
+	char	*tmp1;
+
+	tmp1 = str;
+	tmp = ft_strjoin(tmp1, ": ambiguous redirection\n");
+	free(tmp1);
+	return (tmp);
+}
+
 void	ft_parsing_dollar(t_token *token_list, char **env)
 {
 	while (token_list != NULL)
@@ -108,11 +119,10 @@ void	ft_parsing_dollar(t_token *token_list, char **env)
 				if (ft_token_dollar(token_list->value) == 1)
 				{
 					if (!(ft_transform_dollar(token_list->value, env) == 1))
-						ft_cancel_dollar(token_list->value);
+						token_list->value = ft_change_dollar(token_list->value);
 				}
 			}
 		}
-printf("token_list => %s\n",token_list->value);
 		token_list = token_list->next;
 	}
 }

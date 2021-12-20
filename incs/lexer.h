@@ -30,5 +30,6 @@ typedef struct	s_token {
 
 t_token	*ft_lexer(char *input);
 void	ft_parsing_dollar(t_token *token_list, char **env);
-
+char	*ft_strjoin(char const *s1, char const *s2);
+int		ft_strlen(const char *str);
 #endif
