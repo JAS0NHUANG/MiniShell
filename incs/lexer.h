@@ -29,6 +29,6 @@ typedef struct	s_token {
 }				t_token;
 
 t_token	*ft_lexer(char *input);
-void	ft_parsing_dollar(t_token *token_list);
+void	ft_parsing_dollar(t_token *token_list, char **env);
 
 #endif

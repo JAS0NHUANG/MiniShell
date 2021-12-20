@@ -25,7 +25,7 @@ DEBUG		=	-g3
 SRCS_DIR	=	srcs
 INCS_DIR	=	incs
 
-SRCS		=	minishell.c \
+SRCS		=	minishell.c ft_parsing_dollar.c \
 			/lexer/ft_lexer.c \
 
 INCS		=	hashtable.h \

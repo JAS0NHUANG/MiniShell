@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 11:25:03 by antton-t          #+#    #+#             */
-/*   Updated: 2021/12/15 15:49:32 by antton-t         ###   ########.fr       */
+/*   Updated: 2021/12/16 16:36:17 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int		ft_token_dollar(char *str)
 {
 	int	i;
 
+	i = 0;
 	while (str[i])
 	{
 		if (str[i] == '$')
@@ -28,7 +29,7 @@ int		ft_token_dollar(char *str)
 /*
 	Voir si le $PATH existe si oui retourne 1 sinon erreur
 */
-int		ft_transform_dollar(char *str)
+int		ft_transform_dollar(char *str, char **env)
 {
 	int	i;
 	int	j;
@@ -37,21 +38,28 @@ int		ft_transform_dollar(char *str)
 
 	i = 0;
 	j = 0;
-	while (str[i]!= '$')
+	while (str[i] != '$')
 		i++;
-	while (ENV[j])
+	while (env[j])
 	{
-		l = i;
+		l = i + 1;
 		k = 0;
-		while (ENV[j][k] == str[l])
+		if (env[j][k] == str[l])
 		{
-			k++;
-			l++;
-			if (ENV[j][k] == '=')
-				return (1);
+			while (env[j][k] == str[l])
+			{
+				k++;
+				l++;
+				if (env[j][k] == '=')
+				{
+printf("MARCHE\n");
+					return (1);
+				}
+			}
 		}
 		j++;
 	}
+printf("KO\n");
 	return (0);
 }
 
@@ -69,6 +77,18 @@ void	ft_cancel_dollar(char *str)
 	}
 }
 
+int		ft_check_token_prev(t_token *token_list)
+{
+	if (token_list->value[0] == '<')
+	{
+		if (token_list->value[1] == 0)
+			return (1);
+	}
+	if (token_list->value[0] == '>')
+		return (1);
+	return (0);
+}
+
 void	ft_parsing_dollar(t_token *token_list, char **env)
 {
 	while (token_list != NULL)
@@ -77,14 +97,22 @@ void	ft_parsing_dollar(t_token *token_list, char **env)
 		{
 			if(ft_token_dollar(token_list->value) == 1)
 			{
-				if (!ft_transform_dollar(token_list->value))
+				if (!ft_transform_dollar(token_list->value, env))
 					ft_cancel_dollar(token_list->value);
 			}
 		}
 		else
 		{
-			
+			if (ft_check_token_prev(token_list->prev) == 1)
+			{
+				if (ft_token_dollar(token_list->value) == 1)
+				{
+					if (!(ft_transform_dollar(token_list->value, env) == 1))
+						ft_cancel_dollar(token_list->value);
+				}
+			}
 		}
+printf("token_list => %s\n",token_list->value);
 		token_list = token_list->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:32:58 by antton-t          #+#    #+#             */
-/*   Updated: 2021/12/15 15:49:36 by antton-t         ###   ########.fr       */
+/*   Updated: 2021/12/16 16:36:18 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,6 @@ int main(int argc, char **argv, char **env)
 		*/
 		printf("User input: %s\n", input);
 		token_list = ft_lexer(input);
-		while (token_list->next != NULL)
-		{
-		//	printf("%s \n",token_list->value);
-			token_list = token_list->next;
-		}
-		while (token_list != NULL)
-		{
-			printf("%s \n",token_list->value);
-			token_list = token_list->prev;
-		}
-	ft_parsing_dollar(token_list, env);
+		ft_parsing_dollar(token_list, env);
 	}
 }
