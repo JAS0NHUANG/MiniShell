@@ -48,6 +48,8 @@ int		ft_transform_dollar(char *str, char **env)
 		{
 			while (env[j][k] == str[l])
 			{
+				if (str[l] == '?')
+					return (1);
 				k++;
 				l++;
 				if (env[j][k] == '=' && str[l] == 0)
@@ -123,6 +125,7 @@ void	ft_parsing_dollar(t_token *token_list, char **env)
 				}
 			}
 		}
+printf("%s\n",token_list->value);
 		token_list = token_list->next;
 	}
 }
