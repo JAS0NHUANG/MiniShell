@@ -6,13 +6,13 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 11:25:03 by antton-t          #+#    #+#             */
-/*   Updated: 2021/12/20 17:54:50 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/02 17:19:01 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-int		ft_token_dollar(char *str)
+int	ft_token_dollar(char *str)
 {
 	int	i;
 
@@ -29,7 +29,7 @@ int		ft_token_dollar(char *str)
 /*
 	Voir si le $PATH existe si oui retourne 1 sinon erreur
 */
-int		ft_transform_dollar(char *str, char **env)
+int	ft_transform_dollar(char *str, char **env)
 {
 	int	i;
 	int	j;
@@ -108,7 +108,7 @@ void	ft_parsing_dollar(t_token *token_list, char **env)
 	{
 		if (token_list->prev == NULL)
 		{
-			if(ft_token_dollar(token_list->value) == 1)
+			if (ft_token_dollar(token_list->value) == 1)
 			{
 				if (!ft_transform_dollar(token_list->value, env))
 					ft_cancel_dollar(token_list->value);
@@ -125,7 +125,6 @@ void	ft_parsing_dollar(t_token *token_list, char **env)
 				}
 			}
 		}
-printf("%s\n",token_list->value);
 		token_list = token_list->next;
 	}
 }

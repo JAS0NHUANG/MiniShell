@@ -6,7 +6,7 @@
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:31:33 by antton-t          #+#    #+#             */
-/*   Updated: 2021/12/16 14:24:04 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/02 17:16:15 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static t_token	*ft_create_token(int token_len, char *input)
 {
-	int	i;
+	int		i;
 	t_token	*new_token;
 
 	i = 0;
@@ -39,7 +39,7 @@ static t_token	*ft_create_token(int token_len, char *input)
 
 static int	ft_get_token_len(char *input)
 {
-	int	length;
+	int		length;
 	char	*ptr;
 
 	ptr = input;
@@ -62,13 +62,13 @@ static int	ft_get_token_len(char *input)
 
 static t_token	*ft_fill_list(t_token *token_list, char *input, int token_len)
 {
-	t_token *holder;
+	t_token	*holder;
 	t_token	*new;
 
 	new = ft_create_token(token_len, input);
 	if (token_list == NULL)
 	{
-		token_list = new; 
+		token_list = new;
 		token_list->prev = NULL;
 	}
 	else
@@ -82,18 +82,17 @@ static t_token	*ft_fill_list(t_token *token_list, char *input, int token_len)
 	return (token_list);
 }
 
-
 t_token	*ft_lexer(char *input)
 {
 	t_token	*token_list;
-	int	token_len;
+	int		token_len;
 
 	token_len = 0;
 	token_list = NULL;
 	while (*input)
 	{
 		if (*input == ' ')
-		input++;
+			input++;
 		else
 		{
 			token_len = ft_get_token_len(input);
