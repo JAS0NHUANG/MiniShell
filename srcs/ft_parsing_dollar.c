@@ -6,11 +6,11 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/15 11:25:03 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/02 17:19:01 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/04 17:50:44 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "minishell.h"
 
 int	ft_token_dollar(char *str)
 {

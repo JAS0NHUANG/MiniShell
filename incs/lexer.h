@@ -10,6 +10,8 @@ enum char_type {
 	CHAR_GREATER = '>',
 	CHAR_LESSER = '<',
 	CHAR_DOLLER = '$',
+	CHAR_S_QUOTE = 39,
+	CHAR_D_QUOTE = '"',
 };
 
 enum token_type {
