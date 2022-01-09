@@ -16,26 +16,12 @@
 **	Get the next prime number.
 */
 
-static int	ft_isprime(int nbr)
-{
-	int	mod;
-
-	mod = 2;
-	while (mod < nbr / 2)
-	{
-		if (nbr % mod == 0)
-			return (0);
-		mod++;
-	}
-	return (1);
-}
-
 int	ft_next_prime(int nbr)
 {
 	int	result;
 
 	result = nbr;
-	while (ft_isprime(result) == 0)
+	while (ft_is_prime(result) == 0)
 		result++;
 	return (result);
 }

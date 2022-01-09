@@ -10,13 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <fcntl.h>
-#include <unistd.h>
-
-#include "lexer.h"
+#include "minishell.h"
 
 void ft_print_title(void)
 {
@@ -41,6 +35,7 @@ int main(int argc, char **argv, char **env)
 
 	prompt = "\n|( o)═( o)| >";
 	ft_print_title();
+	ft_create_env_hashtable(env);
 	while (1)
 	{
 		input = readline(prompt);

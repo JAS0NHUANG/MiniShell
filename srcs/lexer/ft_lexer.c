@@ -48,21 +48,41 @@ static t_token	*ft_create_token(int token_len, char *input)
 		i++;
 	}
 	new_token->value[i] = 0;
-	printf("the value: %s\n",  new_token->value);
 	new_token->next = NULL;
 	new_token->token_type = ft_get_token_type(new_token->value);
+	printf("the value: %s\n", new_token->value);
 	return (new_token);
+}
+
+static int	ft_length_in_quote(char *ptr)
+{
+	int length;
+	int quote_type;
+
+	quote_type = 0;
+	length = 1;
+	if (*ptr == CHAR_S_QUOTE)
+		quote_type = CHAR_S_QUOTE;
+	else
+		quote_type = CHAR_D_QUOTE;
+	ptr++;
+	while (*ptr)
+	{
+		length++;
+		if (*ptr == quote_type)
+			return (length);
+		ptr++;
+	}
+	return (length);
 }
 
 static int	ft_get_token_len(char *input)
 {
 	int		length;
 	char	*ptr;
-	int		in_quote;
 
 	ptr = input;
 	length = 0;
-	in_quote = 0;
 	while (*ptr)
 	{
 		if ((ptr[0] == CHAR_LESSER && ptr[1] == CHAR_LESSER) ||
@@ -71,19 +91,18 @@ static int	ft_get_token_len(char *input)
 		if (*ptr == CHAR_PIPE || *ptr == CHAR_LESSER || *ptr == CHAR_GREATER)
 			return (1);
 		while (*ptr != CHAR_PIPE && *ptr != CHAR_LESSER && *ptr != CHAR_GREATER
-			&& *ptr)
+			&& *ptr != ' ' && *ptr)
 		{
 			if (*ptr == CHAR_S_QUOTE || *ptr == CHAR_D_QUOTE)
 			{
-				if (in_quote == 0)
-					in_quote = 1;
-				else
-					in_quote = 0;
+				length += ft_length_in_quote(ptr);
+				ptr += ft_length_in_quote(ptr);
 			}
-			if (*ptr == ' ' && in_quote == 0)
-				return (length);
-			length++;
-			ptr++;
+			else
+			{
+				length++;
+				ptr++;
+			}
 		}
 		return (length);
 	}

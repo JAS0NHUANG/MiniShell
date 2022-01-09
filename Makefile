@@ -26,15 +26,20 @@ SRCS_DIR	=	srcs
 INCS_DIR	=	incs
 
 SRCS		=	minishell.c \
-				ft_parsing_dollar.c \
-				ft_parsing_single_quote.c \
-				/lexer/ft_lexer.c \
-				/utils/ft_next_prime.c \
-				/utils/ft_strjoin.c \
-				/utils/ft_strlen.c \
+			lexer/ft_parsing_dollar.c \
+			lexer/ft_parsing_single_quote.c \
+			lexer/ft_lexer.c \
+			lexer/ft_create_env_hashtable.c \
+			utils/ft_is_prime.c \
+			utils/ft_next_prime.c \
+			utils/ft_strjoin.c \
+			utils/ft_strlen.c \
+			utils/ft_arraylen.c \
+			hashtable/ft_create_hashtable.c \
 
-INCS		=	hashtable.h \
-				lexer.h \
+INCS		=	minishell.h \
+			hashtable.h \
+			lexer.h \
 
 # **************************************************************************** #
 #       LIBRARIES                                                              #

@@ -13,6 +13,8 @@
 #ifndef HASHTABLE_H
 # define HASHTABLE_H
 
+# include <stdlib.h>
+
 /*
 ** hashtable structs
 */
@@ -36,8 +38,10 @@ typedef struct s_hashtable
 t_hashtable	*ft_create_hashtable(int length);
 t_element	*ft_create_element(char *key, char *value);
 void		ft_print_hashtable(t_hashtable *hashtable, char *delimeter);
-int			ft_monkey_hash(char *str, int length);
+int		ft_monkey_hash(char *str, int length);
 char		*ft_get_value(t_hashtable *hashtable, char *key);
 void		ft_free_hashtable(t_hashtable *hashtable);
+int		ft_next_prime(int nbr);
+int		ft_is_prime(int nbr);
 
 #endif
