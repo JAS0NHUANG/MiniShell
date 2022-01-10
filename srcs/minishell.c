@@ -6,7 +6,7 @@
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:32:58 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/10 22:02:43 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/10 22:47:26 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void ft_print_token_list(t_token *token_list)
 	return ;
 }
 
-void ft_print_title(void)
+static void ft_print_title(void)
 {
 	char buffer[2048 + 1];
 	int	fd;
@@ -36,7 +36,7 @@ void ft_print_title(void)
 	fd = open("./others/prompt_string.txt", O_RDONLY);
 	ret = read(fd, buffer, 2048);
 	buffer[ret] = '\0';
-	printf("%s", buffer);
+	printf("%s\n", buffer);
 }
 
 int main(int argc, char **argv, char **env)
