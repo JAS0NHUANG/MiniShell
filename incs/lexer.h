@@ -3,6 +3,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 enum char_type {
 	CHAR_GENERAL = -1,
@@ -41,4 +42,5 @@ void	ft_parsing_dollar(t_token *token_list, char **env);
 char	*ft_strjoin(char const *s1, char const *s2);
 int		ft_strlen(const char *str);
 void	ft_parsing_single_quote(t_token *token_lst);
+t_inary	*ft_create_tree(t_token *token_list);
 #endif

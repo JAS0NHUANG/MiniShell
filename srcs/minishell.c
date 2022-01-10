@@ -6,7 +6,7 @@
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:32:58 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/02 17:16:16 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/10 18:09:42 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,16 @@ int main(int argc, char **argv, char **env)
 		*/
 		printf("User input: %s\n", input);
 		token_list = ft_lexer(input);
+/*
 		ft_parsing_dollar(token_list, env);
 		ft_parsing_single_quote(token_list);
+*/
+		t_inary	*tree;
+		tree = ft_create_tree(token_list);
+		while (tree)
+		{
+			printf("%s \n",tree->value);
+			tree = tree->right;
+		}
 	}
 }
