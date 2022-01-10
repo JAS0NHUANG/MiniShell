@@ -6,14 +6,12 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 14:29:00 by jahuang           #+#    #+#             */
-/*   Updated: 2021/12/16 16:36:18 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/10 22:32:24 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HASHTABLE_H
 # define HASHTABLE_H
-
-# include <stdlib.h>
 
 /*
 ** hashtable structs
@@ -23,13 +21,13 @@ typedef struct s_element
 {
 	char	*key;
 	char	*value;
-}				t_element;
+}		t_element;
 
 typedef struct s_hashtable
 {
 	t_element	**element_array;
-	int			length;
-}				t_hashtable;
+	int		length;
+}		t_hashtable;
 
 /*
 ** hashtable functions

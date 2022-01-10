@@ -6,11 +6,11 @@
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:31:33 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/04 18:11:00 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/10 21:57:43 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "minishell.h"
 
 static int	ft_get_token_type(char *value)
 {
@@ -50,7 +50,6 @@ static t_token	*ft_create_token(int token_len, char *input)
 	new_token->value[i] = 0;
 	new_token->next = NULL;
 	new_token->token_type = ft_get_token_type(new_token->value);
-	printf("the value: %s\n", new_token->value);
 	return (new_token);
 }
 
@@ -134,7 +133,7 @@ static t_token	*ft_fill_list(t_token *token_list, char *input, int token_len)
 t_token	*ft_lexer(char *input)
 {
 	t_token	*token_list;
-	int		token_len;
+	int	token_len;
 
 	token_len = 0;
 	token_list = NULL;
