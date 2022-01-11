@@ -32,9 +32,10 @@ typedef struct	s_token {
 }				t_token;
 
 typedef struct b_inary {
-	char	*value;
-	struct	b_inary	*left;
-	struct	b_inary	*right;
+	char	**value_left;
+	char	**value_right;
+	struct	b_inary *next;
+	struct	b_inary *prev;
 }				t_inary;
 
 t_token	*ft_lexer(char *input);
@@ -43,4 +44,5 @@ char	*ft_strjoin(char const *s1, char const *s2);
 int		ft_strlen(const char *str);
 void	ft_parsing_single_quote(t_token *token_lst);
 t_inary	*ft_create_tree(t_token *token_list);
+char	*ft_strcpy_ast(char *src);
 #endif

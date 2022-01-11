@@ -3,106 +3,108 @@
 /*                                                        :::      ::::::::   */
 /*   ft_create_tree.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/09 16:39:40 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/10 19:12:16 by antton-t         ###   ########.fr       */
+/*   Created: 2022/01/11 14:25:42 by antton-t          #+#    #+#             */
+/*   Updated: 2022/01/11 18:22:53 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-int	ft_count_pipe(t_token *lst)
+int		ft_count_pipe(t_token *list)
 {
-	int	count;
+	int		count;
 	t_token	*ptr;
 
-	ptr = lst;
+	ptr = list;
 	count = 0;
-	while (ptr != NULL)
+	while (ptr)
 	{
-		if (ptr->value[0] == '|' && ptr->value[1] == 0)
+		if (ptr->value[0] == '|'&& ptr->value[1] == 0)
 			count++;
 		ptr = ptr->next;
 	}
 	return (count);
 }
 
-t_inary	*ft_fill_value_tree(t_token *token_list, int count)
+int		ft_count_elem(t_token *list)
 {
-	t_inary	*new;
+	int		count;
+	t_token	*ptr;
 
-	new = malloc(sizeof(t_inary));
-	if (new == NULL)
-		return (NULL);
-	new->value = calloc((ft_strlen(token_list->value) + 1), sizeof(char));
-	if (new->value == NULL)
+	ptr = list;
+	count = 0;
+	while (list && (list->value[0] != '|' && list->value[1] != 0))
 	{
-		free(new);
-		return (NULL);
+		count++;
+		list = list->next;
 	}
-	while (count)
-	{
-		if (new->value[0] == 0)
-			strcpy(new->value, token_list->value);
-		else
-		{
-			new->value = ft_strjoin(new->value, " ");
-			new->value = ft_strjoin(new->value, token_list->value);
-		}
-		token_list = token_list->next;
-		count--;
-	}
-	return (new);
+	return (count);
 }
 
-t_inary	*ft_fill_tree(t_inary *tree, t_token *token_list, int count)
+t_inary	*ft_create_node(int count, nb_elem)
 {
-	t_inary	*holder;
-	t_inary	*new;
+	t_inary	*node_out;
 
-	new = NULL;
+	node_out = malloc(sizeof(t_inary));
+	if (node_out == NULL)
+		return (NULL);
+	node_out->value = calloc(SIZE, sizeof(char **));
+	if (node_out->value == NULL)
+	{
+		free(node_out);
+		return (NULL);
+	}
+	node_out->next = NULL;
+	node_out->prev = NULL;
+	return (node_out);
+}
+
+t_inary *ft_fill_tree(t_token *list, t_inary *tree)
+{
+	t_inary *new;
+	t_inary	*holder;
+
 	if (tree == NULL)
 	{
-		tree = ft_fill_value_tree(token_list, count);
-		tree->left = NULL;
-		tree->right = NULL;
-		return (tree);
+		tree = new;
+		tree->prev = NULL;
 	}
 	else
 	{
 		holder = tree;
-		while(holder)
-			holder = holder->right;
-		new = ft_fill_value_tree(token_list, count);
-		new->left = holder;
+		while (holder)
+			holder = holder->next;
+		new->prev = holder;
 	}
 	return (tree);
 }
 
-t_inary	*ft_create_tree(t_token *token_list)
+t_inary	*ft_create_tree(t_token *list)
 {
 	t_inary	*tree;
 	int		count;
-	t_token	*ptr;
-	int	i;
+	int		nb_elem;
 
+	nb_elem = 0;
+	count = ft_count_pipe(list);
 	tree = NULL;
-	i = ft_count_pipe(token_list);
-	if (i == 0)
-		return (NULL);
-	while (token_list && i)
+	if (!count)
 	{
-		count = 0;
-		ptr = token_list;
-		while ((token_list->value[0] != '|' && token_list->value[1] != 0) && token_list->next != NULL)
+		nb_elem = ft_count_elem(list);
+		tree = ft_create_node(count, nb_elem);
+		return (tree);
+	}
+	while (list)
+	{
+		while (count)
 		{
-			count++;
-			token_list = token_list->next;
-			i--;
+			nb_elem = ft_count_elem(list);
+			tree = ft_fill_tree(list, tree);
+			count--
 		}
-		tree = ft_fill_tree(tree, ptr, count);
-		token_list = token_list->next;
+		
 	}
 	return (tree);
 }
