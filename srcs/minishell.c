@@ -6,15 +6,26 @@
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:32:58 by antton-t          #+#    #+#             */
-/*   Updated: 2021/12/14 17:52:02 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/10 22:47:26 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <fcntl.h>
-#include <unistd.h>
+#include "minishell.h"
+
+/* function to print out token_list for testing purpous. */
+static void ft_print_token_list(t_token *token_list)
+{
+	t_token *holder;
+
+	holder = token_list;
+	while(holder)
+	{
+		printf("token type: %d\n", holder->token_type);
+		printf("token value: %s\n\n", holder->value);
+		holder = holder->next;
+	}
+	return ;
+}
 
 static void ft_print_title(void)
 {
@@ -28,17 +39,22 @@ static void ft_print_title(void)
 	printf("%s\n", buffer);
 }
 
-int main()
+int main(int argc, char **argv, char **env)
 {
-	char *line;
+	char *input;
 	char *prompt;
+	(void)	argc;
+	(void)	argv;
+	(void)	env;
+	t_token	*token_list;
 
 	prompt = "\n|( o)═( o)| >";
 	ft_print_title();
 	while (1)
 	{
-		line = readline(prompt);
-		printf("User input: %s\n", line);
+		input = readline(prompt);
+		printf("User input: %s\n", input);
+		token_list = ft_lexer(input);
+		ft_print_token_list(token_list);
 	}
-
 }
