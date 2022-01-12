@@ -40,9 +40,11 @@ typedef struct b_inary {
 
 t_token	*ft_lexer(char *input);
 void	ft_parsing_dollar(t_token *token_list, char **env);
+t_inary *ft_fill_right_value(int nb_elem, t_token *list, t_inary *tree);
 char	*ft_strjoin(char const *s1, char const *s2);
 int		ft_strlen(const char *str);
 void	ft_parsing_single_quote(t_token *token_lst);
 t_inary	*ft_create_tree(t_token *token_list);
 char	*ft_strcpy_ast(char *src);
+t_inary	*ft_create_first_node(int nb_elem, t_token *list);
 #endif
