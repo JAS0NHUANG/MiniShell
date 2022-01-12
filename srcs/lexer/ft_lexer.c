@@ -6,7 +6,7 @@
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:31:33 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/10 21:57:43 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/13 00:06:52 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int	ft_length_in_quote(char *ptr)
 	int length;
 	int quote_type;
 
-	quote_type = 0;
+	quote_type = -1;
 	length = 1;
 	if (*ptr == CHAR_S_QUOTE)
 		quote_type = CHAR_S_QUOTE;
@@ -78,34 +78,25 @@ static int	ft_length_in_quote(char *ptr)
 static int	ft_get_token_len(char *input)
 {
 	int		length;
-	char	*ptr;
+	int		to_add;
 
-	ptr = input;
 	length = 0;
-	while (*ptr)
+	to_add = 1;
+	if ((input[0] == '<' && input[1] == '<') || (input[0] == '>' && input[1] == '>'))
+		length = 2;
+	else if (*input == '|' || *input == '<' || *input == '>')
+		length = 1;
+	else 
 	{
-		if ((ptr[0] == CHAR_LESSER && ptr[1] == CHAR_LESSER) ||
-			(ptr[0] == CHAR_GREATER && ptr[1] == CHAR_GREATER))
-			return (2);
-		if (*ptr == CHAR_PIPE || *ptr == CHAR_LESSER || *ptr == CHAR_GREATER)
-			return (1);
-		while (*ptr != CHAR_PIPE && *ptr != CHAR_LESSER && *ptr != CHAR_GREATER
-			&& *ptr != ' ' && *ptr)
+		while (*input && *input != '|' && *input != '<' && *input != '>' && *input != ' ')
 		{
-			if (*ptr == CHAR_S_QUOTE || *ptr == CHAR_D_QUOTE)
-			{
-				length += ft_length_in_quote(ptr);
-				ptr += ft_length_in_quote(ptr);
-			}
-			else
-			{
-				length++;
-				ptr++;
-			}
+			if (*input == CHAR_S_QUOTE || *input == CHAR_D_QUOTE)
+				to_add = ft_length_in_quote(input);
+			length += to_add;
+			input += to_add;
 		}
-		return (length);
 	}
-	return (0);
+	return (length);
 }
 
 static t_token	*ft_fill_list(t_token *token_list, char *input, int token_len)
