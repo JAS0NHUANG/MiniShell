@@ -6,7 +6,7 @@
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:32:58 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/10 22:47:26 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/13 00:22:01 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ static void ft_print_title(void)
 
 int main(int argc, char **argv, char **env)
 {
-	char *input;
-	char *prompt;
-	(void)	argc;
-	(void)	argv;
-	(void)	env;
-	t_token	*token_list;
+	char 		*input;
+	char 		*prompt;
+	(void)		argc;
+	(void)		argv;
+	t_token		*token_list;
+	t_hashtable	*
 
 	prompt = "\n|( o)═( o)| >";
 	ft_print_title();
@@ -56,5 +56,6 @@ int main(int argc, char **argv, char **env)
 		printf("User input: %s\n", input);
 		token_list = ft_lexer(input);
 		ft_print_token_list(token_list);
+		ft_create_env_hashtable(env);
 	}
 }
