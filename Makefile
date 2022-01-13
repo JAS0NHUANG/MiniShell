@@ -1,9 +1,9 @@
 # **************************************************************************** #
 #       COMANDS                                                                #
 # **************************************************************************** #
-CC		=	gcc
-RM		=	rm -rf
-AR		=	ar rcs
+CC			=	gcc
+RM			=	rm -rf
+AR			=	ar rcs
 
 # **************************************************************************** #
 #       TITLE                                                                  #
@@ -26,12 +26,15 @@ SRCS_DIR	=	srcs
 INCS_DIR	=	incs
 
 SRCS		=	minishell.c \
-			lexer/ft_lexer.c \
-			lexer/ft_token_list.c \
-			lexer/ft_get_token_len.c \
+				lexer/ft_lexer.c \
+				lexer/ft_token_list.c \
+				lexer/ft_get_token_len.c \
+				lexer/ft_check_quote.c \
+				utils/ft_strlen.c \
 
 INCS		=	minishell.h \
-			lexer.h \
+				lexer.h \
+				utils.h \
 
 # **************************************************************************** #
 #       LIBRARIES                                                              #
@@ -42,13 +45,13 @@ INCS		=	minishell.h \
 # **************************************************************************** #
 OBJS		=	$(addprefix $(SRCS_DIR)/,$(SRCS:.c=.o))
 
-%.o		:	%.c
+%.o			:	%.c
 			$(CC) $(CFLAGS) -I $(INCS_DIR) -c $< -o $@
 
 $(NAME)		:	$(OBJS)
 			$(CC) -o $@ $(OBJS) -I $(INCS_DIR) $(READLINE)
 
-all		:	$(NAME)
+all			:	$(NAME)
 
 clean		:
 			$(RM) $(OBJS)
@@ -56,7 +59,7 @@ clean		:
 fclean		:	clean
 			$(RM) $(NAME)
 
-re		:	fclean all
+re			:	fclean all
 
 # **************************************************************************** #
 #       PHONY                                                                  #

@@ -6,7 +6,8 @@
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:32:58 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/13 18:01:36 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/13 18:19:43 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/11 16:24:48 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +40,11 @@ static void	ft_print_title(void)
 	printf("%s\n", buffer);
 }
 
-int	main(int argc, char **argv, char **env)
+void	ft_minishell_loop(char *prompt)
 {
 	char	*input;
-	char	*prompt;
 	t_token	*token_list;
 
-	(void)argc;
-	(void)argv;
-	(void)env;
-	prompt = "\n|( o)═( o)| >";
-	ft_print_title();
 	while (1)
 	{
 		input = readline(prompt);
@@ -58,10 +53,30 @@ int	main(int argc, char **argv, char **env)
 			printf("Banana~~~!\n");
 			exit(0);
 		}
-		printf("User input: %s\n", input);
-		token_list = ft_lexer(input);
-		ft_print_token_list(token_list);
-		ft_free_token_list(token_list);
-		free(input);
+		if (ft_strlen(input) != 0)
+			add_history(input);
+		if (ft_check_quote(input) == 1)
+			printf("Syntaxe Error: Unclosed quote.\n");
+		else
+		{
+			token_list = ft_lexer(input);
+			ft_print_token_list(token_list);
+			ft_free_token_list(token_list);
+			free(input);
+		}
 	}
+	return ;
+}
+
+int	main(int argc, char **argv, char **env)
+{
+	char	*prompt;
+
+	(void)argc;
+	(void)argv;
+	(void)env;
+	prompt = "\n|( o)═( o)| >";
+	ft_print_title();
+	ft_minishell_loop(prompt);
+	return (0);
 }
