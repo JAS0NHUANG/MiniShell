@@ -6,7 +6,7 @@
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:32:58 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/10 22:47:26 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/11 16:24:48 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,15 @@ int main(int argc, char **argv, char **env)
 	{
 		input = readline(prompt);
 		printf("User input: %s\n", input);
-		token_list = ft_lexer(input);
-		ft_print_token_list(token_list);
+		if (ft_strlen(input) != 0)
+			add_history(input);
+		if (ft_check_quote(input) == 1)
+			printf("Syntaxe Error: Unclosed quote.\n");
+		else
+		{
+			token_list = ft_lexer(input);
+			ft_print_token_list(token_list);
+		}
 	}
+	return (0);
 }

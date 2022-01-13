@@ -6,7 +6,7 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 21:03:52 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/10 21:56:08 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/11 15:27:20 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ typedef struct	s_token {
 }		t_token;
 
 t_token		*ft_lexer(char *input);
+int			ft_check_quote(char *input);
 
 #endif

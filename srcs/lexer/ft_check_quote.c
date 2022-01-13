@@ -1,27 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_check_quote.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/10 21:11:15 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/11 15:01:41 by jahuang          ###   ########.fr       */
+/*   Created: 2022/01/11 15:14:59 by jahuang           #+#    #+#             */
+/*   Updated: 2022/01/11 16:22:30 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-# include "./utils.h"
-# include "./lexer.h"
-# include "./hashtable.h"
+int	ft_check_quote(char *input)
+{
+	int		ret;
+	char	quote_type;
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <fcntl.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-
-#endif
+	ret = 0;
+	quote_type = -1;
+	while (*input)
+	{
+		if (*input == CHAR_S_QUOTE || *input == CHAR_D_QUOTE)
+		{
+			quote_type = *input;
+			ret = 1;
+			input++;
+			while (*input)
+			{
+				if (*input == quote_type)
+				{
+					ret = 0;
+					break;
+				}
+				input++;
+			}
+		}
+		input++;
+	}
+	return (ret);
+}

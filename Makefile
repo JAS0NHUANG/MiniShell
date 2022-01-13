@@ -27,9 +27,12 @@ INCS_DIR	=	incs
 
 SRCS		=	minishell.c \
 			lexer/ft_lexer.c \
+			lexer/ft_check_quote.c \
+			utils/ft_strlen.c \
 
 INCS		=	minishell.h \
 			lexer.h \
+			utils.h \
 
 # **************************************************************************** #
 #       LIBRARIES                                                              #
