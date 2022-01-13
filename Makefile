@@ -27,6 +27,8 @@ INCS_DIR	=	incs
 
 SRCS		=	minishell.c \
 			lexer/ft_lexer.c \
+			lexer/ft_token_list.c \
+			lexer/ft_get_token_len.c \
 
 INCS		=	minishell.h \
 			lexer.h \
