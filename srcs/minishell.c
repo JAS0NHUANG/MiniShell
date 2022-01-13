@@ -6,7 +6,7 @@
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:32:58 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/12 16:32:18 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/13 16:13:21 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,6 @@ int main(int argc, char **argv, char **env)
 */
 		t_inary	*tree;	
 		tree = ft_create_tree(token_list);
+		printf("TREE %s\n",tree->value[0]);
 	}
 }

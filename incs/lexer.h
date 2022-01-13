@@ -24,27 +24,38 @@ enum token_type {
 	TOKEN_LESSLESSER,
 };
 
+enum type_node {
+	NODE_CMD = 0,
+	NODE_PIPE,
+};
+
 typedef struct	s_token {
-	char *value;
-	int	token_type;
-	struct s_token *prev;
-	struct s_token *next;
+	char	*value;
+	int		token_type;
+	struct	s_token *prev;
+	struct	s_token *next;
 }				t_token;
 
+typedef struct	r_dir {
+	char	*value;
+	struct	r_dir *prev;
+	struct	r_dir *next;
+}				t_dir;
+
 typedef struct b_inary {
-	char	**value_left;
-	char	**value_right;
-	struct	b_inary *next;
-	struct	b_inary *prev;
+	char	**value;
+	struct	t_dir;
+	int		type_node;
+	struct	b_inary *left;
+	struct	b_inary *right;
 }				t_inary;
 
 t_token	*ft_lexer(char *input);
 void	ft_parsing_dollar(t_token *token_list, char **env);
-t_inary *ft_fill_right_value(int nb_elem, t_token *list, t_inary *tree);
 char	*ft_strjoin(char const *s1, char const *s2);
 int		ft_strlen(const char *str);
 void	ft_parsing_single_quote(t_token *token_lst);
-t_inary	*ft_create_tree(t_token *token_list);
 char	*ft_strcpy_ast(char *src);
-t_inary	*ft_create_first_node(int nb_elem, t_token *list);
+t_inary	*ft_create_tree(t_token *list);
+int		ft_check_list_dir(int nb_elem, t_token *list);
 #endif

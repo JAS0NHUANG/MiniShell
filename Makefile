@@ -29,9 +29,9 @@ SRCS		=	minishell.c \
 			lexer/ft_parsing_dollar.c \
 			lexer/ft_parsing_single_quote.c \
 			lexer/ft_lexer.c \
-			lexer/ft_strcpy_ast.c \
 			lexer/ft_create_tree.c \
-			lexer/ft_create_node.c \
+			lexer/ft_check_list_dir.c \
+			lexer/ft_strcpy_ast.c \
 			lexer/ft_create_env_hashtable.c \
 			utils/ft_is_prime.c \
 			utils/ft_next_prime.c \

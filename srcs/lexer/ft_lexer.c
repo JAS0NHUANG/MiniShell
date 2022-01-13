@@ -6,7 +6,7 @@
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:31:33 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/09 18:52:51 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/13 16:38:18 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ static int	ft_get_token_type(char *value)
 {
 	if ((value[0] == CHAR_LESSER && value[1] == CHAR_LESSER))
 		return (TOKEN_LESSLESSER);
-	if ((value[0] == CHAR_GREATER && value[1] == CHAR_GREATER))
+	else if ((value[0] == CHAR_GREATER && value[1] == CHAR_GREATER))
 		return (TOKEN_GREATGREATER);
-	if (*value == CHAR_PIPE)
+	else if (*value == CHAR_PIPE)
 		return (TOKEN_PIPE);
-	if (*value == CHAR_LESSER)
+	else if (*value == CHAR_LESSER)
 		return (TOKEN_LESSER);
-	if (*value == CHAR_GREATER)
+	else if (*value == CHAR_GREATER)
 		return (TOKEN_GREATER);
 	return (TOKEN_WORD);
 }
@@ -50,7 +50,6 @@ static t_token	*ft_create_token(int token_len, char *input)
 	new_token->value[i] = 0;
 	new_token->next = NULL;
 	new_token->token_type = ft_get_token_type(new_token->value);
-	printf("the value: %s\n", new_token->value);
 	return (new_token);
 }
 
