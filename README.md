@@ -1,9 +1,11 @@
 ## First thing first  
 [RTFM](notes/man_bash_note.md)  
 
+## Quote validation
+Check if there is any unclosed quotation before lexical analysis.
+
 ## Lexical analysis  
 Take user input and store it into a linked-list as "tokens". Each "token" contains a "token value"(string) and a "token type"(int).  
-No validation at this step.  
 
 ## Envirenment variables  
 Use hash table to store envirenment variables. (See the [hashtable - readme](https://github.com/JAS0NHUANG/MiniShell/tree/main/srcs/hashtable/readme.md) file about the usage of hashtable functions.)  
