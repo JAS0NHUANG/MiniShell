@@ -29,6 +29,14 @@ enum type_node {
 	NODE_PIPE,
 };
 
+enum list_value {
+	LIST_WORD = 0,
+	LIST_GREATER,
+	LIST_GREATGREATER,
+	LIST_LESSER,
+	LIST_LESSLESSER,
+};
+
 typedef struct	s_token {
 	char	*value;
 	int		token_type;
@@ -38,13 +46,14 @@ typedef struct	s_token {
 
 typedef struct	r_dir {
 	char	*value;
+	int		list_value;
 	struct	r_dir *prev;
 	struct	r_dir *next;
 }				t_dir;
 
 typedef struct b_inary {
 	char	**value;
-	struct	t_dir;
+	struct	*t_dir;
 	int		type_node;
 	struct	b_inary *left;
 	struct	b_inary *right;

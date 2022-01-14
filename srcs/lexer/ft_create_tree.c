@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 12:19:45 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/13 19:49:01 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/14 16:09:38 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ t_inary	*ft_malloc_node(int nb_elem)
 	node_out = malloc(sizeof(t_inary));
 	if (node_out == NULL)
 		return (NULL);
+	node_out->t_dir = NULL;
 	node_out->left = NULL;
 	node_out->right = NULL;
 	node_out->value = calloc(nb_elem + 1 , sizeof(char **));
