@@ -6,7 +6,7 @@
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:32:58 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/14 12:52:39 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/15 04:59:22 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	ft_print_title(void)
 	printf("%s\n", buffer);
 }
 
-void	ft_minishell_loop(char *prompt)
+void	ft_minishell_loop(char *prompt, t_hashtable *env_hashtable)
 {
 	char	*input;
 	t_token	*token_list;
@@ -61,6 +61,7 @@ void	ft_minishell_loop(char *prompt)
 			token_list = ft_lexer(input);
 			ft_print_token_list(token_list);
 			ft_free_token_list(token_list);
+			printf("env input: %s\n", ft_get_value(env_hashtable, input));
 			free(input);
 		}
 	}
@@ -70,12 +71,14 @@ void	ft_minishell_loop(char *prompt)
 int	main(int argc, char **argv, char **env)
 {
 	char	*prompt;
+	t_hashtable *env_hashtable;
 
 	(void)argc;
 	(void)argv;
-	(void)env;
+	env_hashtable = ft_create_env_hashtable(env);
 	prompt = "\n|( o)═( o)| >";
 	ft_print_title();
-	ft_minishell_loop(prompt);
+	ft_minishell_loop(prompt, env_hashtable);
+	ft_free_hashtable(env_hashtable);
 	return (0);
 }
