@@ -13,7 +13,7 @@ NAME		=	minishell
 # **************************************************************************** #
 #       FLAGS                                                                  #
 # **************************************************************************** #
-CFLAGS		=	-Wall -Wextra -Werror
+CFLAGS		=	-Wall -Wextra -Werror -g3 -fsanitize=address
 READLINE	=	-lreadline
 TERMCAP		=	-ltermcap
 FSAN		=	-fsanitize=address
@@ -57,7 +57,7 @@ OBJS		=	$(addprefix $(SRCS_DIR)/,$(SRCS:.c=.o))
 				$(CC) $(CFLAGS) -I $(INCS_DIR) -c $< -o $@
 
 $(NAME)		:	$(OBJS)
-				$(CC) -o $@ $(OBJS) -I $(INCS_DIR) $(READLINE)
+				$(CC) $(CFLAGS) -o $@ $(OBJS) -I $(INCS_DIR) $(READLINE)
 
 all			:	$(NAME)
 

@@ -27,10 +27,12 @@ enum token_type {
 enum type_node {
 	NODE_CMD = 0,
 	NODE_PIPE,
+	NODE_LIST,
 };
 
 enum list_value {
-	LIST_WORD = 0,
+	LIST_CMD = 0,
+	LIST_FILE,
 	LIST_GREATER,
 	LIST_GREATGREATER,
 	LIST_LESSER,
@@ -53,7 +55,7 @@ typedef struct	r_dir {
 
 typedef struct b_inary {
 	char	**value;
-	struct	*t_dir;
+	t_dir	*t_dir;
 	int		type_node;
 	struct	b_inary *left;
 	struct	b_inary *right;
@@ -67,4 +69,5 @@ void	ft_parsing_single_quote(t_token *token_lst);
 char	*ft_strcpy_ast(char *src);
 t_inary	*ft_create_tree(t_token *list);
 int		ft_check_list_dir(int nb_elem, t_token *list);
+t_inary	*ft_create_node_list_chain(t_inary *node_out, int count, t_token *list);
 #endif

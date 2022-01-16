@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 12:19:45 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/14 16:09:38 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/16 17:11:38 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,6 @@ t_inary	*ft_malloc_node(int nb_elem)
 	return (node_out);
 }
 
-t_inary	*ft_chain_list_dir(t_token *token, int nb_elem)
-{
-	
-}
-
 t_inary	*ft_create_node(t_token *list, t_inary *tree, int nb_elem)
 {
 	t_token	*ptr;
@@ -75,6 +70,7 @@ t_inary	*ft_create_node(t_token *list, t_inary *tree, int nb_elem)
 	new_node = ft_malloc_node(nb_elem);
 	if (ptr->token_type == TOKEN_PIPE)
 	{
+		(void)list;
 		new_node->value[0] = calloc(2, sizeof(char));
 		new_node->value[0][0] = '|';
 		new_node->type_node = NODE_PIPE;
@@ -85,6 +81,7 @@ t_inary	*ft_create_node(t_token *list, t_inary *tree, int nb_elem)
 	{
 		if (ft_check_list_dir(nb_elem, list) == 1)
 		{
+			new_node->type_node = NODE_CMD;
 			while (nb_elem--)
 			{
 				new_node->value[i] = ft_strcpy_ast(ptr->value);
@@ -97,7 +94,13 @@ t_inary	*ft_create_node(t_token *list, t_inary *tree, int nb_elem)
 				tree->right = new_node;
 		}
 		else
-			return (NULL);
+		{
+			new_node->type_node = NODE_LIST;
+			if (tree == NULL)
+				return (ft_create_node_list_chain(new_node, nb_elem, list));
+			else
+				tree->right = ft_create_node_list_chain(new_node, nb_elem, list);
+		}
 	}
 	return (tree);
 }
@@ -122,8 +125,8 @@ t_inary	*ft_create_tree(t_token *list)
 		if (list->token_type == TOKEN_PIPE)
 		{
 			tree = ft_create_node(list, tree, 1);
-			nb_pipe--;
 			list = list->next;
+			nb_pipe--;
 		}
 	}
 	if (list != NULL)
@@ -131,6 +134,5 @@ t_inary	*ft_create_tree(t_token *list)
 		nb_elem = ft_count_elem(list);
 		tree = ft_create_node(list, tree, nb_elem);
 	}
-printf("List => %s\n",list->value);
 	return (tree);
 }

@@ -6,7 +6,7 @@
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:32:58 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/13 16:13:21 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/16 17:13:27 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int main(int argc, char **argv, char **env)
 */
 		t_inary	*tree;	
 		tree = ft_create_tree(token_list);
-		printf("TREE %s\n",tree->value[0]);
+		printf(" in minishell .c TREE %s\n",tree->right->t_dir->value);
+		printf(" in minishell .c TREE %s\n",tree->right->value[0]);
+		printf(" in minishell .c TREE %i\n",tree->right->type_node);
 	}
 }
