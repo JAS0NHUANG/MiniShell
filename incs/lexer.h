@@ -70,4 +70,8 @@ char	*ft_strcpy_ast(char *src);
 t_inary	*ft_create_tree(t_token *list);
 int		ft_check_list_dir(int nb_elem, t_token *list);
 t_inary	*ft_create_node_list_chain(t_inary *node_out, int count, t_token *list);
+void	ft_handle_pipe(t_inary *tree);
+int		ft_check_pipe(t_inary *tree);
+int		ft_check_input_pipe_end(char *src);
+int		ft_check_input(char *src);
 #endif

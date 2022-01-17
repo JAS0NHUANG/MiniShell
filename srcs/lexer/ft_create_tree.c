@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 12:19:45 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/16 17:11:38 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/17 18:11:34 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,8 @@ t_inary	*ft_create_tree(t_token *list)
 	while (nb_pipe)
 	{
 		nb_elem = ft_count_elem(list);
+		if (nb_elem == 0)
+			return (NULL);
 		tree = ft_create_node(list, tree, nb_elem);
 		while (nb_elem)
 		{

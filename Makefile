@@ -26,6 +26,7 @@ SRCS_DIR	=	srcs
 INCS_DIR	=	incs
 
 SRCS		=	minishell.c \
+			ft_check.c \
 			lexer/ft_parsing_dollar.c \
 			lexer/ft_parsing_single_quote.c \
 			lexer/ft_lexer.c \
@@ -33,6 +34,7 @@ SRCS		=	minishell.c \
 			lexer/ft_check_list_dir.c \
 			lexer/ft_strcpy_ast.c \
 			lexer/ft_create_env_hashtable.c \
+			pipe/ft_pipe.c \
 			utils/ft_is_prime.c \
 			utils/ft_next_prime.c \
 			utils/ft_strjoin.c \

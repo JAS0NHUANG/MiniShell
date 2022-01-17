@@ -6,7 +6,7 @@
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:32:58 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/16 17:13:27 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/17 21:19:07 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int main(int argc, char **argv, char **env)
 {
 	char *input;
 	char *prompt;
+	char *tmp;
 	(void)	argc;
 	(void)	argv;
 	/* I think token_list is better then start? */
@@ -38,7 +39,19 @@ int main(int argc, char **argv, char **env)
 	ft_create_env_hashtable(env);
 	while (1)
 	{
+		prompt = "\n|( o)═( o)| >";
 		input = readline(prompt);
+		while (!ft_check_input_pipe_end(input))
+		{
+			prompt = "/pipe> ";
+			tmp = readline(prompt);
+			input = ft_strjoin(input, tmp);
+			if (ft_check_input(input) == 1)
+			{
+				printf("ERROR minishell\n");
+				return (0);
+			}
+		}
 		if (strlen(input) != 0)
 			add_history(input);
 		printf("User input: %s\n", input);
@@ -50,8 +63,9 @@ int main(int argc, char **argv, char **env)
 */
 		t_inary	*tree;	
 		tree = ft_create_tree(token_list);
-		printf(" in minishell .c TREE %s\n",tree->right->t_dir->value);
-		printf(" in minishell .c TREE %s\n",tree->right->value[0]);
-		printf(" in minishell .c TREE %i\n",tree->right->type_node);
+		if (tree == NULL)
+			printf("ERROR MINISHELL\n");
+		//ft_handle_pipe(tree);
+//		ft_check_pipe(tree);
 	}
 }
