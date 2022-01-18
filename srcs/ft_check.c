@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 17:00:20 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/17 21:19:06 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/18 13:48:18 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,12 @@ int	ft_check_input(t_token *list)
 		ptr = ptr->next;
 		if (list->token_type >= 2 && ptr->token_type >= 2)
 		{
-printf("ERROR dans l input printf fct check input ft_check\n");
+printf("ERROR dans l input <><>  printf fct check input ft_check\n");
 			return (1);
 		}
 		if (list->token_type == TOKEN_PIPE && ptr->token_type == TOKEN_PIPE)
 		{
-printf("ERROR dans l input printf fct check input ft_check\n");
+printf("ERROR dans l input printf || fct check input ft_check\n");
 			return (1);
 		}
 		list = list->next;
