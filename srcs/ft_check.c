@@ -62,6 +62,11 @@ int	ft_check_input(t_token *list)
 printf("ERROR dans l input printf fct check input ft_check\n");
 			return (1);
 		}
+		if (list->token_type == TOKEN_PIPE && ptr->token_type == TOKEN_PIPE)
+		{
+printf("ERROR dans l input printf fct check input ft_check\n");
+			return (1);
+		}
 		list = list->next;
 	}
 	return (0);

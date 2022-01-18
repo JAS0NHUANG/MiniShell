@@ -64,8 +64,7 @@ int main(int argc, char **argv, char **env)
 				tree = ft_create_tree(token_list);
 				if (tree == NULL)
 					printf("ERROR MINISHELL\n");
-				//ft_handle_pipe(tree);
-		//		ft_check_pipe(tree);
+				ft_handle_pipe(tree);
 			}
 		}
 	}
