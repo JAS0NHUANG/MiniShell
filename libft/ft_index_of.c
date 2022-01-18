@@ -1,18 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   ft_index_of.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: jahuang <jahuang@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/13 18:13:55 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/13 18:13:57 by jahuang          ###   ########.fr       */
+/*   Created: 2022/01/15 04:27:11 by jahuang           #+#    #+#             */
+/*   Updated: 2022/01/15 04:27:13 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include "libft.h"
 
-int	ft_strlen(const char *str);
+int	ft_index_of(char *str, char c)
+{
+	int	index;
 
-#endif
+	index = 0;
+	while (str[index])
+	{
+		if (str[index] == c)
+			return (index);
+		index++;
+	}
+	return (-1);
+}
+

@@ -30,15 +30,23 @@ SRCS		=	minishell.c \
 				lexer/ft_token_list.c \
 				lexer/ft_get_token_len.c \
 				lexer/ft_check_quote.c \
-				utils/ft_strlen.c \
+				env/ft_create_env_hashtable.c \
+				hashtable/ft_create_hashtable.c \
+				hashtable/ft_create_element.c \
+				hashtable/ft_get_value.c \
+				hashtable/ft_monkey_hash.c \
+				hashtable/ft_free_hashtable.c \
 
 INCS		=	minishell.h \
+				hashtable.h \
 				lexer.h \
 				utils.h \
 
 # **************************************************************************** #
 #       LIBRARIES                                                              #
 # **************************************************************************** #
+LIBFT_A			=	libft.a
+LIBFT_DIR		=	libft
 
 # **************************************************************************** #
 #       RULES                                                                  #
@@ -48,16 +56,22 @@ OBJS		=	$(addprefix $(SRCS_DIR)/,$(SRCS:.c=.o))
 %.o			:	%.c
 			$(CC) $(CFLAGS) -I $(INCS_DIR) -c $< -o $@
 
-$(NAME)		:	$(OBJS)
-			$(CC) -o $@ $(OBJS) -I $(INCS_DIR) $(READLINE)
+$(NAME)		:	$(OBJS) $(LIBFT_A)
+			$(CC) -o $@ $(OBJS) -I $(INCS_DIR) $(LIBFT_A) $(READLINE)
+
+$(LIBFT_A)		:
+					make -C $(LIBFT_DIR) $(LIBFT_FLAGS)
+					mv $(LIBFT_DIR)/$(LIBFT_A) .
 
 all			:	$(NAME)
 
 clean		:
-			$(RM) $(OBJS)
+			$(RM) $(OBJS) $(LIBFT_A)
+			make clean -C $(LIBFT_DIR)
 
 fclean		:	clean
 			$(RM) $(NAME)
+			make fclean -C $(LIBFT_DIR)
 
 re			:	fclean all
 

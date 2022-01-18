@@ -6,11 +6,12 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 18:08:00 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/04 17:50:45 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/14 15:23:23 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "hashtable.h"
 
 /*
 **	Get the value from a key.
