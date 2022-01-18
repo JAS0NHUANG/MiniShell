@@ -6,7 +6,7 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 21:11:15 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/14 15:30:13 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/18 16:31:40 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include "./lexer.h"
+# include "./parser.h"
 # include "./hashtable.h"
 # include "../libft/libft.h"
 
