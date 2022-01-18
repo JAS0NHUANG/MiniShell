@@ -31,7 +31,6 @@ int main(int argc, char **argv, char **env)
 	char *tmp;
 	(void)	argc;
 	(void)	argv;
-	/* I think token_list is better then start? */
 	t_token	*token_list;
 
 	prompt = "\n|( o)═( o)| >";
@@ -41,31 +40,33 @@ int main(int argc, char **argv, char **env)
 	{
 		prompt = "\n|( o)═( o)| >";
 		input = readline(prompt);
-		while (!ft_check_input_pipe_end(input))
+		if (ft_check_input_pipe_end(input) == -1)
+			printf("syntax error near unexpected token `|'\n");
+		else
 		{
-			prompt = "/pipe> ";
-			tmp = readline(prompt);
-			input = ft_strjoin(input, tmp);
-			if (ft_check_input(input) == 1)
+			while (!ft_check_input_pipe_end(input))
 			{
-				printf("ERROR minishell\n");
-				return (0);
+				prompt = "/pipe> ";
+				tmp = readline(prompt);
+				input = ft_strjoin(input, tmp);
+			}
+			if (ft_strlen(input) != -1)
+				add_history(input);
+			printf("User input: %s\n", input);
+			token_list = ft_lexer(input);
+			if (!ft_check_input(token_list))
+			{
+	/*
+				ft_parsing_dollar(token_list, env);
+				ft_parsing_single_quote(token_list);
+	*/
+				t_inary	*tree;	
+				tree = ft_create_tree(token_list);
+				if (tree == NULL)
+					printf("ERROR MINISHELL\n");
+				//ft_handle_pipe(tree);
+		//		ft_check_pipe(tree);
 			}
 		}
-		if (strlen(input) != 0)
-			add_history(input);
-		printf("User input: %s\n", input);
-		token_list = ft_lexer(input);
-/*
-		ft_parsing_dollar(token_list, env);
-		ft_parsing_single_quote(token_list);
-	}
-*/
-		t_inary	*tree;	
-		tree = ft_create_tree(token_list);
-		if (tree == NULL)
-			printf("ERROR MINISHELL\n");
-		//ft_handle_pipe(tree);
-//		ft_check_pipe(tree);
 	}
 }

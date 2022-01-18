@@ -36,6 +36,8 @@ int	ft_check_input_pipe_end(char *src)
 	int	i;
 
 	i = 0;
+	if (src[0] == '|')
+		return (-1);
 	while (src[i])
 		i++;
 	i--;
@@ -46,21 +48,21 @@ int	ft_check_input_pipe_end(char *src)
 	return (1);
 }
 
-int	ft_check_input(char *src)
+int	ft_check_input(t_token *list)
 {
-	int	i;
+	t_token	*ptr;
 
-	i = 0;
-	while (src[i])
+	ptr = list;
+	while (list && ptr->next != NULL)
 	{
-		if (src[i] == '>')
+		ptr = list;
+		ptr = ptr->next;
+		if (list->token_type >= 2 && ptr->token_type >= 2)
 		{
-			if (src[i + 1] == '>')
-			{
-				
-			}
+printf("ERROR dans l input printf fct check input ft_check\n");
+			return (1);
 		}
-		i++;
+		list = list->next;
 	}
 	return (0);
 }

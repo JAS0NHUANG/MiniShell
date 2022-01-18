@@ -73,5 +73,5 @@ t_inary	*ft_create_node_list_chain(t_inary *node_out, int count, t_token *list);
 void	ft_handle_pipe(t_inary *tree);
 int		ft_check_pipe(t_inary *tree);
 int		ft_check_input_pipe_end(char *src);
-int		ft_check_input(char *src);
+int		ft_check_input(t_token *list);
 #endif
