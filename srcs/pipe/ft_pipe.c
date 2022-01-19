@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 18:02:08 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/19 21:20:36 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/19 21:48:00 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,20 @@ void	ft_pipe_parent(t_inary *tree, int *fd, char **a)
 	tree->value[0] = ft_strjoin(tree->value[0], "a");
 execve("/bin/ls", a, NULL);
 	close(fd[1]);
+}
+
+int		ft_count_pipe_tree(t_inary *tree)
+{
+	int	count;
+
+	count = 0;
+	while (tree)
+	{
+		if (tree->type_node == NODE_PIPE)
+			count++;
+		tree = tree->left;
+	}
+	return (count);
 }
 
 void	ft_handle_pipe(t_inary *tree)
