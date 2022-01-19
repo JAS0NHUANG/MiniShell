@@ -6,7 +6,7 @@
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:32:58 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/17 21:19:07 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/19 21:43:13 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int main(int argc, char **argv, char **env)
 		input = readline(prompt);
 		if (ft_check_input_pipe_end(input) == -1)
 			printf("syntax error near unexpected token `|'\n");
+		if (ft_check_input_pipe_end(input) == -2)
+			;
 		else
 		{
 			while (!ft_check_input_pipe_end(input))
@@ -54,6 +56,7 @@ int main(int argc, char **argv, char **env)
 				add_history(input);
 			printf("User input: %s\n", input);
 			token_list = ft_lexer(input);
+			free(input);
 			if (!ft_check_input(token_list))
 			{
 	/*
@@ -65,6 +68,7 @@ int main(int argc, char **argv, char **env)
 				if (tree == NULL)
 					printf("ERROR MINISHELL\n");
 				ft_handle_pipe(tree);
+				wait(0);
 			}
 		}
 	}

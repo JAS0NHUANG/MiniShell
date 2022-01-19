@@ -9,6 +9,9 @@
 # include <readline/history.h>
 # include <fcntl.h>
 # include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+
 # include <stdlib.h>
 
 int		ft_arraylen(char **str);

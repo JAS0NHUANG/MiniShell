@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
+#include <sys/types.h>
 
 enum char_type {
 	CHAR_GENERAL = -1,
@@ -11,7 +13,7 @@ enum char_type {
 	CHAR_GREATER = '>',
 	CHAR_LESSER = '<',
 	CHAR_DOLLER = '$',
-	CHAR_S_QUOTE = 39,
+	CHAR_S_QUOTE = '\'',
 	CHAR_D_QUOTE = '"',
 };
 

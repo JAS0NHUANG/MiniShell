@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/17 17:00:20 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/18 13:48:18 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/19 21:42:22 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int	ft_check_input_pipe_end(char *src)
 	int	i;
 
 	i = 0;
+	if (src[0] == 0)
+		return (-2);
 	if (src[0] == '|')
 		return (-1);
 	while (src[i])
