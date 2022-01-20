@@ -6,14 +6,14 @@
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:32:58 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/15 04:59:22 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/20 00:39:26 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /* function to print out token_list for testing purpous. */
-static void	ft_print_token_list(t_token *token_list)
+void	ft_print_token_list(t_token *token_list)
 {
 	t_token	*holder;
 
@@ -39,10 +39,46 @@ static void	ft_print_title(void)
 	printf("%s\n", buffer);
 }
 
+void	ft_print_tree(t_ast *ast_tree)
+{
+	int	index;
+
+	if (!ast_tree->left)
+	{
+		printf("THE TREE: ~~~~~~~~~~~~~~~~~~~~\n");
+		if (ast_tree->value)
+		{
+			printf("left cmd:");
+			index = 0;
+			while (ast_tree->value[index])
+			{
+				printf(" %s ", ast_tree->value[index]);
+				index++;
+			}
+			printf("\n");
+		}
+		return ;
+	}
+	if (ast_tree->left)
+		ft_print_tree(ast_tree->left);
+	if (ast_tree->right->value)
+	{
+		printf("right cmd:");
+		index = 0;
+		while (ast_tree->right->value[index])
+		{
+			printf(" %s ", ast_tree->right->value[index]);
+			index++;
+		}
+		printf("\n");
+	}
+}
+
 void	ft_minishell_loop(char *prompt, t_hashtable *env_hashtable)
 {
 	char	*input;
 	t_token	*token_list;
+	t_ast	*ast_tree;
 
 	while (1)
 	{
@@ -59,7 +95,11 @@ void	ft_minishell_loop(char *prompt, t_hashtable *env_hashtable)
 		else
 		{
 			token_list = ft_lexer(input);
+			printf("input: %s\n", input);
 			ft_print_token_list(token_list);
+			ast_tree = ft_create_ast(token_list);
+			if (ast_tree)
+				ft_print_tree(ast_tree);
 			ft_free_token_list(token_list);
 			printf("env input: %s\n", ft_get_value(env_hashtable, input));
 			free(input);

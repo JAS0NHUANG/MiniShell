@@ -26,16 +26,18 @@ SRCS_DIR	=	srcs
 INCS_DIR	=	incs
 
 SRCS		=	minishell.c \
-				lexer/ft_lexer.c \
-				lexer/ft_token_list.c \
-				lexer/ft_get_token_len.c \
-				lexer/ft_check_quote.c \
-				env/ft_create_env_hashtable.c \
 				hashtable/ft_create_hashtable.c \
 				hashtable/ft_create_element.c \
 				hashtable/ft_get_value.c \
 				hashtable/ft_monkey_hash.c \
 				hashtable/ft_free_hashtable.c \
+				env/ft_create_env_hashtable.c \
+				lexer/ft_lexer.c \
+				lexer/ft_token_list.c \
+				lexer/ft_get_token_len.c \
+				lexer/ft_check_quote.c \
+				parser/ft_parser.c \
+				parser/ft_add_redir_node.c \
 
 INCS		=	minishell.h \
 				hashtable.h \
