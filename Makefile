@@ -1,6 +1,5 @@
 # **************************************************************************** #
-#       COMANDS                                                                #
-# **************************************************************************** #
+#       COMANDS                                                                # # **************************************************************************** #
 CC			=	gcc
 RM			=	rm -rf
 AR			=	ar rcs
@@ -28,6 +27,7 @@ INCS_DIR	=	incs
 SRCS		=	minishell.c \
 				hashtable/ft_create_hashtable.c \
 				hashtable/ft_create_element.c \
+				hashtable/ft_add_element.c \
 				hashtable/ft_get_value.c \
 				hashtable/ft_monkey_hash.c \
 				hashtable/ft_free_hashtable.c \
@@ -39,6 +39,7 @@ SRCS		=	minishell.c \
 				parser/ft_parser.c \
 				parser/ft_add_redir_node.c \
 				parser/ft_free_ast.c \
+				builtin/ft_export.c \
 
 INCS		=	minishell.h \
 				hashtable.h \

@@ -6,7 +6,7 @@
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:32:58 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/20 11:01:17 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/20 15:21:38 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,12 @@ void	ft_minishell_loop(char *prompt, t_hashtable *env_hashtable)
 			ft_print_token_list(token_list);
 			ast_tree = ft_create_ast(token_list);
 			ft_print_tree(ast_tree);
+			ft_putstr_fd("still ok", 1);
+			if (ast_tree->left && ast_tree->right)
+			{
+				env_hashtable = ft_add_element(env_hashtable, ast_tree->left->value[0], ast_tree->right->value[0], env_hashtable->length);
+				ft_export(ast_tree->left->value, env_hashtable); 
+			}
 			ft_free_ast(ast_tree);
 			ft_free_token_list(token_list);
 			printf("env input: %s\n", ft_get_value(env_hashtable, input));

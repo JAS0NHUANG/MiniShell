@@ -6,7 +6,7 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 14:29:00 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/20 10:54:12 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/20 14:56:40 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_hashtable
 
 t_hashtable	*ft_create_hashtable(int length);
 t_element	*ft_create_element(char *key, char *value);
+t_hashtable	*ft_add_element(t_hashtable *ht, char *key, char *value, int length);
 void		ft_print_hashtable(t_hashtable *hashtable, char *delimeter);
 int			ft_monkey_hash(char *str, int length);
 char		*ft_get_value(t_hashtable *hashtable, char *key);
