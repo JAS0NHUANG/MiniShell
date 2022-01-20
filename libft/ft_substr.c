@@ -1,34 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_monkey_hash.c                                   :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/31 15:48:19 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/14 15:31:04 by jahuang          ###   ########.fr       */
+/*   Created: 2021/10/31 16:09:54 by jahuang           #+#    #+#             */
+/*   Updated: 2022/01/14 15:52:46 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "hashtable.h"
+#include "libft.h"
 
-/*
-**	My cute "ft_monkey_hase" funcition. (^ ^)
-**	                                     (o)
-*/
-int	ft_monkey_hash(char *str, int length)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	int	index;
-	int	result;
-	int	monkey_number;
+	size_t	index;
+	size_t	s_len;
+	char	*result;
 
 	index = 0;
-	result = 0;
-	monkey_number = 89;
-	while (str[index])
+	s_len = ft_strlen(s);
+	result = (char *)malloc((len + 1) * sizeof(char));
+	if (!result)
+		return (NULL);
+	if ((size_t)start >= s_len)
 	{
-		result += monkey_number * (int)str[index] * index;
+		result[0] = '\0';
+		return (result);
+	}
+	while (s[index + start] && index < len)
+	{
+		result[index] = s[index + start];
 		index++;
 	}
-	return (result % length);
+	result[index] = '\0';
+	return (result);
 }
+

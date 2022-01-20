@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_monkey_hash.c                                   :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/31 15:48:19 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/14 15:31:04 by jahuang          ###   ########.fr       */
+/*   Created: 2021/10/31 16:04:29 by jahuang           #+#    #+#             */
+/*   Updated: 2022/01/14 15:24:03 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "hashtable.h"
+#include "libft.h"
 
-/*
-**	My cute "ft_monkey_hase" funcition. (^ ^)
-**	                                     (o)
-*/
-int	ft_monkey_hash(char *str, int length)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	int	index;
-	int	result;
-	int	monkey_number;
+	size_t			index;
+	unsigned char	*s1_holder;
+	unsigned char	*s2_holder;
 
 	index = 0;
-	result = 0;
-	monkey_number = 89;
-	while (str[index])
-	{
-		result += monkey_number * (int)str[index] * index;
+	s1_holder = (unsigned char *)s1;
+	s2_holder = (unsigned char *)s2;
+	if (n == 0)
+		return (0);
+	while (index < n && \
+			s1_holder[index] == s2_holder[index] && \
+			s1_holder[index])
 		index++;
-	}
-	return (result % length);
+	if (index == n)
+		return (0);
+	return (s1_holder[index] - s2_holder[index]);
 }

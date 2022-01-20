@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/10 21:11:15 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/20 09:35:27 by antton-t         ###   ########.fr       */
+/*   Created: 2021/10/31 16:03:45 by jahuang           #+#    #+#             */
+/*   Updated: 2022/01/14 15:46:10 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "libft.h"
 
-# include "./lexer.h"
-# include "./hashtable.h"
-# include "./builtins.h"
-# include "../libft/libft.h"
+char	*ft_strdup(const char *s)
+{
+	size_t	index;
+	char	*result;
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <fcntl.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+	index = 0;
+	result = (char *)malloc((ft_strlen(s) + 1) * sizeof(char));
+	if (!result)
+		return (NULL);
+	while (s[index])
+	{
+		result[index] = s[index];
+		index++;
+	}
+	result[index] = '\0';
+	return (result);
+}
 
-t_hashtable *ft_create_env_hashtable(char **env);
-
-#endif
