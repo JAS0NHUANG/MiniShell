@@ -6,7 +6,7 @@
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:32:58 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/20 00:39:26 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/20 11:01:17 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,21 +41,13 @@ static void	ft_print_title(void)
 
 void	ft_print_tree(t_ast *ast_tree)
 {
-	int	index;
-
 	if (!ast_tree->left)
 	{
 		printf("THE TREE: ~~~~~~~~~~~~~~~~~~~~\n");
 		if (ast_tree->value)
 		{
-			printf("left cmd:");
-			index = 0;
-			while (ast_tree->value[index])
-			{
-				printf(" %s ", ast_tree->value[index]);
-				index++;
-			}
-			printf("\n");
+			ft_putstr_fd("left cmd:", 1);
+			ft_putstr_array(ast_tree->value);
 		}
 		return ;
 	}
@@ -63,14 +55,8 @@ void	ft_print_tree(t_ast *ast_tree)
 		ft_print_tree(ast_tree->left);
 	if (ast_tree->right->value)
 	{
-		printf("right cmd:");
-		index = 0;
-		while (ast_tree->right->value[index])
-		{
-			printf(" %s ", ast_tree->right->value[index]);
-			index++;
-		}
-		printf("\n");
+		ft_putstr_fd("right cmd:", 1);
+		ft_putstr_array(ast_tree->right->value);
 	}
 }
 
@@ -85,7 +71,7 @@ void	ft_minishell_loop(char *prompt, t_hashtable *env_hashtable)
 		input = readline(prompt);
 		if (!input)
 		{
-			printf("Banana~~~!\n");
+			printf("exit\n");
 			exit(0);
 		}
 		if (ft_strlen(input) != 0)
@@ -98,8 +84,8 @@ void	ft_minishell_loop(char *prompt, t_hashtable *env_hashtable)
 			printf("input: %s\n", input);
 			ft_print_token_list(token_list);
 			ast_tree = ft_create_ast(token_list);
-			if (ast_tree)
-				ft_print_tree(ast_tree);
+			ft_print_tree(ast_tree);
+			ft_free_ast(ast_tree);
 			ft_free_token_list(token_list);
 			printf("env input: %s\n", ft_get_value(env_hashtable, input));
 			free(input);
@@ -110,8 +96,8 @@ void	ft_minishell_loop(char *prompt, t_hashtable *env_hashtable)
 
 int	main(int argc, char **argv, char **env)
 {
-	char	*prompt;
-	t_hashtable *env_hashtable;
+	char		*prompt;
+	t_hashtable	*env_hashtable;
 
 	(void)argc;
 	(void)argv;

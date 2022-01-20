@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_putstr_array.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/10 21:11:15 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/20 10:54:24 by jahuang          ###   ########.fr       */
+/*   Created: 2022/01/20 10:52:32 by jahuang           #+#    #+#             */
+/*   Updated: 2022/01/20 11:06:24 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "libft.h"
 
-# include "./hashtable.h"
-# include "./lexer.h"
-# include "./parser.h"
-# include "../libft/libft.h"
+void	ft_putstr_array(char **str_array)
+{
+	int	index;
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <fcntl.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-
-t_hashtable	*ft_create_env_hashtable(char **env);
-
-#endif
+	index = 0;
+	while (str_array[index])
+	{
+		ft_putstr_fd(str_array[index], 1);
+		ft_putstr_fd(" ", 1);
+		index++;
+	}
+	ft_putstr_fd("\n", 1);
+}

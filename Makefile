@@ -38,6 +38,7 @@ SRCS		=	minishell.c \
 				lexer/ft_check_quote.c \
 				parser/ft_parser.c \
 				parser/ft_add_redir_node.c \
+				parser/ft_free_ast.c \
 
 INCS		=	minishell.h \
 				hashtable.h \

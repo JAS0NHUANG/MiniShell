@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_add_redir_node.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/20 10:36:40 by jahuang           #+#    #+#             */
+/*   Updated: 2022/01/20 11:28:01 by jahuang          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 t_redir	*ft_init_redir_node(int token_type)
 {
-	t_redir *redir_node;
+	t_redir	*redir_node;
 
-	redir_node = malloc(1 * sizeof(t_redir *));
+	redir_node = malloc(sizeof(t_redir));
 	redir_node->value = NULL;
 	redir_node->next = NULL;
 	if (token_type == TOKEN_GREATER)
