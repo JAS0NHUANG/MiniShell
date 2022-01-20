@@ -14,6 +14,25 @@ Use hash table to store envirenment variables. (See the [hashtable - readme](htt
 ## Substitution  
 
 ## Parsing  
+We take the token list and send it to the parser to create an binary tree.  
+The tree will have all the pipes as forking point and have left and right as commands.  
+When there is more then 1 pipe, the first pipe will be connected to the second pipe's left side.
+The second pipe will be connected to the third pipe's left side. And so on...  
+If there is redirection token, we will create a linked-list to store all redirection types and it's filename inside.  
+So the command: `echo hello > filename | cat filename | grep a | wc > outfile1 -l > outfile2 ` will produce a tree like:
+```
+                            PIPE
+                           /    \
+                          /      CMD
+                       PIPE      ["wc", "-l"]
+                       /  \      (REDIR_OUT)"outfile1"->(REDIR_OUT)"outfile2"
+                      /    CMD
+                     PIPE  ["grep", "a"]
+                    /    \
+                  CMD     CMD
+    ["echo", "hello"]     ["cat" "filename"]
+  (REDIR_OUT)"filename"
+```
 
 ## Execution  
 

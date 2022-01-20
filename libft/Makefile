@@ -22,6 +22,8 @@ SRCS			=	ft_arraylen.c \
 				ft_strdup.c \
 				ft_substr.c \
 				ft_index_of.c \
+				ft_putstr_array.c \
+				ft_putstr_fd.c \
 
 INCS			=	libft.h
 
