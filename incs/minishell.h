@@ -6,16 +6,17 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 21:11:15 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/21 13:37:48 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/21 14:00:23 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "./lexer.h"
 # include "./hashtable.h"
 # include "./builtins.h"
+# include "./lexer.h"
+# include "./parser.h"
 # include "../libft/libft.h"
 
 # include <stdio.h>
