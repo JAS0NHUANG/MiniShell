@@ -6,13 +6,13 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:09:57 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/18 21:39:59 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/21 12:23:17 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		ft_echo_n(char *src)
+int	ft_echo_n(char *src)
 {
 	int	i;
 

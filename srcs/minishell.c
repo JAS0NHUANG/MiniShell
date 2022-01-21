@@ -6,7 +6,7 @@
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:32:58 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/21 11:46:05 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/21 12:22:38 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ void	ft_minishell_loop(char *prompt, t_hashtable *env_hashtable)
 
 int	main(int argc, char **argv, char **env)
 {
-	char	*prompt;
-	t_hashtable *env_hashtable;
+	char		*prompt;
+	t_hashtable	*env_hashtable;
 
 	(void)argc;
 	(void)argv;

@@ -6,7 +6,7 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 21:11:15 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/21 11:50:36 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/21 13:37:48 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@
 # include <unistd.h>
 # include <readline/history.h>
 
-t_hashtable *ft_create_env_hashtable(char **env);
+t_hashtable	*ft_create_env_hashtable(char **env);
 
 #endif

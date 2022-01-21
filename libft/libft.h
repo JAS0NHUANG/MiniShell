@@ -6,7 +6,7 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 13:59:08 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/21 12:16:41 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/21 12:26:58 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,5 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strdup(const char *s);
 int		ft_index_of(char *str, char c);
-
 
 #endif
