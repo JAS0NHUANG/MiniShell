@@ -36,6 +36,14 @@ SRCS		=	minishell.c \
 				hashtable/ft_get_value.c \
 				hashtable/ft_monkey_hash.c \
 				hashtable/ft_free_hashtable.c \
+				builtins/ft_pwd.c \
+				builtins/ft_echo.c \
+				builtins/ft_cd.c \
+				builtins/ft_env.c \
+				builtins/ft_execve.c \
+				builtins/ft_exit.c \
+				builtins/ft_export.c \
+
 
 INCS		=	minishell.h \
 				hashtable.h \
