@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 12:19:45 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/17 18:11:34 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/21 22:09:04 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ t_inary	*ft_create_node(t_token *list, t_inary *tree, int nb_elem)
 	if (ptr->token_type == TOKEN_PIPE)
 	{
 		(void)list;
-		new_node->value[0] = calloc(2, sizeof(char));
-		new_node->value[0][0] = '|';
+		new_node->value = NULL; //calloc(2, sizeof(char));
+//		new_node->value[0][0] = '|';
 		new_node->type_node = NODE_PIPE;
 		new_node->left = tree;
 		return (new_node);

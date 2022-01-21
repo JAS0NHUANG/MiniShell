@@ -6,7 +6,7 @@
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:32:58 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/19 21:43:13 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/21 23:04:42 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int main(int argc, char **argv, char **env)
 		input = readline(prompt);
 		if (ft_check_input_pipe_end(input) == -1)
 			printf("syntax error near unexpected token `|'\n");
-		if (ft_check_input_pipe_end(input) == -2)
+		else if (ft_check_input_pipe_end(input) == -2)
 			;
 		else
 		{
