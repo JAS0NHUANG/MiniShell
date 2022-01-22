@@ -6,7 +6,7 @@
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:32:58 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/20 15:21:38 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/22 02:05:35 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static void	ft_print_title(void)
 	ret = read(fd, buffer, 2048);
 	buffer[ret] = '\0';
 	printf("%s\n", buffer);
+	close(fd);
 }
 
 void	ft_print_tree(t_ast *ast_tree)
@@ -74,8 +75,12 @@ void	ft_minishell_loop(char *prompt, t_hashtable *env_hashtable)
 			printf("exit\n");
 			exit(0);
 		}
-		if (ft_strlen(input) != 0)
-			add_history(input);
+		if (ft_strlen(input) == 0)
+		{
+			free(input);
+			continue ;
+		}
+		add_history(input);
 		if (ft_check_quote(input) == 1)
 			printf("Syntaxe Error: Unclosed quote.\n");
 		else
@@ -88,14 +93,15 @@ void	ft_minishell_loop(char *prompt, t_hashtable *env_hashtable)
 			ft_putstr_fd("still ok", 1);
 			if (ast_tree->left && ast_tree->right)
 			{
-				env_hashtable = ft_add_element(env_hashtable, ast_tree->left->value[0], ast_tree->right->value[0], env_hashtable->length);
-				ft_export(ast_tree->left->value, env_hashtable); 
+				env_hashtable = ft_export(ast_tree->left->value, env_hashtable); 
+				printf("left value : %s\n", ast_tree->left->value[1]);
+				printf("right value : %s\n", ast_tree->right->value[1]);
+				env_hashtable = ft_unset(ast_tree->right->value, env_hashtable); 
 			}
 			ft_free_ast(ast_tree);
 			ft_free_token_list(token_list);
-			printf("env input: %s\n", ft_get_value(env_hashtable, input));
-			free(input);
 		}
+		free(input);
 	}
 	return ;
 }

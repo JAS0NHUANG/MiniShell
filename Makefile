@@ -28,10 +28,13 @@ SRCS		=	minishell.c \
 				hashtable/ft_create_hashtable.c \
 				hashtable/ft_create_element.c \
 				hashtable/ft_add_element.c \
+				hashtable/ft_delete_element.c \
 				hashtable/ft_get_value.c \
+				hashtable/ft_change_value.c \
 				hashtable/ft_monkey_hash.c \
 				hashtable/ft_free_hashtable.c \
 				env/ft_create_env_hashtable.c \
+				env/ft_print_env.c \
 				lexer/ft_lexer.c \
 				lexer/ft_token_list.c \
 				lexer/ft_get_token_len.c \
@@ -40,6 +43,8 @@ SRCS		=	minishell.c \
 				parser/ft_add_redir_node.c \
 				parser/ft_free_ast.c \
 				builtin/ft_export.c \
+				builtin/ft_env.c \
+				builtin/ft_unset.c \
 
 INCS		=	minishell.h \
 				hashtable.h \

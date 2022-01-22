@@ -6,7 +6,7 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 13:59:08 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/20 11:00:21 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/21 17:30:33 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,7 @@ char	*ft_strdup(const char *s);
 int		ft_index_of(char *str, char c);
 void	ft_putstr_array(char **str_array);
 void	ft_putstr_fd(char *s, int fd);
+int	ft_isdigit(int c);
+int	ft_isalpha(int c);
 
 #endif
