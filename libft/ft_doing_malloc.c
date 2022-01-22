@@ -1,34 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lexer.c                                         :+:      :+:    :+:   */
+/*   ft_doing_malloc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/13 19:31:33 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/13 17:54:49 by jahuang          ###   ########.fr       */
+/*   Created: 2021/09/23 19:50:19 by antton-t          #+#    #+#             */
+/*   Updated: 2022/01/22 15:31:19 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-t_token	*ft_lexer(char *input)
+int	ft_doingmalloc(char **split, char const *s, char c)
 {
-	t_token	*token_list;
-	int		token_len;
+	int		i;
+	int		j;
+	int		count;
 
-	token_len = 0;
-	token_list = NULL;
-	while (*input)
+	i = -1;
+	count = 0;
+	while (s[++i])
 	{
-		if (*input == ' ')
-			input++;
-		else
+		j = i;
+		while (s[i] != c && s[i] != 0)
+			i++;
+		if (j != i)
 		{
-			token_len = ft_get_token_len(input);
-			token_list = ft_fill_list(token_list, input, token_len);
-			input += token_len;
+			split[count] = (char *)malloc(sizeof(char) * (i - j + 1));
+			if (split[count] == NULL)
+			{
+				ft_doingfree(split, count);
+				return (1);
+			}
+			split[count][i - j] = 0;
+			count++;
+			i--;
 		}
 	}
-	return (token_list);
+	return (0);
 }

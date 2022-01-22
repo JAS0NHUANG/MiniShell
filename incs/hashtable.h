@@ -6,7 +6,7 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 14:29:00 by jahuang           #+#    #+#             */
-/*   Updated: 2021/12/16 16:36:18 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/21 13:59:10 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define HASHTABLE_H
 
 # include <stdlib.h>
+# include <stddef.h>
 
 /*
 ** hashtable structs
@@ -23,13 +24,13 @@ typedef struct s_element
 {
 	char	*key;
 	char	*value;
-}				t_element;
+}		t_element;
 
 typedef struct s_hashtable
 {
 	t_element	**element_array;
 	int			length;
-}				t_hashtable;
+}		t_hashtable;
 
 /*
 ** hashtable functions
@@ -38,10 +39,8 @@ typedef struct s_hashtable
 t_hashtable	*ft_create_hashtable(int length);
 t_element	*ft_create_element(char *key, char *value);
 void		ft_print_hashtable(t_hashtable *hashtable, char *delimeter);
-int		ft_monkey_hash(char *str, int length);
+int			ft_monkey_hash(char *str, int length);
 char		*ft_get_value(t_hashtable *hashtable, char *key);
 void		ft_free_hashtable(t_hashtable *hashtable);
-int		ft_next_prime(int nbr);
-int		ft_is_prime(int nbr);
 
 #endif

@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lexer.c                                         :+:      :+:    :+:   */
+/*   ft_doing_free.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/13 19:31:33 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/13 17:54:49 by jahuang          ###   ########.fr       */
+/*   Created: 2021/09/23 19:50:08 by antton-t          #+#    #+#             */
+/*   Updated: 2022/01/22 15:30:48 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-t_token	*ft_lexer(char *input)
+void	ft_doingfree(char **split, int count)
 {
-	t_token	*token_list;
-	int		token_len;
+	int	i;
 
-	token_len = 0;
-	token_list = NULL;
-	while (*input)
+	i = 0;
+	while (i < count)
 	{
-		if (*input == ' ')
-			input++;
-		else
-		{
-			token_len = ft_get_token_len(input);
-			token_list = ft_fill_list(token_list, input, token_len);
-			input += token_len;
-		}
+		free(split[i]);
+		i++;
 	}
-	return (token_list);
+	free(split);
 }

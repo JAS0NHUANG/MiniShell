@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_monkey_hash.c                                   :+:      :+:    :+:   */
+/*   ft_putstr_array.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/31 15:48:19 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/14 15:31:04 by jahuang          ###   ########.fr       */
+/*   Created: 2022/01/20 10:52:32 by jahuang           #+#    #+#             */
+/*   Updated: 2022/01/20 11:06:24 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "hashtable.h"
+#include "libft.h"
 
-/*
-**	My cute "ft_monkey_hase" funcition. (^ ^)
-**	                                     (o)
-*/
-int	ft_monkey_hash(char *str, int length)
+void	ft_putstr_array(char **str_array)
 {
 	int	index;
-	int	result;
-	int	monkey_number;
 
 	index = 0;
-	result = 0;
-	monkey_number = 89;
-	while (str[index])
+	while (str_array[index])
 	{
-		result += monkey_number * (int)str[index] * index;
+		ft_putstr_fd(str_array[index], 1);
+		ft_putstr_fd(" ", 1);
 		index++;
 	}
-	return (result % length);
+	ft_putstr_fd("\n", 1);
 }

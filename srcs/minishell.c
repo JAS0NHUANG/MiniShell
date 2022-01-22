@@ -6,70 +6,106 @@
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:32:58 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/21 23:04:42 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/22 15:08:07 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void ft_print_title(void)
+/* function to print out token_list for testing purpous. */
+void	ft_print_token_list(t_token *token_list)
 {
-	char buffer[2048 + 1];
-	int	fd;
-	int	ret;
+	t_token	*holder;
+
+	holder = token_list;
+	while (holder)
+	{
+		printf("token type: %d\n", holder->token_type);
+		printf("token value: %s\n\n", holder->value);
+		holder = holder->next;
+	}
+	return ;
+}
+
+static void	ft_print_title(void)
+{
+	char	buffer[2048 + 1];
+	int		fd;
+	int		ret;
 
 	fd = open("./others/prompt_string.txt", O_RDONLY);
 	ret = read(fd, buffer, 2048);
 	buffer[ret] = '\0';
-	printf("%s", buffer);
+	printf("%s\n", buffer);
 }
 
-int main(int argc, char **argv, char **env)
+void	ft_print_tree(t_ast *ast_tree)
 {
-	char *input;
-	char *prompt;
-	char *tmp;
-	(void)	argc;
-	(void)	argv;
-	t_token	*token_list;
+	if (!ast_tree->left)
+	{
+		printf("THE TREE: ~~~~~~~~~~~~~~~~~~~~\n");
+		if (ast_tree->value)
+		{
+			ft_putstr_fd("left cmd:", 1);
+			ft_putstr_array(ast_tree->value);
+		}
+		return ;
+	}
+	if (ast_tree->left)
+		ft_print_tree(ast_tree->left);
+	if (ast_tree->right->value)
+	{
+		ft_putstr_fd("right cmd:", 1);
+		ft_putstr_array(ast_tree->right->value);
+	}
+}
 
-	prompt = "\n|( o)═( o)| >";
-	ft_print_title();
-	ft_create_env_hashtable(env);
+void	ft_minishell_loop(char *prompt, t_hashtable *env_hashtable)
+{
+	char	*input;
+	t_token	*token_list;
+	t_ast	*ast_tree;
+
 	while (1)
 	{
-		prompt = "\n|( o)═( o)| >";
 		input = readline(prompt);
-		if (ft_check_input_pipe_end(input) == -1)
-			printf("syntax error near unexpected token `|'\n");
-		else if (ft_check_input_pipe_end(input) == -2)
-			;
+		if (!input)
+		{
+			printf("exit\n");
+			exit(0);
+		}
+		if (ft_strlen(input) != 0)
+			add_history(input);
+		if (ft_check_quote(input) == 1)
+			printf("Syntaxe Error: Unclosed quote.\n");
 		else
 		{
-			while (!ft_check_input_pipe_end(input))
-			{
-				prompt = "/pipe> ";
-				tmp = readline(prompt);
-				input = ft_strjoin(input, tmp);
-			}
-			if (ft_strlen(input) != -1)
-				add_history(input);
-			printf("User input: %s\n", input);
 			token_list = ft_lexer(input);
+			printf("input: %s\n", input);
+			ft_print_token_list(token_list);
+			ast_tree = ft_create_ast(token_list);
+			ft_print_tree(ast_tree);
+			ft_handle_pipe(ast_tree, env_hashtable);
+			ft_free_ast(ast_tree);
+			ft_free_token_list(token_list);
+			printf("env input: %s\n", ft_get_value(env_hashtable, input));
 			free(input);
-			if (!ft_check_input(token_list))
-			{
-	/*
-				ft_parsing_dollar(token_list, env);
-				ft_parsing_single_quote(token_list);
-	*/
-				t_inary	*tree;	
-				tree = ft_create_tree(token_list);
-				if (tree == NULL)
-					printf("ERROR MINISHELL\n");
-				ft_handle_pipe(tree);
-				wait(0);
-			}
 		}
 	}
+	return ;
+}
+
+int	main(int argc, char **argv, char **env)
+{
+	char		*prompt;
+	t_hashtable	*env_hashtable;
+
+	(void)argc;
+	(void)argv;
+	env_hashtable = ft_create_env_hashtable(env);
+	prompt = "\n|( o)═( o)| >";
+	ft_print_title();
+	ft_minishell_loop(prompt, env_hashtable);
+	ft_free_hashtable(env_hashtable);
+	return (0);
 }

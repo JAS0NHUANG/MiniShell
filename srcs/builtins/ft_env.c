@@ -1,27 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_next_prime.c                                    :+:      :+:    :+:   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/26 11:57:33 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/04 16:31:00 by jahuang          ###   ########.fr       */
+/*   Created: 2022/01/18 21:40:07 by antton-t          #+#    #+#             */
+/*   Updated: 2022/01/18 21:40:24 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*
-**	Get the next prime number.
-*/
-
-int	ft_next_prime(int nbr)
-{
-	int	result;
-
-	result = nbr;
-	while (ft_is_prime(result) == 0)
-		result++;
-	return (result);
-}

@@ -1,9 +1,9 @@
 # **************************************************************************** #
 #       COMANDS                                                                #
 # **************************************************************************** #
-CC		=	gcc
-RM		=	rm -rf
-AR		=	ar rcs
+CC			=	gcc
+RM			=	rm -rf
+AR			=	ar rcs
 
 # **************************************************************************** #
 #       TITLE                                                                  #
@@ -13,7 +13,7 @@ NAME		=	minishell
 # **************************************************************************** #
 #       FLAGS                                                                  #
 # **************************************************************************** #
-CFLAGS		=	-Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS		=	-Wall -Wextra -Werror
 READLINE	=	-lreadline
 TERMCAP		=	-ltermcap
 FSAN		=	-fsanitize=address
@@ -26,29 +26,39 @@ SRCS_DIR	=	srcs
 INCS_DIR	=	incs
 
 SRCS		=	minishell.c \
-			ft_check.c \
-			lexer/ft_parsing_dollar.c \
-			lexer/ft_parsing_single_quote.c \
-			lexer/ft_lexer.c \
-			lexer/ft_create_tree.c \
-			lexer/ft_check_list_dir.c \
-			lexer/ft_strcpy_ast.c \
-			lexer/ft_create_env_hashtable.c \
-			pipe/ft_pipe.c \
-			utils/ft_is_prime.c \
-			utils/ft_next_prime.c \
-			utils/ft_strjoin.c \
-			utils/ft_strlen.c \
-			utils/ft_arraylen.c \
-			hashtable/ft_create_hashtable.c \
+				hashtable/ft_create_hashtable.c \
+				hashtable/ft_create_element.c \
+				hashtable/ft_get_value.c \
+				hashtable/ft_monkey_hash.c \
+				hashtable/ft_free_hashtable.c \
+				builtins/ft_pwd.c \
+				builtins/ft_echo.c \
+				builtins/ft_cd.c \
+				builtins/ft_env.c \
+				builtins/ft_execve.c \
+				builtins/ft_exit.c \
+				builtins/ft_export.c \
+				env/ft_create_env_hashtable.c \
+				lexer/ft_lexer.c \
+				lexer/ft_token_list.c \
+				lexer/ft_get_token_len.c \
+				lexer/ft_check_quote.c \
+				parser/ft_parser.c \
+				parser/ft_add_redir_node.c \
+				parser/ft_free_ast.c \
+				pipe/ft_pipe.c \
+				pipe/ft_tools_pipe.c \
 
 INCS		=	minishell.h \
-			hashtable.h \
-			lexer.h \
+				hashtable.h \
+				lexer.h \
+				utils.h \
 
 # **************************************************************************** #
 #       LIBRARIES                                                              #
 # **************************************************************************** #
+LIBFT_A			=	libft.a
+LIBFT_DIR		=	libft
 
 # **************************************************************************** #
 #       RULES                                                                  #
@@ -56,18 +66,24 @@ INCS		=	minishell.h \
 OBJS		=	$(addprefix $(SRCS_DIR)/,$(SRCS:.c=.o))
 
 %.o			:	%.c
-				$(CC) $(CFLAGS) -I $(INCS_DIR) -c $< -o $@
+			$(CC) $(CFLAGS) -I $(INCS_DIR) -c $< -o $@
 
-$(NAME)		:	$(OBJS)
-				$(CC) $(CFLAGS) -o $@ $(OBJS) -I $(INCS_DIR) $(READLINE)
+$(NAME)		:	$(OBJS) $(LIBFT_A)
+			$(CC) -o $@ $(OBJS) -I $(INCS_DIR) $(LIBFT_A) $(READLINE)
+
+$(LIBFT_A)		:
+					make -C $(LIBFT_DIR) $(LIBFT_FLAGS)
+					mv $(LIBFT_DIR)/$(LIBFT_A) .
 
 all			:	$(NAME)
 
 clean		:
-				$(RM) $(OBJS)
+			$(RM) $(OBJS) $(LIBFT_A)
+			make clean -C $(LIBFT_DIR)
 
 fclean		:	clean
-				$(RM) $(NAME)
+			$(RM) $(NAME)
+			make fclean -C $(LIBFT_DIR)
 
 re			:	fclean all
 

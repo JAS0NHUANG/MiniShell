@@ -1,34 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lexer.c                                         :+:      :+:    :+:   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/13 19:31:33 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/13 17:54:49 by jahuang          ###   ########.fr       */
+/*   Created: 2021/09/23 19:57:14 by antton-t          #+#    #+#             */
+/*   Updated: 2022/01/22 15:28:31 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-t_token	*ft_lexer(char *input)
+char	**ft_split(char const *s, char c)
 {
-	t_token	*token_list;
-	int		token_len;
+	int		count;
+	char	**split;
 
-	token_len = 0;
-	token_list = NULL;
-	while (*input)
-	{
-		if (*input == ' ')
-			input++;
-		else
-		{
-			token_len = ft_get_token_len(input);
-			token_list = ft_fill_list(token_list, input, token_len);
-			input += token_len;
-		}
-	}
-	return (token_list);
+	if (!s)
+		return (NULL);
+	count = ft_countstrings(s, c);
+	split = (char **)malloc(sizeof(char *) * (count + 1));
+	if (split == NULL)
+		return (NULL);
+	split[count] = NULL;
+	if (ft_doingmalloc(split, s, c) == 1)
+		return (NULL);
+	ft_fillstr(split, s, c);
+	return (split);
 }

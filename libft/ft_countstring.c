@@ -1,34 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lexer.c                                         :+:      :+:    :+:   */
+/*   ft_count_string.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/13 19:31:33 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/13 17:54:49 by jahuang          ###   ########.fr       */
+/*   Created: 2021/09/23 19:50:02 by antton-t          #+#    #+#             */
+/*   Updated: 2022/01/22 15:33:04 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-t_token	*ft_lexer(char *input)
+int	ft_countstrings(char const *s, char c)
 {
-	t_token	*token_list;
-	int		token_len;
+	int		count;
+	int		i;
 
-	token_len = 0;
-	token_list = NULL;
-	while (*input)
+	count = 0;
+	i = 0;
+	if (s[i] != c && s[i] != 0)
+		count++;
+	while (s[i])
 	{
-		if (*input == ' ')
-			input++;
-		else
+		while (s[i] == c && s[i + 1] != 0)
 		{
-			token_len = ft_get_token_len(input);
-			token_list = ft_fill_list(token_list, input, token_len);
-			input += token_len;
+			if (s[i + 1] != c && s[i + 1] != 0)
+				count++;
+			i++;
 		}
+		i++;
 	}
-	return (token_list);
+	return (count);
 }

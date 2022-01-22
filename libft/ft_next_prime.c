@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_next_prime.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/20 17:24:43 by antton-t          #+#    #+#             */
-/*   Updated: 2021/12/20 17:35:00 by antton-t         ###   ########.fr       */
+/*   Created: 2021/10/26 11:57:33 by jahuang           #+#    #+#             */
+/*   Updated: 2022/01/15 04:13:25 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lexer.h"
+#include "libft.h"
 
-int	ft_strlen(const char *str)
+int	ft_next_prime(int nbr)
 {
-	int	i;
+	int	result;
 
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
+	result = nbr;
+	while (ft_is_prime(result) == 0)
+		result++;
+	return (result);
 }
