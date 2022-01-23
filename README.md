@@ -34,9 +34,19 @@ So the command: `echo hello > filename | cat filename | grep a | wc > outfile1 -
   (REDIR_OUT)"filename"
 ```
 
-## Execution  
 
 ## Builtins
+- export
+	- With no argument: in the MAN document of export. It mentions "When no arguments are given, the results are unspecified.". But we still print out the environment variable list as bash does(with some minor difference).  
+	- If the argument(s) are given. We will check the validity of the argument: "key" started with only alphabets or `_`). Get the "value". And store the "key/value" pair into the environment variable hashtable.  
+
+- env  
+	Take no argument or option. It simply prints out the environment vairable list as "key=value".  
+
+- unset  
+	Check the validity of the arguments then remove the "key/value" pair from the environment variable hashtable if found.  
+
+## Execution and pipe
 
 ## Resources:  
   - [minishell - 42 Docs](https://harm-smits.github.io/42docs/projects/minishell)

@@ -11,7 +11,12 @@
 		- Using the "ft_monkey_hash()" to find the "hash index".  
 		- Using the "ft_create_element()" to create the "key/value" element and store it inside the array.  
 
-2. Retrive the value from a key:  
+2. Add or delete key/value pair.
+	- Use "ft_add_element()" function to store new key/value pair into the hashtable. 
+	- Use "ft_delete_element()"  function to delete key/value pair.  
+	- These functions will return the pointer to the hashtable.  
+
+3. Retrive the value from a key:  
 	- Using the "ft_get_value()".  
 
-3. "ft_free_hashtable()" to totaly free the hashtable given.  
+4. "ft_free_hashtable()" to totaly free the hashtable given.  
