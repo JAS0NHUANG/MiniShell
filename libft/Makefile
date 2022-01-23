@@ -29,6 +29,8 @@ SRCS			=	ft_arraylen.c \
 				ft_doing_malloc.c \
 				ft_countstring.c \
 				ft_fillstr.c \
+				ft_isalpha.c \
+				ft_isdigit.c \
 
 INCS			=	libft.h
 

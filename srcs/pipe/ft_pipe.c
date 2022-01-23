@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 18:02:08 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/23 17:18:53 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/23 20:52:46 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	ft_pipe_child(t_ast *tree, int *fd, t_hashtable *table)
 {
-printf("tree value child==> %s\n",tree->value[0]);
 	close(fd[1]);
 	dup2(fd[0], STDIN_FILENO);
 	close(fd[0]);
@@ -25,7 +24,6 @@ void	ft_pipe_parent(t_ast *tree, int *fd, t_hashtable *table)
 {
 	pid_t	pid;
 
-printf("tree value parent==> %s\n",tree->value[0]);
 	close(fd[0]);
 	pid = fork();
 	if (pid == 0)
@@ -33,7 +31,7 @@ printf("tree value parent==> %s\n",tree->value[0]);
 		dup2(fd[1], STDOUT_FILENO);
 		ft_handle_pipe(tree->left, table);
 		close(fd[1]);
-//		exit(0);
+		exit(0);
 	}
 	else
 		close(fd[1]);

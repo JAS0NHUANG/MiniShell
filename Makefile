@@ -31,17 +31,22 @@ SRCS		=	minishell.c \
 				hashtable/ft_get_value.c \
 				hashtable/ft_monkey_hash.c \
 				hashtable/ft_free_hashtable.c \
+				hashtable/ft_delete_element.c \
+				hashtable/ft_add_element.c \
+				hashtable/ft_change_value.c \
 				builtins/ft_pwd.c \
 				builtins/ft_echo.c \
 				builtins/ft_cd.c \
 				builtins/ft_env.c \
 				builtins/ft_execve.c \
+				builtins/ft_unset.c \
 				builtins/ft_exit.c \
 				builtins/ft_export.c \
 				env/ft_create_env_hashtable.c \
 				lexer/ft_lexer.c \
 				lexer/ft_token_list.c \
 				lexer/ft_get_token_len.c \
+				lexer/ft_check_token_list.c \
 				lexer/ft_check_quote.c \
 				parser/ft_parser.c \
 				parser/ft_add_redir_node.c \

@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 19:23:00 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/21 12:08:45 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/23 20:53:37 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,12 @@ char	**ft_build_builtins(char **cmd)
 	cmd[5] = ft_strcpy(cmd[0], "env");
 	cmd[6] = calloc(5, sizeof(char));
 	cmd[6] = ft_strcpy(cmd[0], "exit");
-	return(cmd);
+	return (cmd);
 }
 
 int	ft_execve(char *str)
 {
-	char **builtins;
+	char	**builtins;
 
 	builtins = calloc(8, sizeof(char **));
 	builtins = ft_build_builtins(builtins);

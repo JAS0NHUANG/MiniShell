@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 12:03:00 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/22 18:48:14 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/23 20:52:20 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,8 @@ char	*ft_exact_path(char *cmd, char **path)
 	while (path[i])
 	{
 		tmp = ft_strjoin(path[i], cmd);
-printf("TEST PATH TESTED ===> %s\n", tmp);
 		if (access(tmp, F_OK) == 0)
-		{
 			return (tmp);
-		}
 		free(tmp);
 		i++;
 	}
@@ -44,7 +41,7 @@ void	ft_execve_1(t_ast *tree, char **cmd)
 	}
 }
 
-int		ft_execve_cmd(t_ast *tree, t_hashtable *table)
+int	ft_execve_cmd(t_ast *tree, t_hashtable *table)
 {
 	char	**str;
 	char	*path;
@@ -52,7 +49,6 @@ int		ft_execve_cmd(t_ast *tree, t_hashtable *table)
 	char	*tmp;
 
 	i = 0;
-(void)tree;	
 	path = ft_get_value(table, "PATH");
 	str = ft_split(path, ':');
 	while (str[i])

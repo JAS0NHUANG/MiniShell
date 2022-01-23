@@ -6,7 +6,7 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 18:08:00 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/14 15:23:23 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/23 21:17:31 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,11 @@ char	*ft_get_value(t_hashtable *hashtable, char *key)
 	hash_nbr = ft_monkey_hash(key, hashtable->length);
 	elem_holder = hashtable->element_array;
 	while (elem_holder[index + hash_nbr] && \
-	hash_nbr == ft_monkey_hash(elem_holder[index + hash_nbr]->key, table_len)
+		hash_nbr == ft_monkey_hash(elem_holder[index + hash_nbr]->key, table_len)
 	)
 	{
 		if (ft_strncmp(elem_holder[index + hash_nbr]->key, key, key_len) == 0)
-		{
 			return (elem_holder[index + hash_nbr]->value);
-		}
 		index++;
 	}
 	return (NULL);

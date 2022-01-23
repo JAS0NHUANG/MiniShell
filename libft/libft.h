@@ -6,7 +6,7 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 13:59:08 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/22 15:35:14 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/23 21:20:03 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,7 @@ int		ft_doingmalloc(char **split, char const *s, char c);
 void	ft_doingfree(char **split, int count);
 void	ft_fillstr(char **split, char const *s, char c);
 int		ft_countstrings(char const *s, char c);
+int		ft_isalpha(int c);
+int		ft_isdigit(int c);
+
 #endif
