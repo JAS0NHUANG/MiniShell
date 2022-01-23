@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 12:03:00 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/22 15:46:35 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/22 18:48:14 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	ft_execve_1(t_ast *tree, char **cmd)
 	if (result == -1)
 	{
 		perror("command not found");
+		exit(1);
 	}
 }
 
