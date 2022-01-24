@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:03:26 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/23 21:33:29 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/24 15:24:03 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ int			ft_cd(char **str, t_hashtable *env_table);
 void		ft_exit(char **str);
 //int			ft_env(char **argv, t_hashtable *env_ht)
 //t_hashtable	*ft_export(char **argv, t_hashtable *env_ht)
-t_hashtable	*ft_unset(char **argv, t_hashtable *env_ht)
+//t_hashtable	*ft_unset(char **argv, t_hashtable *env_ht)
 
 #endif
