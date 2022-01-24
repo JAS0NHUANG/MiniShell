@@ -42,9 +42,13 @@ SRCS		=	minishell.c \
 				parser/ft_parser.c \
 				parser/ft_add_redir_node.c \
 				parser/ft_free_ast.c \
-				builtin/ft_export.c \
-				builtin/ft_env.c \
-				builtin/ft_unset.c \
+				builtins/ft_export.c \
+				builtins/ft_env.c \
+				builtins/ft_unset.c \
+				builtins/ft_cd.c \
+				builtins/ft_echo.c \
+				builtins/ft_exit.c \
+				builtins/ft_pwd.c \
 
 INCS		=	minishell.h \
 				hashtable.h \
