@@ -6,7 +6,7 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 13:59:08 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/24 16:35:51 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/25 11:09:05 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,6 @@ int		ft_isalpha(int c);
 int		ft_isdigit(int c);
 char	**ft_split(char const *s, char c);
 void	ft_free_char_array(char **char_array);
+int		ft_atoi(const char *str);
 
 #endif

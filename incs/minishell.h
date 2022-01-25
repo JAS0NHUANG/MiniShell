@@ -6,7 +6,7 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 21:11:15 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/24 16:51:10 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/25 17:15:47 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "./lexer.h"
 # include "./parser.h"
 # include "./builtins.h"
+# include "./execution.h"
 # include "../libft/libft.h"
 
 # include <stdio.h>
@@ -25,6 +26,7 @@
 # include <fcntl.h>
 # include <sys/types.h>
 # include <sys/stat.h>
+# include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 

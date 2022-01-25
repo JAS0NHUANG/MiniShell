@@ -19,6 +19,9 @@ The tree will have all the pipes as forking point and have left and right as com
 When there is more then 1 pipe, the first pipe will be connected to the second pipe's left side.
 The second pipe will be connected to the third pipe's left side. And so on...  
 If there is redirection token, we will create a linked-list to store all redirection types and it's filename inside.  
+All the "WORD" token directly after the redirection token will be the file name, the other WORDs after the first WORD will all be put into the command's argument list.  
+(ex: `echo > a hello > b` becomes: `["echo", "hello"]/(REDIR_OUT)"a"->(REDIR_OUT)"b"` and `> a echo hello > b` will produce the same element as above.  
+
 So the command: `echo hello > filename | cat filename | grep a | wc > outfile1 -l > outfile2 ` will produce a tree like:
 ```
                             PIPE
@@ -45,8 +48,17 @@ So the command: `echo hello > filename | cat filename | grep a | wc > outfile1 -
 
 - unset  
 	Check the validity of the arguments then remove the "key/value" pair from the environment variable hashtable if found.  
+- cd  
+- echo  
+	Careful about the option "-nnnn"  
+- pwd
+- exit  
 
-## Execution and pipe
+## Execution
+
+	- Pipeline
+
+	- Redirection
 
 ## Resources:  
   - [minishell - 42 Docs](https://harm-smits.github.io/42docs/projects/minishell)

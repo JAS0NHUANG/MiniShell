@@ -6,7 +6,7 @@
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:32:58 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/25 10:11:30 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/25 17:31:15 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,36 @@ void	ft_print_tree(t_ast *ast_tree)
 	}
 }
 
+void	ft_test()
+{
+	/*
+	ft_print_token_list(token_list);
+	ft_print_tree(ast_tree);
+	char *str[4];
+	str[0] = "cd";
+	str[2] = "abc";
+	str[1] = "123";
+	str[3] = 0;
+	if (ast_tree->left && ast_tree->right)
+	{
+		env_hashtable = ft_export(ast_tree->left->value, env_hashtable); 
+		printf("left value : %s\n", ast_tree->left->value[1]);
+		printf("right value : %s\n", ast_tree->right->value[1]);
+		env_hashtable = ft_unset(ast_tree->right->value, env_hashtable); 
+		ft_cd(str, &env_hashtable);
+		ft_pwd();
+	}
+	*/
+}
+
 void	ft_minishell_loop(char *prompt, t_hashtable *env_hashtable)
 {
 	char	*input;
 	t_token	*token_list;
 	t_ast	*ast_tree;
 
+	token_list = NULL;
+	ast_tree = NULL;
 	while (1)
 	{
 		input = readline(prompt);
@@ -86,25 +110,22 @@ void	ft_minishell_loop(char *prompt, t_hashtable *env_hashtable)
 		else
 		{
 			token_list = ft_lexer(input);
-			printf("input: %s\n", input);
-			ft_print_token_list(token_list);
 			ast_tree = ft_create_ast(token_list);
-			ft_print_tree(ast_tree);
-			ft_putstr_fd("still ok", 1);
-			if (ast_tree->left && ast_tree->right)
+			if (!ast_tree->left && !ast_tree->right)
 			{
-				env_hashtable = ft_export(ast_tree->left->value, env_hashtable); 
-				printf("left value : %s\n", ast_tree->left->value[1]);
-				printf("right value : %s\n", ast_tree->right->value[1]);
-				env_hashtable = ft_unset(ast_tree->right->value, env_hashtable); 
-				char *str[3];
-				str[0] = "cd";
-				str[1] = "..";
-				str[2] = 0;
-				ft_cd(str, &env_hashtable);
+				if (ft_strncmp("exit", ast_tree->value[0], 4) == 0)
+					ft_exit(ast_tree->value, ast_tree, env_hashtable, token_list);
+				if (ft_strncmp("export", ast_tree->value[0], 6) == 0)
+					ft_export(ast_tree->value, env_hashtable);
+				else
+					ft_handle_pipe(ast_tree, env_hashtable);
 			}
-			ft_free_ast(ast_tree);
-			ft_free_token_list(token_list);
+			else
+				ft_handle_pipe(ast_tree, env_hashtable);
+			if (ast_tree)
+				ft_free_ast(ast_tree);
+			if (token_list)
+				ft_free_token_list(token_list);
 		}
 		free(input);
 	}
@@ -119,9 +140,11 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	env_hashtable = ft_create_env_hashtable(env);
-	prompt = "\n|( o)═( o)| >";
+	printf("\n");
+	prompt = "|( o)═( o)| >";
 	ft_print_title();
 	ft_minishell_loop(prompt, env_hashtable);
-	ft_free_hashtable(env_hashtable);
+	if (env_hashtable)
+		ft_free_hashtable(env_hashtable);
 	return (0);
 }

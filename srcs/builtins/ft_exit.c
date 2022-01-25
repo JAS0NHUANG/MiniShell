@@ -6,69 +6,65 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 17:08:57 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/25 09:56:21 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/25 15:38:07 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_exit_check(char **str)
+int	ft_isdigit_str(char *str)
 {
 	int	i;
-	int	letter;
 
 	i = 0;
-	letter = 0;
-	while (str[1][i])
+	if (str[i] == '-')
+		i++;
+	while (str[i])
 	{
-		if (str[1][i] <= 0 && str[1][i] >= 9)
-			letter = 1;
-		if (letter == 1)
-			return (2);
+		if (str[i] < '0' || str[i] > '9')
+			return (0);
 		i++;
 	}
 	return (1);
 }
 
-int	ft_exit_check_1(char **str)
+int	ft_convert_exit_code(char *str)
 {
 	long	nb;
 
-////////////// ATOI///////////////
-
-	nb = atoi(str[1]);
-	if ( nb >= 0 && nb <= 255)
-		return (nb);
+	nb = ft_atoi((const char*)str);
 	if (nb < 0)
-		nb = -nb;
+		nb = 256 - (-nb % 256);
 	return (nb % 256);
 }
 
-void	ft_exit(char **str)
+void	ft_exit(char **str, t_ast *ast, t_hashtable *ht, t_token *tokens)
 {
 	int	i;
 
-	if (str[1] == 0)
-	{
-		/// FREE;
+	i = 0;
+	if (!str[1])
 		printf("exit\n");
-		exit(0);
-	}
-	else if (str[2] != 0)
-	{
-		if (ft_exit_check(str) == 1)
-			printf("exit: too many arguments\n");
-		else
-		{
-			/// FREE;
-			printf("exit: %s: numeric argument required\n", str[1]);
-			exit(2);
-		}
-	}
 	else
 	{
-		i = ft_exit_check_1(str);
-		printf("exit\n");
-		exit(i);
+		if (ft_isdigit_str(str[1]) && str[2])
+		{
+			printf("exit: too many arguments\n");
+			return ;
+		}
+		else if (!ft_isdigit_str(str[1]))
+		{
+			printf("exit: %s: numeric argument required\n", str[1]);
+			i = 2;
+		}
+		else
+			i = ft_convert_exit_code(str[1]);
 	}
+	if (ast)
+		ft_free_ast(ast);
+	if (ht)
+		ft_free_hashtable(ht);
+	if (tokens)
+		ft_free_token_list(tokens);
+	exit(i);
 }

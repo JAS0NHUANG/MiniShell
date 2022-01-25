@@ -49,6 +49,9 @@ SRCS		=	minishell.c \
 				builtins/ft_echo.c \
 				builtins/ft_exit.c \
 				builtins/ft_pwd.c \
+				execution/ft_pipe.c \
+				execution/ft_tools_pipe.c \
+				execution/ft_execute_builtin.c \
 
 INCS		=	minishell.h \
 				hashtable.h \
@@ -77,6 +80,9 @@ $(LIBFT_A)		:
 					mv $(LIBFT_DIR)/$(LIBFT_A) .
 
 all			:	$(NAME)
+
+leak_check	:	$(OBJS) $(LIBFT_A)
+			$(CC) -o $@ $(OBJS) -I $(INCS_DIR) $(LIBFT_A) $(READLINE) $(FSAN)
 
 clean		:
 			$(RM) $(OBJS) $(LIBFT_A)

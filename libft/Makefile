@@ -28,6 +28,7 @@ SRCS			=	ft_arraylen.c \
 				ft_isdigit.c \
 				ft_split.c \
 				ft_free_char_array.c \
+				ft_atoi.c \
 
 INCS			=	libft.h
 
