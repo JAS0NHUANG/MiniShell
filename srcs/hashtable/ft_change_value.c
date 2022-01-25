@@ -4,21 +4,19 @@ t_element	*ft_get_element(t_hashtable *ht, char *key)
 {
 
 	int			index;
+	int			elem_index;
 	int			key_len;
-	int			table_len;
 	int			hash_nbr;
-	t_element	**elem_holder;
 
 	index = 0;
 	key_len = ft_strlen(key);
-	table_len = ht->length;
 	hash_nbr = ft_monkey_hash(key, ht->length);
-	elem_holder = ht->element_array;
-	while (elem_holder[index + hash_nbr] && \
-		hash_nbr == ft_monkey_hash(elem_holder[index + hash_nbr]->key, table_len))
+	while (index < ht->length)
 	{
-		if (ft_strncmp(elem_holder[index + hash_nbr]->key, key, key_len) == 0)
-			return (elem_holder[index + hash_nbr]);
+		elem_index = (index + hash_nbr) % ht->length;
+		if (ht->element_array[elem_index] && \
+			ft_strncmp(ht->element_array[elem_index]->key, key, key_len) == 0)
+			return (ht->element_array[elem_index]);
 		index++;
 	}
 	return (NULL);
