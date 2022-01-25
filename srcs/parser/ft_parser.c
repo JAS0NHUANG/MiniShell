@@ -6,7 +6,7 @@
 /*   By: jahuang <jahuang@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 20:00:59 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/20 10:42:41 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/25 18:20:18 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ t_ast	*ft_create_ast_node(t_token *token_list, int nb_element)
 	{
 		if (ft_is_redir(token_list->token_type) == 1)
 		{
+			node->node_type = NODE_LIST;
 			node->redir_list = ft_add_redir_node(node->redir_list, token_list);
 			token_list = token_list->next;
 			nb_element--;

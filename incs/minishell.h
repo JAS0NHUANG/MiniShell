@@ -6,7 +6,7 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 21:11:15 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/25 17:15:47 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/25 18:04:50 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include "./builtins.h"
 # include "./execution.h"
 # include "../libft/libft.h"
+# include "./redirection.h"
 
 # include <stdio.h>
 # include <stdlib.h>

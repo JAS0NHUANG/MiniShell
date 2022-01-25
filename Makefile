@@ -1,5 +1,6 @@
 # **************************************************************************** #
-#       COMANDS                                                                # # **************************************************************************** #
+#       COMANDS                                                                #
+# **************************************************************************** #
 CC			=	gcc
 RM			=	rm -rf
 AR			=	ar rcs
@@ -52,6 +53,7 @@ SRCS		=	minishell.c \
 				execution/ft_pipe.c \
 				execution/ft_tools_pipe.c \
 				execution/ft_execute_builtin.c \
+				redirection/ft_handle_redir.c \
 
 INCS		=	minishell.h \
 				hashtable.h \

@@ -6,7 +6,7 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 10:54:45 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/20 10:57:47 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/25 18:19:30 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 enum	e_node_type {
 	NODE_CMD = 0,
 	NODE_PIPE,
+	NODE_LIST,
 };
 
 enum	e_redir_type {
