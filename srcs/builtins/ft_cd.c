@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 21:39:26 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/25 08:17:07 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/25 09:57:55 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ static int		ft_check_error(char **str)
 	struct stat	*buf;
 	char	*err_msg;
 
-	buf = NULL;
 	err_msg = NULL;
+	buf = calloc(1, sizeof(struct stat));
 	if (ft_strlen(str[1]) > 255)
 		err_msg = ft_strjoin(str[1], "file name too long");
 	else if (str[2] != 0)
@@ -58,9 +58,7 @@ static int		ft_check_error(char **str)
 		err_msg = ft_strjoin(str[1], " No such file or directory");
 	else if (lstat((const char *)str[1], buf) == -1)
 		err_msg = ft_strdup("Error");
-	else if (!S_ISDIR(buf->st_mode))
-		err_msg = ft_strjoin("not a directory: ", str[1]);
-	else if (!access(str[1], X_OK))
+	else if (access(str[1], X_OK) == -1)
 		err_msg = ft_strjoin("permission denied: ", str[1]);
 	if (err_msg)
 	{
