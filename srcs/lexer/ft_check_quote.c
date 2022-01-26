@@ -6,7 +6,7 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:14:59 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/13 18:14:36 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/26 19:02:58 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,26 @@ int	ft_check_quote(char *input)
 		input++;
 	}
 	return (ret);
+}
+
+int	ft_check_pipe(t_token *list)
+{
+	t_token	*tmp;
+
+	tmp = list;
+	if (!list)
+		return (-2);
+	if (list->value[0] == '|')
+		return (-1);
+	while (list && tmp->next != NULL)
+	{
+		tmp = list->next;
+		if ((tmp->value[0] == '<' && list->value[0] == '|')
+			|| (tmp->value[0] == '>' && list->value[0] == '|'))
+			return (-1);
+		list = list->next;
+	}
+	if (list->value[0] == '|')
+		return (-1);
+	return (0);
 }

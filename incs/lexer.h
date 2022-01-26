@@ -6,7 +6,7 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 21:03:52 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/26 13:10:59 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/26 18:02:01 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,5 @@ t_token		*ft_fill_list(t_token *token_list, char *input, int token_len);
 void		ft_free_token_list(t_token *token_list);
 int			ft_get_token_len(char *input);
 int			ft_check_quote(char *input);
-
+int			ft_check_pipe(t_token *list);
 #endif
