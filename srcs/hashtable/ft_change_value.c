@@ -1,8 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_change_value.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/26 17:24:11 by antton-t          #+#    #+#             */
+/*   Updated: 2022/01/26 17:24:13 by antton-t         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 t_element	*ft_get_element(t_hashtable *ht, char *key)
 {
-
 	int			index;
 	int			elem_index;
 	int			key_len;
@@ -22,10 +33,11 @@ t_element	*ft_get_element(t_hashtable *ht, char *key)
 	return (NULL);
 }
 
-t_hashtable	*ft_change_value(t_hashtable *ht, char *key, char *value, int is_append)
+t_hashtable	*ft_change_value(t_hashtable *ht, char *key, char *value,
+		int is_append)
 {
 	t_element	*element;
-	char	*value_holder;
+	char		*value_holder;
 
 	element = ft_get_element(ht, key);
 	if (!element)

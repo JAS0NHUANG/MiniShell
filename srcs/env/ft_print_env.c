@@ -2,12 +2,11 @@
 
 void	ft_print_env(t_hashtable *env_hashtable, int is_export)
 {
-	int		index;
+	int			index;
 	t_element	*env_element;
-	
 
 	index = 0;
-	while(index < env_hashtable->length)
+	while (index < env_hashtable->length)
 	{
 		if (env_hashtable->element_array[index])
 		{

@@ -6,7 +6,7 @@
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:32:58 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/26 13:25:57 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/26 17:39:57 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,14 +83,38 @@ void	ft_test()
 	*/
 }
 
+void	ft_minishell_tree(t_hashtable *env_hashtable, t_token *token_list)
+{
+	t_ast	*ast_tree;
+
+	ast_tree = NULL;
+	ft_handle_heardoc(token_list);
+	ast_tree = ft_create_ast(token_list);
+	if (!ast_tree->left && !ast_tree->right)
+	{
+		if (ft_strncmp("exit", ast_tree->value[0], 5) == 0)
+			ft_exit(ast_tree->value, ast_tree, env_hashtable, token_list);
+		if (ft_strncmp("export", ast_tree->value[0], 7) == 0)
+			ft_export(ast_tree->value, env_hashtable);
+		else
+			ft_handle_pipe(ast_tree, env_hashtable);
+	}
+	else
+		ft_handle_pipe(ast_tree, env_hashtable);
+	if (ast_tree)
+		ft_free_ast(ast_tree);
+	if (token_list)
+		ft_free_token_list(token_list);
+}
+
 void	ft_minishell_loop(char *prompt, t_hashtable *env_hashtable)
 {
 	char	*input;
 	t_token	*token_list;
-	t_ast	*ast_tree;
+//	t_ast	*ast_tree;
 
 	token_list = NULL;
-	ast_tree = NULL;
+//	ast_tree = NULL;
 	while (1)
 	{
 		input = readline(prompt);
@@ -110,7 +134,7 @@ void	ft_minishell_loop(char *prompt, t_hashtable *env_hashtable)
 		else
 		{
 			token_list = ft_lexer(input);
-			ft_handle_heardoc(token_list);
+/*			ft_handle_heardoc(token_list);
 			ast_tree = ft_create_ast(token_list);
 			if (!ast_tree->left && !ast_tree->right)
 			{
@@ -127,6 +151,8 @@ void	ft_minishell_loop(char *prompt, t_hashtable *env_hashtable)
 				ft_free_ast(ast_tree);
 			if (token_list)
 				ft_free_token_list(token_list);
+*/
+			ft_minishell_tree(env_hashtable, token_list);
 		}
 		free(input);
 	}
