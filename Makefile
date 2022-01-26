@@ -54,6 +54,7 @@ SRCS		=	minishell.c \
 				execution/ft_tools_pipe.c \
 				execution/ft_execute_builtin.c \
 				redirection/ft_handle_redir.c \
+				redirection/ft_handle_heardoc.c \
 
 INCS		=	minishell.h \
 				hashtable.h \

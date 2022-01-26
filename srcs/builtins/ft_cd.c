@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 21:39:26 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/25 09:57:55 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/26 00:19:39 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,30 @@ static void	ft_do_cd(char **str, t_hashtable **env_table)
 	free(tmp);
 }
 
+static void	ft_go_home(t_hashtable **env_table)
+{
+	char	*tmp;
+	char	*home;
+
+	tmp = NULL;
+	home = ft_get_value(*env_table, "HOME");
+	tmp = getcwd(tmp, BUFFER_SIZE);
+	if (chdir(home) == -1)
+	{
+		if (home)
+		{
+			free(tmp);
+			free(home);
+		}
+		perror("Minishell: cd: ");
+		return ;
+	}
+	*env_table = ft_change_value(*env_table, "OLDPWD", tmp, 0);
+	ft_change_new_pwd(env_table);
+	free(tmp);
+	free(home);
+}
+
 static int		ft_check_error(char **str)
 {
 	struct stat	*buf;
@@ -73,7 +97,9 @@ static int		ft_check_error(char **str)
 
 int	ft_cd(char **str, t_hashtable **env_table)
 {
-	if (ft_check_error(str))
+	if (str[1] == 0)
+		ft_go_home(env_table);
+	else if (ft_check_error(str) == 1)
 		return (1);
 	else
 	{

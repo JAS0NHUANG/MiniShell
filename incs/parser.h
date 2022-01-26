@@ -6,7 +6,7 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 10:54:45 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/25 18:19:30 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/26 13:11:27 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ enum	e_redir_type {
 typedef struct s_redir {
 	char			*value;
 	int				redir_type;
+	int				fd_heredoc;
 	struct s_redir	*next;
 }				t_redir;
 

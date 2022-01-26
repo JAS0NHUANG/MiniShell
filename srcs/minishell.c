@@ -6,7 +6,7 @@
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:32:58 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/25 17:31:15 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/26 13:25:57 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,12 +110,13 @@ void	ft_minishell_loop(char *prompt, t_hashtable *env_hashtable)
 		else
 		{
 			token_list = ft_lexer(input);
+			ft_handle_heardoc(token_list);
 			ast_tree = ft_create_ast(token_list);
 			if (!ast_tree->left && !ast_tree->right)
 			{
-				if (ft_strncmp("exit", ast_tree->value[0], 4) == 0)
+				if (ft_strncmp("exit", ast_tree->value[0], 5) == 0)
 					ft_exit(ast_tree->value, ast_tree, env_hashtable, token_list);
-				if (ft_strncmp("export", ast_tree->value[0], 6) == 0)
+				if (ft_strncmp("export", ast_tree->value[0], 7) == 0)
 					ft_export(ast_tree->value, env_hashtable);
 				else
 					ft_handle_pipe(ast_tree, env_hashtable);
@@ -132,11 +133,24 @@ void	ft_minishell_loop(char *prompt, t_hashtable *env_hashtable)
 	return ;
 }
 
+void	ft_handle_signal(int s)
+{
+	(void)s;
+
+	write(1, "\n", 1);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	char		*prompt;
 	t_hashtable	*env_hashtable;
 
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, ft_handle_signal);
+	
 	(void)argc;
 	(void)argv;
 	env_hashtable = ft_create_env_hashtable(env);

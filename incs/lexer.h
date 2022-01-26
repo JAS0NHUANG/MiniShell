@@ -6,7 +6,7 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 21:03:52 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/18 16:28:59 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/26 13:10:59 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ enum	e_token_type {
 
 typedef struct s_token {
 	char			*value;
+	int				fd;
 	int				token_type;
 	struct s_token	*prev;
 	struct s_token	*next;
