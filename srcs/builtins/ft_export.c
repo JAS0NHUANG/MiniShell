@@ -6,7 +6,7 @@
 /*   By: jahuang <jahuang@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 06:51:48 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/24 17:07:00 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/26 17:15:21 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ char	**ft_get_key_value(char *argument, int export_type)
 
 t_hashtable	*ft_do_export(char **argv, t_hashtable *env_ht)
 {
-	int	index;
-	int	export_type;
+	int		index;
+	int		export_type;
 	char	**key_value;
 
 	index = 1;
@@ -97,7 +97,6 @@ t_hashtable	*ft_do_export(char **argv, t_hashtable *env_ht)
 
 t_hashtable	*ft_export(char **argv, t_hashtable *env_ht)
 {
-
 	if (!argv[1])
 	{
 		ft_print_env(env_ht, 1);

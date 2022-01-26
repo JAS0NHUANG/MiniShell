@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 22:07:15 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/26 13:35:59 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/26 16:52:06 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	ft_handle_heardoc(t_token *list)
 	t_token	*tmp;
 
 	tmp = list;
-
 	while (tmp)
 	{
 		if (tmp->token_type == TOKEN_LESSLESSER)
@@ -66,7 +65,7 @@ void	ft_handle_heardoc(t_token *list)
 			ft_store_data(tmp->next);
 			tmp = tmp->next;
 		}
-	tmp = tmp->next;
+		tmp = tmp->next;
 	}
 	return ;
 }

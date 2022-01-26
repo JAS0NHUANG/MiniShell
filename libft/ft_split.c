@@ -6,14 +6,14 @@
 /*   By: jahuang <jahuang@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 11:04:18 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/24 16:29:29 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/26 16:48:01 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdlib.h>
 
-static void		ft_free_result(size_t word_index, char **result)
+static void	ft_free_result(size_t word_index, char **result)
 {
 	size_t	index;
 
@@ -63,7 +63,7 @@ static size_t	ft_word_len(const char *s, char c, size_t index)
 	return (length);
 }
 
-static void		ft_writer(char **result, char *s, char c)
+static void	ft_writer(char **result, char *s, char c)
 {
 	size_t	index;
 	size_t	word_len;
@@ -90,7 +90,7 @@ static void		ft_writer(char **result, char *s, char c)
 	result[word_index] = (0);
 }
 
-char			**ft_split(const char *s, char c)
+char	**ft_split(const char *s, char c)
 {
 	size_t	word_count;
 	char	**result;

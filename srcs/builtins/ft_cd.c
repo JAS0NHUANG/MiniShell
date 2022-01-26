@@ -6,13 +6,11 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 21:39:26 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/26 00:19:39 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/26 17:16:24 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/// NEED JASON TO CHANGE THE PATH////
 
 static void	ft_change_new_pwd(t_hashtable **env_table)
 {
@@ -67,10 +65,10 @@ static void	ft_go_home(t_hashtable **env_table)
 	free(home);
 }
 
-static int		ft_check_error(char **str)
+static int	ft_check_error(char **str)
 {
 	struct stat	*buf;
-	char	*err_msg;
+	char		*err_msg;
 
 	err_msg = NULL;
 	buf = calloc(1, sizeof(struct stat));
