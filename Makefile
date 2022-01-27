@@ -46,6 +46,7 @@ SRCS		=	minishell.c \
 				lexer/ft_token_list.c \
 				lexer/ft_get_token_len.c \
 				lexer/ft_check_quote.c \
+				lexer/ft_expansion.c \
 				parser/ft_parser.c \
 				parser/ft_add_redir_node.c \
 				parser/ft_free_ast.c \

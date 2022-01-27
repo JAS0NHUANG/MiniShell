@@ -6,7 +6,7 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 18:08:00 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/27 12:26:32 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/27 06:22:10 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ char	*ft_get_value(t_hashtable *hashtable, char *key)
 	int			hash;
 	t_element	**elem_holder;
 
+	if (!key)
+		return (NULL);
 	index = 0;
 	key_len = ft_strlen(key);
 	table_len = hashtable->length;
