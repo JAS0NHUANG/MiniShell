@@ -6,7 +6,7 @@
 /*   By: jahuang <jahuang@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 06:52:03 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/23 06:52:08 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/27 09:54:25 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	ft_env(char **argv, t_hashtable *env_ht)
 {
-
 	if (argv[1])
 		return (1);
 	ft_print_env(env_ht, 0);

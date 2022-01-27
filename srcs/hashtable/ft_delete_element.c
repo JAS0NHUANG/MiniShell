@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_delete_element.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/27 12:25:49 by jahuang           #+#    #+#             */
+/*   Updated: 2022/01/27 12:25:51 by jahuang          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "hashtable.h"
 #include "minishell.h"
 
 t_hashtable	*ft_delete_element(t_hashtable *ht, char *key)
 {
-	int		hash_index;
+	int			hash_index;
 	t_element	**elem_arr;
 
 	hash_index = ft_monkey_hash(key, ht->length);

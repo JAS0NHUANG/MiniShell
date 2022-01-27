@@ -6,7 +6,7 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 14:29:00 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/21 23:59:29 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/27 12:21:13 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ t_element	*ft_create_element(char *key, char *value);
 t_hashtable	*ft_add_element(t_hashtable *ht, char *key, char *value);
 t_hashtable	*ft_delete_element(t_hashtable *ht, char *key);
 void		ft_print_hashtable(t_hashtable *hashtable, char *delimeter);
-int		ft_monkey_hash(char *str, int length);
+int			ft_monkey_hash(char *str, int length);
 char		*ft_get_value(t_hashtable *hashtable, char *key);
-t_hashtable	*ft_change_value(t_hashtable *ht, char *key, char *value, int is_append);
+t_hashtable	*ft_ch_value(t_hashtable *ht, char *key, char *value, int is_apnd);
 void		ft_free_hashtable(t_hashtable *hashtable);
 void		ft_free_element(t_element *element);
 

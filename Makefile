@@ -30,7 +30,7 @@ SRCS		=	minishell.c \
 				hashtable/ft_add_element.c \
 				hashtable/ft_delete_element.c \
 				hashtable/ft_get_value.c \
-				hashtable/ft_change_value.c \
+				hashtable/ft_ch_value.c \
 				hashtable/ft_monkey_hash.c \
 				hashtable/ft_free_hashtable.c \
 				env/ft_create_env_hashtable.c \
@@ -50,7 +50,8 @@ SRCS		=	minishell.c \
 				builtins/ft_exit.c \
 				builtins/ft_pwd.c \
 				execution/ft_pipe.c \
-				execution/ft_tools_pipe.c \
+				execution/ft_run_single_cmd.c \
+				execution/ft_execve_cmd.c \
 				execution/ft_execute_builtin.c \
 
 INCS		=	minishell.h \

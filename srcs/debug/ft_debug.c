@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_debug.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/27 12:27:47 by jahuang           #+#    #+#             */
+/*   Updated: 2022/01/27 12:30:50 by jahuang          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 /* function to print out token_list for testing purpous. */
 void	ft_print_token_list(t_token *token_list)
 {
@@ -12,7 +24,6 @@ void	ft_print_token_list(t_token *token_list)
 	}
 	return ;
 }
-
 
 void	ft_print_tree(t_ast *ast_tree)
 {
@@ -35,21 +46,22 @@ void	ft_print_tree(t_ast *ast_tree)
 	}
 }
 
-void	ft_test(t_token *token_list, t_ast *ast_tree, t_hashtable *env_hashtable)
+void	ft_test(t_token *token_list, t_ast *ast, t_hashtable *env_hashtable)
 {
+	char	*str[4];
+
 	ft_print_token_list(token_list);
-	ft_print_tree(ast_tree);
-	char *str[4];
+	ft_print_tree(ast);
 	str[0] = "cd";
 	str[2] = "abc";
 	str[1] = "123";
 	str[3] = 0;
-	if (ast_tree->left && ast_tree->right)
+	if (ast->left && ast->right)
 	{
-		env_hashtable = ft_export(ast_tree->left->value, env_hashtable); 
-		printf("left value : %s\n", ast_tree->left->value[1]);
-		printf("right value : %s\n", ast_tree->right->value[1]);
-		env_hashtable = ft_unset(ast_tree->right->value, env_hashtable); 
+		env_hashtable = ft_export(ast_tree->left->value, env_hashtable);
+		printf("left value : %s\n", ast->left->value[1]);
+		printf("right value : %s\n", ast->right->value[1]);
+		env_hashtable = ft_unset(ast->right->value, env_hashtable);
 		ft_cd(str, &env_hashtable);
 		ft_pwd();
 	}

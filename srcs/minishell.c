@@ -6,42 +6,25 @@
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:32:58 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/27 02:37:21 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/27 13:01:37 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_run_single_cmd(t_ast *ast_tree, t_hashtable **env_hashtable, t_token *token_list)
+void	ft_handle_input(char *input, t_hashtable **env_ht)
 {
-	if (ft_strncmp("exit", ast_tree->value[0], 4) == 0)
-		ft_exit(ast_tree->value, ast_tree, *env_hashtable, token_list);
-	if (ft_strncmp("export", ast_tree->value[0], 6) == 0)
-		*env_hashtable = ft_export(ast_tree->value, *env_hashtable);
-	if (ft_strncmp("cd", ast_tree->value[0], 2) == 0)
-		ft_cd(ast_tree->value, env_hashtable);
-	if (ft_strncmp("unset", ast_tree->value[0], 5) == 0)
-		*env_hashtable = ft_unset(ast_tree->value, *env_hashtable);
-	else
-		ft_handle_pipe(ast_tree, *env_hashtable);
-}
-
-void	ft_run_cmd(char *input, t_hashtable **env_hashtable)
-{
-	t_token *token_list;
-	t_ast	*ast_tree;
+	t_token	*token_list;
+	t_ast	*ast;
 
 	token_list = ft_lexer(input);
-	ast_tree = ft_create_ast(token_list);
-	/*
-	ft_test(token_list, ast_tree, env_hashtable);
-	*/
-	if (!ast_tree->left && !ast_tree->right)
-		ft_run_single_cmd(ast_tree, env_hashtable, token_list);
+	ast = ft_create_ast(token_list);
+	if (!ast->left && !ast->right)
+		ft_run_single_cmd(ast, env_ht, token_list);
 	else
-		ft_handle_pipe(ast_tree, *env_hashtable);
-	if (ast_tree)
-		ft_free_ast(ast_tree);
+		ft_handle_pipe(ast, *env_ht);
+	if (ast)
+		ft_free_ast(ast);
 	if (token_list)
 		ft_free_token_list(token_list);
 }
@@ -54,10 +37,9 @@ int	ft_check_syntax_error(char *input)
 		return (1);
 	}
 	return (0);
-
 }
 
-void	ft_minishell_loop(char *prompt, t_hashtable **env_hashtable, char **input)
+void	ft_minishell_loop(char *prompt, t_hashtable **env_ht, char **input)
 {
 	while (1)
 	{
@@ -78,7 +60,7 @@ void	ft_minishell_loop(char *prompt, t_hashtable **env_hashtable, char **input)
 			free(*input);
 			continue ;
 		}
-		ft_run_cmd(*input, env_hashtable);
+		ft_handle_input(*input, env_ht);
 		if (*input)
 			free(*input);
 	}
@@ -100,18 +82,18 @@ static void	ft_print_title(void)
 int	main(int argc, char **argv, char **env)
 {
 	char		*prompt;
-	t_hashtable	*env_hashtable;
+	t_hashtable	*env_ht;
 	char		*input;
 
 	(void)argc;
 	(void)argv;
-	env_hashtable = ft_create_env_hashtable(env);
+	env_ht = ft_create_env_hashtable(env);
 	printf("\n");
 	prompt = "|( o)═( o)| >";
 	ft_print_title();
 	input = NULL;
-	ft_minishell_loop(prompt, &env_hashtable, &input);
-	if (env_hashtable)
-		ft_free_hashtable(env_hashtable);
+	ft_minishell_loop(prompt, &env_ht, &input);
+	if (env_ht)
+		ft_free_hashtable(env_ht);
 	return (0);
 }

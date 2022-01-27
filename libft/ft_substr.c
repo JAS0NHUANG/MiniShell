@@ -6,7 +6,7 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 16:09:54 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/14 15:52:46 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/27 12:20:04 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,3 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	result[index] = '\0';
 	return (result);
 }
-
