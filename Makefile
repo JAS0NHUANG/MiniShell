@@ -1,6 +1,5 @@
 # **************************************************************************** #
-#       COMANDS                                                                #
-# **************************************************************************** #
+#       COMANDS                                                                # # **************************************************************************** #
 CC			=	gcc
 RM			=	rm -rf
 AR			=	ar rcs
@@ -28,7 +27,10 @@ INCS_DIR	=	incs
 SRCS		=	minishell.c \
 				hashtable/ft_create_hashtable.c \
 				hashtable/ft_create_element.c \
+				hashtable/ft_add_element.c \
+				hashtable/ft_delete_element.c \
 				hashtable/ft_get_value.c \
+				hashtable/ft_ch_value.c \
 				hashtable/ft_monkey_hash.c \
 				hashtable/ft_free_hashtable.c \
 				builtins/ft_pwd.c \
@@ -39,6 +41,7 @@ SRCS		=	minishell.c \
 				builtins/ft_exit.c \
 				builtins/ft_export.c \
 				env/ft_create_env_hashtable.c \
+				env/ft_print_env.c \
 				lexer/ft_lexer.c \
 				lexer/ft_token_list.c \
 				lexer/ft_get_token_len.c \
@@ -46,6 +49,17 @@ SRCS		=	minishell.c \
 				parser/ft_parser.c \
 				parser/ft_add_redir_node.c \
 				parser/ft_free_ast.c \
+				builtins/ft_export.c \
+				builtins/ft_env.c \
+				builtins/ft_unset.c \
+				builtins/ft_cd.c \
+				builtins/ft_echo.c \
+				builtins/ft_exit.c \
+				builtins/ft_pwd.c \
+				execution/ft_pipe.c \
+				execution/ft_run_single_cmd.c \
+				execution/ft_execve_cmd.c \
+				execution/ft_execute_builtin.c \
 
 INCS		=	minishell.h \
 				hashtable.h \
@@ -74,6 +88,9 @@ $(LIBFT_A)		:
 					mv $(LIBFT_DIR)/$(LIBFT_A) .
 
 all			:	$(NAME)
+
+leak_check	:	$(OBJS) $(LIBFT_A)
+			$(CC) -o $@ $(OBJS) -I $(INCS_DIR) $(LIBFT_A) $(READLINE) $(FSAN)
 
 clean		:
 			$(RM) $(OBJS) $(LIBFT_A)

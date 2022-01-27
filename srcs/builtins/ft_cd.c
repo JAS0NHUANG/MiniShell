@@ -6,66 +6,91 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 21:39:26 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/21 13:49:56 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/27 12:49:58 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/// NEED JASON TO CHANGE THE PATH////
-
-/*
-char	*ft_change_old_pwd(char *buf, t_hastable *env_table)
+static void	ft_update_pwd(t_hashtable **env_table, char *old_pwd)
 {
-	buf = OLD_PWD
-}
-*/
+	char	*pwd;
 
-/*
-char	*ft_change_new_pwd(void)
-{
-	char	*tmp;
-
-	tmp = getcwd(tmp, BUFFER_SIZE);
-	return (tmp);
-}
-*/
-
-void	ft_cd_42(char **str, t_hashtable *env_table)
-{
-	(void)env_table;
-	char	*tmp;
-
-	tmp = NULL;
-	tmp = getcwd(tmp, BUFFER_SIZE);
-	chdir(str[1]);
-
-//	ft_change_old_pwd(buf, env_table);
-//	ft_change_new_pwd();
-	free(tmp);
+	pwd = NULL;
+	pwd = getcwd(pwd, BUFFER_SIZE);
+	*env_table = ft_ch_value(*env_table, "PWD", pwd, 0);
+	*env_table = ft_ch_value(*env_table, "OLDPWD", old_pwd, 0);
+	if (pwd)
+		free(pwd);
 }
 
-int		ft_cd(char **str, t_hashtable *env_table)
+static void	ft_do_cd(char **str_array, t_hashtable **env_table)
+{
+	char	*old_pwd;
+
+	old_pwd = NULL;
+	old_pwd = getcwd(old_pwd, BUFFER_SIZE);
+	if (chdir(str_array[1]) == -1)
+	{
+		if (old_pwd)
+			free(old_pwd);
+		perror("Minishell: cd: ");
+		return ;
+	}
+	ft_update_pwd(env_table, old_pwd);
+	free(old_pwd);
+}
+
+static char	*ft_make_err_msg(char **str_array, struct stat **buf)
+{
+	char		*err_msg;
+
+	err_msg = NULL;
+	if (!str_array[1])
+		err_msg = ft_strdup("please provide a relative or absolute path");
+	else if (ft_strlen(str_array[1]) > 255)
+		err_msg = ft_strjoin(str_array[1], "file name too long");
+	else if (str_array[2] != 0)
+		err_msg = ft_strdup("too many arguments");
+	else if (access(str_array[1], F_OK) == -1)
+		err_msg = ft_strjoin(str_array[1], " No such file or directory");
+	else if (lstat((const char *)str_array[1], *buf) == -1)
+		err_msg = ft_strdup("Error");
+	else if (access(str_array[1], X_OK) == -1)
+		err_msg = ft_strjoin("permission denied: ", str_array[1]);
+	return (err_msg);
+}
+
+static int	ft_check_error(char **str_array)
 {
 	struct stat	*buf;
+	char		*err_msg;
 
-	buf = NULL;
-	if (ft_strlen(str[1]) > 255)
-		printf("cd: %s file name too long \n", str[1]);
-	else if (str[2] != 0)
-		printf("cd: too many arguments\n");
-	else if (!access(str[1], F_OK))
-		printf("cd: %s: No such file or directory\n", str[1]);
-	else if (lstat((const char *)str[1], buf) == -1)
-		printf("Error\n");
-	else if (!S_ISDIR(buf->st_mode))
-		printf("cd: not a directory: %s\n", str[1]);
-	else if (!access(str[1], X_OK))
-		printf("cd: permission denied: %s", str[1]);
-	else
+	err_msg = NULL;
+	buf = calloc(1, sizeof(struct stat));
+	err_msg = ft_make_err_msg(str_array, &buf);
+	if (buf)
+		free(buf);
+	if (err_msg)
 	{
-		ft_cd_42(str, env_table);
+		ft_putstr_fd("cd: ", 2);
+		ft_putstr_fd(err_msg, 2);
+		ft_putstr_fd("\n", 2);
+		free(err_msg);
+
 		return (1);
 	}
 	return (0);
+}
+
+int	ft_cd(char **str_array, t_hashtable **env_table)
+{
+	if (ft_check_error(str_array))
+		return (1);
+	else
+	{
+		ft_do_cd(str_array, env_table);
+		return (0);
+	}
+	return (1);
 }

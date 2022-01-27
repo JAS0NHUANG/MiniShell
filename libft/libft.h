@@ -35,5 +35,10 @@ char	*ft_strdup(const char *s);
 int		ft_index_of(char *str, char c);
 void	ft_putstr_array(char **str_array);
 void	ft_putstr_fd(char *s, int fd);
+int		ft_isalpha(int c);
+int		ft_isdigit(int c);
+char	**ft_split(char const *s, char c);
+void	ft_free_char_array(char **char_array);
+int		ft_atoi(const char *str);
 
 #endif

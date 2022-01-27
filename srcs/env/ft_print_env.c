@@ -1,30 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_hashtable.c                               :+:      :+:    :+:   */
+/*   ft_print_env.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/31 15:46:54 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/25 06:47:32 by jahuang          ###   ########.fr       */
+/*   Created: 2022/01/27 10:30:42 by jahuang           #+#    #+#             */
+/*   Updated: 2022/01/27 12:41:39 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_print_hashtable(t_hashtable *hashtable, char *delimeter)
+void	ft_print_env(t_hashtable *env_hashtable, int is_export)
 {
-	int	index;
+	int			index;
+	t_element	*env_element;
 
 	index = 0;
-	while (index < hashtable->length)
+	if (!env_hashtable)
+		return ;
+	while (index < env_hashtable->length)
 	{
-		if (hashtable->element_array[index])
+		if (env_hashtable->element_array[index])
 		{
-			ft_putstr_fd(hashtable->element_array[index]->key, 1);
-			ft_putstr_fd(delimeter, 1);
-			ft_putstr_fd(hashtable->element_array[index]->value, 1);
-			ft_putstr_fd("\n", 1);
+			env_element = env_hashtable->element_array[index];
+			if (is_export)
+				printf("export ");
+			printf("%s=", env_element->key);
+			if (is_export)
+				printf("\"%s\"", env_element->value);
+			else
+				printf("%s", env_element->value);
+			printf("\n");
 		}
 		index++;
 	}

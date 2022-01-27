@@ -1,27 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_index_of.c                                      :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jahuang <jahuang@42.fr>                    +#+  +:+       +#+        */
+/*   By: jahuang <jahuang@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/15 04:27:11 by jahuang           #+#    #+#             *
-/*   Updated: 2022/01/27 12:18:22 by jahuang          ###   ########.fr       */
+/*   Created: 2021/01/08 18:04:00 by jahuang           #+#    #+#             */
+/*   Updated: 2022/01/25 12:03:44 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_index_of(char *str, char c)
+int	ft_isdigit(int c)
 {
-	int	index;
-
-	index = 0;
-	while (str[index])
-	{
-		if (str[index] == c)
-			return (index);
-		index++;
-	}
-	return (-1);
+	return (c >= '0' && c <= '9');
 }

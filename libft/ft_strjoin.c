@@ -6,7 +6,8 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/23 00:18:51 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/21 12:26:24 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/21 20:34:54 by jahuang          ###   ########.fr       */
+
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +21,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (s1 == NULL || s2 == NULL)
 		return (NULL);
 	out = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (out == NULL)
+	if (!out)
 		return (NULL);
 	ptr_out = out;
 	while (*s1)

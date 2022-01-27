@@ -6,7 +6,7 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 15:42:04 by jahuang           #+#    #+#             */
-/*   Updated: 2021/12/09 11:04:49 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/21 23:59:15 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 **	Functions to free the hash table.
 */
 
-static void	ft_free_element(t_element *element)
+void	ft_free_element(t_element *element)
 {
 	if (element)
 	{
