@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/23 00:18:51 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/21 12:26:24 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/27 05:45:42 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,25 @@
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*out;
-	char	*ptr_out;
+	size_t	s1_len;
+	size_t	s2_len;
+	size_t	index;
+	char	*result;
 
-	if (s1 == NULL || s2 == NULL)
+	s1_len = ft_strlen(s1);
+	s2_len = ft_strlen(s2);
+	index = 0;
+	result = (char *)malloc((s1_len + s2_len) * sizeof(char) + 1);
+	if (!result)
 		return (NULL);
-	out = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
-	if (out == NULL)
-		return (NULL);
-	ptr_out = out;
-	while (*s1)
-		*ptr_out++ = *s1++;
-	while (*s2)
-		*ptr_out++ = *s2++;
-	*ptr_out = '\0';
-	return (out);
+	while (index < (s1_len + s2_len))
+	{
+		if (index < s1_len)
+			result[index] = s1[index];
+		else
+			result[index] = s2[index - s1_len];
+		index++;
+	}
+	result[index] = '\0';
+	return (result);
 }

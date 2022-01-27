@@ -6,7 +6,7 @@
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:32:58 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/21 13:58:18 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/27 08:09:43 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ void	ft_print_token_list(t_token *token_list)
 	holder = token_list;
 	while (holder)
 	{
-		printf("token type: %d\n", holder->token_type);
-		printf("token value: %s\n\n", holder->value);
+		if (holder->token_type)
+			printf("token type: %d\n", holder->token_type);
+		if (holder->value)
+			printf("token value: %s\n\n", holder->value);
 		holder = holder->next;
 	}
 	return ;
@@ -69,15 +71,17 @@ void	ft_minishell_loop(char *prompt, t_hashtable *env_hashtable)
 	while (1)
 	{
 		input = readline(prompt);
+		input = ft_expansion(input, env_hashtable);
+		printf("expand: %s\n", input);
 		if (!input)
 		{
 			printf("exit\n");
 			exit(0);
 		}
+		if (ft_strlen(input) == 0)
+			continue ;
 		if (ft_strlen(input) != 0)
 			add_history(input);
-		if (ft_check_quote(input) == 1)
-			printf("Syntaxe Error: Unclosed quote.\n");
 		else
 		{
 			token_list = ft_lexer(input);
