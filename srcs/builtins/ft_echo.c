@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:09:57 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/21 12:23:17 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/25 17:49:09 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ft_echo(char **src)
 	int	count;
 
 	n = 0;
-	i = 0;
+	i = 1;
 	while (ft_echo_n(src[i]))
 	{
 		n = 1;

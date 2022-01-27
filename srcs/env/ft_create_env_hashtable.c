@@ -6,7 +6,7 @@
 /*   By: jahuang <jahuang@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 00:16:12 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/21 14:01:02 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/27 13:04:34 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,11 @@ t_hashtable	*ft_create_env_hashtable(char **env)
 
 	array_len = ft_arraylen(env);
 	if (array_len == 0)
-		return (NULL);
-	array_len = ft_next_prime(array_len * 2);
+	{
+		env_hashtable = ft_create_hashtable(4242);
+		return (env_hashtable);
+	}
+	array_len = ft_next_prime(array_len * 3);
 	env_hashtable = ft_create_hashtable(array_len);
 	ft_env_to_hashtable(env, env_hashtable, array_len);
 	return (env_hashtable);
