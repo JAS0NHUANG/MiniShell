@@ -6,41 +6,39 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 21:39:26 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/25 09:57:55 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/27 02:40:59 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/// NEED JASON TO CHANGE THE PATH////
-
-static void	ft_change_new_pwd(t_hashtable **env_table)
+static void	ft_update_pwd(t_hashtable **env_table, char* old_pwd)
 {
-	char	*tmp;
+	char	*pwd;
 
-	tmp = NULL;
-	tmp = getcwd(tmp, BUFFER_SIZE);
-	*env_table = ft_change_value(*env_table, "PWD", tmp, 0);
-	if (tmp)
-		free(tmp);
+	pwd = NULL;
+	pwd = getcwd(pwd, BUFFER_SIZE);
+	*env_table = ft_change_value(*env_table, "PWD", pwd, 0);
+	*env_table = ft_change_value(*env_table, "OLDPWD", old_pwd, 0);
+	if (pwd)
+		free(pwd);
 }
 
 static void	ft_do_cd(char **str, t_hashtable **env_table)
 {
-	char	*tmp;
+	char	*old_pwd;
 
-	tmp = NULL;
-	tmp = getcwd(tmp, BUFFER_SIZE);
+	old_pwd = NULL;
+	old_pwd = getcwd(old_pwd, BUFFER_SIZE);
 	if (chdir(str[1]) == -1)
 	{
-		if (tmp)
-			free(tmp);
+		if (old_pwd)
+			free(old_pwd);
 		perror("Minishell: cd: ");
 		return ;
 	}
-	*env_table = ft_change_value(*env_table, "OLDPWD", tmp, 0);
-	ft_change_new_pwd(env_table);
-	free(tmp);
+	ft_update_pwd(env_table, old_pwd);
+	free(old_pwd);
 }
 
 static int		ft_check_error(char **str)
@@ -50,7 +48,9 @@ static int		ft_check_error(char **str)
 
 	err_msg = NULL;
 	buf = calloc(1, sizeof(struct stat));
-	if (ft_strlen(str[1]) > 255)
+	if (!str[1])
+		err_msg = ft_strdup("please provide a relative or absolute path");
+	else if (ft_strlen(str[1]) > 255)
 		err_msg = ft_strjoin(str[1], "file name too long");
 	else if (str[2] != 0)
 		err_msg = ft_strdup("too many arguments");
@@ -60,6 +60,8 @@ static int		ft_check_error(char **str)
 		err_msg = ft_strdup("Error");
 	else if (access(str[1], X_OK) == -1)
 		err_msg = ft_strjoin("permission denied: ", str[1]);
+	if (buf)
+		free(buf);
 	if (err_msg)
 	{
 		ft_putstr_fd("cd: ", 2);

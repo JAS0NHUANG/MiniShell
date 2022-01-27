@@ -6,25 +6,82 @@
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:32:58 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/25 17:31:15 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/27 02:37:21 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* function to print out token_list for testing purpous. */
-void	ft_print_token_list(t_token *token_list)
+void	ft_run_single_cmd(t_ast *ast_tree, t_hashtable **env_hashtable, t_token *token_list)
 {
-	t_token	*holder;
+	if (ft_strncmp("exit", ast_tree->value[0], 4) == 0)
+		ft_exit(ast_tree->value, ast_tree, *env_hashtable, token_list);
+	if (ft_strncmp("export", ast_tree->value[0], 6) == 0)
+		*env_hashtable = ft_export(ast_tree->value, *env_hashtable);
+	if (ft_strncmp("cd", ast_tree->value[0], 2) == 0)
+		ft_cd(ast_tree->value, env_hashtable);
+	if (ft_strncmp("unset", ast_tree->value[0], 5) == 0)
+		*env_hashtable = ft_unset(ast_tree->value, *env_hashtable);
+	else
+		ft_handle_pipe(ast_tree, *env_hashtable);
+}
 
-	holder = token_list;
-	while (holder)
+void	ft_run_cmd(char *input, t_hashtable **env_hashtable)
+{
+	t_token *token_list;
+	t_ast	*ast_tree;
+
+	token_list = ft_lexer(input);
+	ast_tree = ft_create_ast(token_list);
+	/*
+	ft_test(token_list, ast_tree, env_hashtable);
+	*/
+	if (!ast_tree->left && !ast_tree->right)
+		ft_run_single_cmd(ast_tree, env_hashtable, token_list);
+	else
+		ft_handle_pipe(ast_tree, *env_hashtable);
+	if (ast_tree)
+		ft_free_ast(ast_tree);
+	if (token_list)
+		ft_free_token_list(token_list);
+}
+
+int	ft_check_syntax_error(char *input)
+{
+	if (ft_check_quote(input) == 1)
 	{
-		printf("token type: %d\n", holder->token_type);
-		printf("token value: %s\n\n", holder->value);
-		holder = holder->next;
+		printf("Syntaxe Error: Unclosed quote.\n");
+		return (1);
 	}
-	return ;
+	return (0);
+
+}
+
+void	ft_minishell_loop(char *prompt, t_hashtable **env_hashtable, char **input)
+{
+	while (1)
+	{
+		*input = readline(prompt);
+		if (!*input)
+		{
+			printf("exit\n");
+			exit(0);
+		}
+		if (ft_strlen(*input) == 0)
+		{
+			free(*input);
+			continue ;
+		}
+		add_history(*input);
+		if (ft_check_syntax_error(*input) == 1)
+		{
+			free(*input);
+			continue ;
+		}
+		ft_run_cmd(*input, env_hashtable);
+		if (*input)
+			free(*input);
+	}
 }
 
 static void	ft_print_title(void)
@@ -40,102 +97,11 @@ static void	ft_print_title(void)
 	close(fd);
 }
 
-void	ft_print_tree(t_ast *ast_tree)
-{
-	if (!ast_tree->left)
-	{
-		printf("THE TREE: ~~~~~~~~~~~~~~~~~~~~\n");
-		if (ast_tree->value)
-		{
-			ft_putstr_fd("left cmd:", 1);
-			ft_putstr_array(ast_tree->value);
-		}
-		return ;
-	}
-	if (ast_tree->left)
-		ft_print_tree(ast_tree->left);
-	if (ast_tree->right->value)
-	{
-		ft_putstr_fd("right cmd:", 1);
-		ft_putstr_array(ast_tree->right->value);
-	}
-}
-
-void	ft_test()
-{
-	/*
-	ft_print_token_list(token_list);
-	ft_print_tree(ast_tree);
-	char *str[4];
-	str[0] = "cd";
-	str[2] = "abc";
-	str[1] = "123";
-	str[3] = 0;
-	if (ast_tree->left && ast_tree->right)
-	{
-		env_hashtable = ft_export(ast_tree->left->value, env_hashtable); 
-		printf("left value : %s\n", ast_tree->left->value[1]);
-		printf("right value : %s\n", ast_tree->right->value[1]);
-		env_hashtable = ft_unset(ast_tree->right->value, env_hashtable); 
-		ft_cd(str, &env_hashtable);
-		ft_pwd();
-	}
-	*/
-}
-
-void	ft_minishell_loop(char *prompt, t_hashtable *env_hashtable)
-{
-	char	*input;
-	t_token	*token_list;
-	t_ast	*ast_tree;
-
-	token_list = NULL;
-	ast_tree = NULL;
-	while (1)
-	{
-		input = readline(prompt);
-		if (!input)
-		{
-			printf("exit\n");
-			exit(0);
-		}
-		if (ft_strlen(input) == 0)
-		{
-			free(input);
-			continue ;
-		}
-		add_history(input);
-		if (ft_check_quote(input) == 1)
-			printf("Syntaxe Error: Unclosed quote.\n");
-		else
-		{
-			token_list = ft_lexer(input);
-			ast_tree = ft_create_ast(token_list);
-			if (!ast_tree->left && !ast_tree->right)
-			{
-				if (ft_strncmp("exit", ast_tree->value[0], 4) == 0)
-					ft_exit(ast_tree->value, ast_tree, env_hashtable, token_list);
-				if (ft_strncmp("export", ast_tree->value[0], 6) == 0)
-					ft_export(ast_tree->value, env_hashtable);
-				else
-					ft_handle_pipe(ast_tree, env_hashtable);
-			}
-			else
-				ft_handle_pipe(ast_tree, env_hashtable);
-			if (ast_tree)
-				ft_free_ast(ast_tree);
-			if (token_list)
-				ft_free_token_list(token_list);
-		}
-		free(input);
-	}
-	return ;
-}
-
 int	main(int argc, char **argv, char **env)
 {
 	char		*prompt;
 	t_hashtable	*env_hashtable;
+	char		*input;
 
 	(void)argc;
 	(void)argv;
@@ -143,7 +109,8 @@ int	main(int argc, char **argv, char **env)
 	printf("\n");
 	prompt = "|( o)═( o)| >";
 	ft_print_title();
-	ft_minishell_loop(prompt, env_hashtable);
+	input = NULL;
+	ft_minishell_loop(prompt, &env_hashtable, &input);
 	if (env_hashtable)
 		ft_free_hashtable(env_hashtable);
 	return (0);

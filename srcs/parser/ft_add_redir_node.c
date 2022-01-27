@@ -6,7 +6,7 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 10:36:40 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/20 11:28:01 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/26 07:08:06 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,12 @@ t_redir	*ft_add_redir_node(t_redir *redir_list, t_token *token_list)
 	ptr = token_list;
 	redir_node = ft_init_redir_node(ptr->token_type);
 	ptr = ptr->next;
+	if (!ptr)
+	{
+		printf("no ptr\n");
+		free(redir_node);
+		return (NULL);
+	}
 	redir_node->value = ft_strdup(ptr->value);
 	if (!redir_list)
 		return (redir_node);
