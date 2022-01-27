@@ -6,7 +6,7 @@
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:32:58 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/26 19:10:33 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/27 14:38:18 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_minishell_tree(t_hashtable *env_hashtable, t_token *token_list)
 	if (ret != 0)
 	{
 		if (ret == -1)
-			printf("Syntaxe Error: Unclosed quote.\n");
+			printf("Syntaxe Error : Minion Shell Err0r\n");
 		return ;
 	}
 	else

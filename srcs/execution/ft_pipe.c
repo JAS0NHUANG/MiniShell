@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 18:02:08 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/26 17:16:49 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/27 15:45:31 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_execute_node(t_ast *tree, t_hashtable *table)
 {
 	pid_t	pid;
 
-	if (ft_execute_builtin(tree, table) != 0)
+//	if (ft_execute_builtin(tree, table) != 0)
 	{
 		pid = fork();
 		if (pid == 0)

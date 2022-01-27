@@ -6,7 +6,7 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 10:54:45 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/26 13:11:27 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/27 13:04:30 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,6 @@ typedef struct s_ast {
 t_ast	*ft_create_ast(t_token *token_list);
 t_redir	*ft_add_redir_node(t_redir *redir_list, t_token *token_list);
 void	ft_free_ast(t_ast *ast_tree);
+void	ft_handle_quote(t_token *list);
 
 #endif

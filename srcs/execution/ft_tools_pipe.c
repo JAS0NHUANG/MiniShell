@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 12:03:00 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/25 15:52:53 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/27 13:46:52 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ char	*ft_exact_path(char *cmd, char **path)
 	{
 		tmp = ft_strjoin(path[i], cmd);
 		if (access(tmp, F_OK) == 0)
+{printf("echo ==> %s\n", tmp);
 			return (tmp);
+}
 		free(tmp);
 		i++;
 	}

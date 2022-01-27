@@ -6,7 +6,7 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:14:59 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/26 19:02:58 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/27 13:35:31 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ int	ft_check_pipe(t_token *list)
 		tmp = list->next;
 		if ((tmp->value[0] == '<' && list->value[0] == '|')
 			|| (tmp->value[0] == '>' && list->value[0] == '|'))
+			return (-1);
+		if (tmp->token_type >= TOKEN_PIPE && list->token_type >= TOKEN_PIPE)
 			return (-1);
 		list = list->next;
 	}

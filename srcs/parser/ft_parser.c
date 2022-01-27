@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jahuang <jahuang@42.fr>                    +#+  +:+       +#+        */
+/*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/19 20:00:59 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/26 17:30:34 by antton-t         ###   ########.fr       */
+/*   Created: 2022/01/26 19:18:44 by antton-t          #+#    #+#             */
+/*   Updated: 2022/01/26 19:18:47 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ t_ast	*ft_create_ast_node(t_token *token_list, int nb_element)
 	node = ft_malloc_node(nb_element);
 	if (token_list->token_type == TOKEN_PIPE)
 		node->node_type = NODE_PIPE;
-//	else
-//		node->node_type = NODE_CMD;
 	while (nb_element--)
 	{
 		if (ft_is_redir(token_list->token_type) == 1)
