@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include "./hashtable.h"
+# include "./builtins.h"
 # include "./lexer.h"
 # include "./parser.h"
 # include "./builtins.h"
@@ -28,6 +29,9 @@
 # include <sys/stat.h>
 # include <sys/wait.h>
 # include <readline/readline.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <unistd.h>
 # include <readline/history.h>
 
 t_hashtable	*ft_create_env_hashtable(char **env);

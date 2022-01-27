@@ -12,6 +12,7 @@
 
 #include "minishell.h"
 
+
 int	ft_isdigit_str(char *str)
 {
 	int	i;
@@ -27,6 +28,7 @@ int	ft_isdigit_str(char *str)
 	}
 	return (1);
 }
+
 
 int	ft_convert_exit_code(char *str)
 {
