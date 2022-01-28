@@ -6,7 +6,7 @@
 /*   By: jahuang <jahuang@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 06:53:16 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/27 09:35:34 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/27 16:18:46 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,15 @@ t_hashtable	*ft_unset(char **argv, t_hashtable *env_ht)
 	{
 		if ((!ft_isalpha((int)*argv[0]) && *argv[0] != '_') || \
 				(!ft_is_valid(*argv)))
+		{
+			g_exit_code = 1;
 			ft_print_error(*argv);
+			return (env_ht);
+		}
 		else
 			env_ht = ft_delete_element(env_ht, *argv);
 		argv++;
 	}
+	g_exit_code = 0;
 	return (env_ht);
 }

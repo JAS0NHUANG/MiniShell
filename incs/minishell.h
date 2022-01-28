@@ -6,7 +6,7 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 21:11:15 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/27 10:12:22 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/27 15:55:16 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define MINISHELL_H
 
 # include "./hashtable.h"
-# include "./builtins.h"
 # include "./lexer.h"
 # include "./parser.h"
 # include "./builtins.h"
@@ -33,6 +32,8 @@
 # include <sys/stat.h>
 # include <unistd.h>
 # include <readline/history.h>
+
+extern int	g_exit_code;
 
 t_hashtable	*ft_create_env_hashtable(char **env);
 void		ft_print_env(t_hashtable *env_hashtable, int is_export);

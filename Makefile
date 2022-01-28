@@ -40,6 +40,7 @@ SRCS		=	minishell.c \
 				lexer/ft_get_token_len.c \
 				lexer/ft_check_quote.c \
 				lexer/ft_expansion.c \
+				lexer/ft_expand_token_list.c \
 				parser/ft_parser.c \
 				parser/ft_add_redir_node.c \
 				parser/ft_free_ast.c \
@@ -58,7 +59,10 @@ SRCS		=	minishell.c \
 INCS		=	minishell.h \
 				hashtable.h \
 				lexer.h \
+				parser.h \
 				utils.h \
+				builtins.h \
+				execution.h \
 
 # **************************************************************************** #
 #       LIBRARIES                                                              #
