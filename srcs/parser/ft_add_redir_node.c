@@ -6,7 +6,7 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 10:36:40 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/27 11:22:52 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/28 17:26:35 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ t_redir	*ft_init_redir_node(int token_type)
 	redir_node->next = NULL;
 	if (token_type == TOKEN_GREATER)
 		redir_node->redir_type = REDIR_OUT;
-	if (token_type == TOKEN_GREATGREATER)
+	else if (token_type == TOKEN_GREATGREATER)
 		redir_node->redir_type = REDIR_APPEND_OUT;
-	if (token_type == TOKEN_LESSER)
+	else if (token_type == TOKEN_LESSER)
 		redir_node->redir_type = REDIR_IN;
-	if (token_type == TOKEN_LESSLESSER)
+	else if (token_type == TOKEN_LESSLESSER)
 		redir_node->redir_type = REDIR_HEREDOC;
 	return (redir_node);
 }
@@ -34,11 +34,13 @@ t_redir	*ft_add_redir_node(t_redir *redir_list, t_token *token_list)
 {
 	t_redir	*redir_node;
 	t_redir	*redir_list_holder;
+	int		token_type;
 
+	token_type = token_list->token_type;
 	token_list = token_list->next;
 	if (!token_list)
 		return (NULL);
-	redir_node = ft_init_redir_node(token_list->token_type);
+	redir_node = ft_init_redir_node(token_type);
 	redir_node->value = ft_strdup(token_list->value);
 	if (!redir_list)
 		return (redir_node);

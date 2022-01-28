@@ -6,7 +6,7 @@
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:32:58 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/28 15:11:36 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/28 15:58:19 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,22 @@ int	ft_check_syntax_error(char *input)
 	return (0);
 }
 
+void	ft_handle_sigint_main(int sg)
+{
+	if (sg == 2)
+	{
+		write(1, "\n", 1);
+		rl_on_new_line();
+		rl_redisplay();
+	}
+}
+
 void	ft_minishell_loop(char *prompt, t_hashtable **env_ht, char **input)
 {
 	while (1)
 	{
+		signal(SIGINT, &ft_handle_sigint_main);
+		signal(SIGQUIT, SIG_IGN);
 		*input = readline(prompt);
 		if (!*input)
 		{
