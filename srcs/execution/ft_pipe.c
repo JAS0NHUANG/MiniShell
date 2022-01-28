@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 18:02:08 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/27 12:59:53 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/27 16:08:01 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,23 @@ void	ft_pipe_parent(t_ast *tree, int *fd, t_hashtable *table)
 	}
 	else
 		close(fd[1]);
-	waitpid(-1, &status, 0);
+	waitpid(pid, &status, 0);
 }
 
 void	ft_execute_node(t_ast *tree, t_hashtable *table)
 {
 	pid_t	pid;
+	int i;
 
+	i=0;
 	pid = fork();
 	if (pid == 0)
 	{
-		if (ft_execute_builtin(tree, &table) != 0)
-			ft_execve_cmd(tree, table);
+		printf("here\n");
+		i = ft_execute_builtin(tree, &table);
+		if (i != 0)
+			i = ft_execve_cmd(tree, table);
+		g_exit_code = i;
 	}
 }
 
@@ -79,6 +84,7 @@ void	ft_handle_pipe(t_ast *tree, t_hashtable *table)
 			ft_execute_node(tree, table);
 	}
 	waitpid(-1, &status, 0);
+	g_exit_code = WEXITSTATUS(status);
 	close(fd[0]);
 	close(fd[1]);
 }
