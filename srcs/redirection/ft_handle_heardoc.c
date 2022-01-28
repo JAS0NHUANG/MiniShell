@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 22:07:15 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/28 21:18:31 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/28 21:43:05 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void	ft_store_data(t_token *list)
 			free(tmp);
 			tmp = readline(prompt);
 		}
+		if (tmp)
+			free(tmp);
 	}
 	close(fd);
 }

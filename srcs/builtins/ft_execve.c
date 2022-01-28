@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 19:23:00 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/28 21:11:45 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/28 21:54:45 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,19 +52,19 @@ char	*ft_strcpy(char *dest, char *src)
 
 char	**ft_build_builtins(char **cmd)
 {
-	cmd[0] = calloc(5, sizeof(char));
+	cmd[0] = ft_calloc(5, sizeof(char));
 	cmd[0] = ft_strcpy(cmd[0], "echo");
-	cmd[1] = calloc(3, sizeof(char));
+	cmd[1] = ft_calloc(3, sizeof(char));
 	cmd[1] = ft_strcpy(cmd[0], "cd");
-	cmd[2] = calloc(4, sizeof(char));
+	cmd[2] = ft_calloc(4, sizeof(char));
 	cmd[2] = ft_strcpy(cmd[0], "pwd");
-	cmd[3] = calloc(7, sizeof(char));
+	cmd[3] = ft_calloc(7, sizeof(char));
 	cmd[3] = ft_strcpy(cmd[0], "export");
-	cmd[4] = calloc(6, sizeof(char));
+	cmd[4] = ft_calloc(6, sizeof(char));
 	cmd[4] = ft_strcpy(cmd[0], "unset");
-	cmd[5] = calloc(4, sizeof(char));
+	cmd[5] = ft_calloc(4, sizeof(char));
 	cmd[5] = ft_strcpy(cmd[0], "env");
-	cmd[6] = calloc(5, sizeof(char));
+	cmd[6] = ft_calloc(5, sizeof(char));
 	cmd[6] = ft_strcpy(cmd[0], "exit");
 	return (cmd);
 }
@@ -73,7 +73,7 @@ int	ft_execve(char *str)
 {
 	char	**builtins;
 
-	builtins = calloc(8, sizeof(char **));
+	builtins = ft_calloc(8, sizeof(char **));
 	builtins = ft_build_builtins(builtins);
 	return (ft_strcmp(str, builtins));
 }

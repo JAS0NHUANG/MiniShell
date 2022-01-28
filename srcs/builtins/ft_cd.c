@@ -67,7 +67,7 @@ static int	ft_check_error(char **str_array)
 	char		*err_msg;
 
 	err_msg = NULL;
-	buf = calloc(1, sizeof(struct stat));
+	buf = ft_calloc(1, sizeof(struct stat));
 	err_msg = ft_make_err_msg(str_array, &buf);
 	if (buf)
 		free(buf);
