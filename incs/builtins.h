@@ -6,14 +6,13 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:03:26 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/25 15:32:12 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/27 15:55:35 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
 
-# include "./hashtable.h" 
 # define BUFFER_SIZE 3000
 
 void		ft_echo(char **src);

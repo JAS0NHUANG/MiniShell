@@ -3,31 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_builtin.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/26 00:23:42 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/27 13:51:35 by antton-t         ###   ########.fr       */
+/*   Created: 2022/01/27 10:23:09 by jahuang           #+#    #+#             */
+/*   Updated: 2022/01/28 16:23:14 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_execute_builtin(t_ast *tree, t_hashtable *table)
+int	ft_execute_builtin(t_ast *tree, t_hashtable **table)
 {
-	if (ft_strncmp(tree->value[0], "cd", 3) == 0)
-		(ft_cd(tree->value, &table));
-	else if (ft_strncmp(tree->value[0], "echo", 5) == 0)
+	char	*cmd;
+
+	cmd = tree->value[0];
+	if (ft_strncmp(cmd, "cd", ft_strlen(cmd)) == 0)
+	{
+		g_exit_code = ft_cd(tree->value, table);
+		exit(g_exit_code);
+	}
+	else if (ft_strncmp(cmd, "echo", ft_strlen(cmd)) == 0)
+	{
 		ft_echo(tree->value);
-	else if (ft_strncmp(tree->value[0], "env", 4) == 0)
-		(ft_env(tree->value, table));
-	else if (ft_strncmp(tree->value[0], "export", 7) == 0)
-		return (0);
-	else if (ft_strncmp(tree->value[0], "exit", 5) == 0)
-		exit (0);
-	else if (ft_strncmp(tree->value[0], "pwd", 4) == 0)
-		ft_pwd();
-	else if (ft_strncmp(tree->value[0], "unset", 6) == 0)
-		table = ft_unset(tree->value, table);
+		exit(0);
+	}
+	else if (ft_strncmp(cmd, "env", ft_strlen(cmd)) == 0)
+		exit(ft_env(tree->value, *table));
+	else if (ft_strncmp(cmd, "export", ft_strlen(cmd)) == 0)
+		exit(0);
+	else if (ft_strncmp(cmd, "exit", ft_strlen(cmd)) == 0)
+		exit(0);
+	else if (ft_strncmp(cmd, "pwd", ft_strlen(cmd)) == 0)
+		exit(ft_pwd());
+	else if (ft_strncmp(cmd, "unset", ft_strlen(cmd)) == 0)
+		exit(0);
 	else
 		return (-1);
 	return (0);

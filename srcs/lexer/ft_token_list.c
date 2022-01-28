@@ -6,7 +6,7 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 17:54:59 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/26 13:00:40 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/28 16:42:30 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ static t_token	*ft_create_token(int token_len, char *input)
 		i++;
 	}
 	new_token->value[i] = 0;
-	new_token->fd = -1;
 	new_token->next = NULL;
 	new_token->token_type = ft_get_token_type(new_token->value);
 	return (new_token);

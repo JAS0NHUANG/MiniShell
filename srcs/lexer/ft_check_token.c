@@ -1,54 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_check_quote.c                                   :+:      :+:    :+:   */
+/*   ft_check_token.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/11 15:14:59 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/27 13:35:31 by antton-t         ###   ########.fr       */
+/*   Created: 2022/01/28 19:21:35 by antton-t          #+#    #+#             */
+/*   Updated: 2022/01/28 21:04:58 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_check_quote(char *input)
-{
-	int		ret;
-	char	quote_type;
-
-	ret = 0;
-	quote_type = -1;
-	while (*input)
-	{
-		if (*input == CHAR_S_QUOTE || *input == CHAR_D_QUOTE)
-		{
-			quote_type = *input;
-			ret = 1;
-			input++;
-			while (*input)
-			{
-				if (*input == quote_type)
-				{
-					ret = 0;
-					break ;
-				}
-				input++;
-			}
-		}
-		input++;
-	}
-	return (ret);
-}
-
-int	ft_check_pipe(t_token *list)
+int	ft_check_token(t_token *list)
 {
 	t_token	*tmp;
 
 	tmp = list;
 	if (!list)
 		return (-2);
-	if (list->value[0] == '|')
+	if (list->token_type == TOKEN_PIPE)
+		return (-1);
+	if (list->token_type >= TOKEN_GREATER)
 		return (-1);
 	while (list && tmp->next != NULL)
 	{
@@ -60,7 +33,9 @@ int	ft_check_pipe(t_token *list)
 			return (-1);
 		list = list->next;
 	}
-	if (list->value[0] == '|')
+	if (list->token_type >= TOKEN_GREATER)
+		return (-1);
+	if (list->token_type == TOKEN_PIPE)
 		return (-1);
 	return (0);
 }

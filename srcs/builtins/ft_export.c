@@ -3,10 +3,11 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+
 /*   By: jahuang <jahuang@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 06:51:48 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/26 17:15:21 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/27 12:23:47 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,32 +42,29 @@ int	ft_export_type(char *str)
 
 char	**ft_get_key_value(char *argument, int export_type)
 {
-	int			char_index;
-	char		*key;
-	char		*value;
 	char		**key_value;
+	int			char_index;
 
+	key_value = malloc(2 * sizeof(char *));
+	if (!key_value)
+		return (NULL);
 	char_index = ft_index_of(argument, '=');
 	if (export_type == 2)
 		char_index--;
 	if (char_index < 0)
 	{
-		key = ft_strdup(argument);
-		value = ft_strdup("");
+		key_value[0] = ft_strdup(argument);
+		key_value[1] = ft_strdup("");
 	}
 	else
 	{
-		key = ft_substr(argument, 0, char_index);
+		key_value[0] = ft_substr(argument, 0, char_index);
+		char_index++;
 		if (export_type == 2)
-			char_index += 2;
-		else
 			char_index++;
-		value = ft_substr(argument, char_index,
+		key_value[1] = ft_substr(argument, char_index,
 				ft_strlen(argument) - char_index);
 	}
-	key_value = malloc(2 * sizeof(char *));
-	key_value[0] = key;
-	key_value[1] = value;
 	return (key_value);
 }
 
@@ -86,7 +84,7 @@ t_hashtable	*ft_do_export(char **argv, t_hashtable *env_ht)
 		if (export_type == 1)
 			env_ht = ft_add_element(env_ht, key_value[0], key_value[1]);
 		if (export_type == 2)
-			env_ht = ft_change_value(env_ht, key_value[0], key_value[1], 1);
+			env_ht = ft_ch_value(env_ht, key_value[0], key_value[1], 1);
 		free(key_value[0]);
 		free(key_value[1]);
 		free(key_value);

@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 22:07:23 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/26 18:38:29 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/28 21:19:14 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	ft_redir_in(char *file)
 	int		fd;
 
 	fd = open(file, O_RDONLY, 0);
+	printf("fd: %d\n", fd);
 	if (fd == -1)
 		printf("Minishell: %s: Error file\n", file);
 	else
@@ -59,7 +60,7 @@ void	ft_redir_heredoc(t_redir *tmp)
 	int	fd;
 
 	(void)tmp;
-	fd = open("./tmp/tmp", O_RDONLY);
+	fd = open("/tmp/heredoc", O_RDONLY);
 	if (fd == -1)
 		printf("Minishell Error file\n");
 	else
@@ -77,11 +78,20 @@ void	ft_handle_redir(t_ast *node)
 	while (tmp)
 	{
 		if (tmp->redir_type == REDIR_OUT)
+		{
+			printf("out\n");
 			ft_redir_out(tmp->value);
+		}
 		else if (tmp->redir_type == REDIR_APPEND_OUT)
+		{
+			printf("a out\n");
 			ft_append_out(tmp->value);
+		}
 		else if (tmp->redir_type == REDIR_IN)
+		{
+			printf("in\n");
 			ft_redir_in(tmp->value);
+		}	
 		else if (tmp->redir_type == REDIR_HEREDOC)
 			ft_redir_heredoc(tmp);
 		tmp = tmp->next;

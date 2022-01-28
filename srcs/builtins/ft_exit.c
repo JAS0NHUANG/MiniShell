@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 17:08:57 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/26 19:31:45 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/28 21:11:00 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,22 +38,17 @@ int	ft_convert_exit_code(char *str)
 	return (nb % 256);
 }
 
-int	ft_exit_2(char **str)
+void	ft_free_content(t_ast *ast, t_hashtable *ht, t_token *token_list)
 {
-	int	i;
-
-	i = 0;
-	if (!ft_isdigit_str(str[1]))
-	{
-		printf("exit: %s: numeric argument required\n", str[1]);
-		i = 2;
-	}
-	else
-		i = ft_convert_exit_code(str[1]);
-	return (i);
+	if (ast)
+		ft_free_ast(ast);
+	if (ht)
+		ft_free_hashtable(ht);
+	if (token_list)
+		ft_free_token_list(token_list);
 }
 
-void	ft_exit(char **str, t_ast *ast, t_hashtable *ht, t_token *tokens)
+void	ft_exit(char **str, t_ast *ast, t_hashtable *ht, t_token *token_list)
 {
 	int	i;
 
@@ -61,8 +56,6 @@ void	ft_exit(char **str, t_ast *ast, t_hashtable *ht, t_token *tokens)
 	if (!str[1])
 		printf("exit\n");
 	else
-		i = ft_exit_2(str);
-	if (ast)
 	{
 		if (ft_isdigit_str(str[1]) && str[2])
 		{
@@ -77,9 +70,6 @@ void	ft_exit(char **str, t_ast *ast, t_hashtable *ht, t_token *tokens)
 		else
 			i = ft_convert_exit_code(str[1]);
 	}
-	if (ht)
-		ft_free_hashtable(ht);
-	if (tokens)
-		ft_free_token_list(tokens);
+	ft_free_content(ast, ht, token_list);
 	exit(i);
 }

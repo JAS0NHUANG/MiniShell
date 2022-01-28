@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_change_value.c                                  :+:      :+:    :+:   */
+/*   ft_ch_value.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/26 17:24:11 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/26 17:24:13 by antton-t         ###   ########.fr       */
+/*   Created: 2022/01/27 12:27:10 by jahuang           #+#    #+#             */
+/*   Updated: 2022/01/27 12:27:27 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ t_element	*ft_get_element(t_hashtable *ht, char *key)
 	return (NULL);
 }
 
-t_hashtable	*ft_change_value(t_hashtable *ht, char *key, char *value,
-		int is_append)
+t_hashtable	*ft_ch_value(t_hashtable *ht, char *key, char *value, int is_apnd)
 {
 	t_element	*element;
 	char		*value_holder;
@@ -43,7 +42,7 @@ t_hashtable	*ft_change_value(t_hashtable *ht, char *key, char *value,
 	if (!element)
 		return (ht);
 	value_holder = element->value;
-	if (is_append)
+	if (is_apnd)
 		element->value = ft_strjoin(element->value, value);
 	else
 		element->value = ft_strdup(value);

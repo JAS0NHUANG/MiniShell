@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 22:07:15 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/26 16:52:06 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/28 21:18:31 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,23 +34,25 @@ void	ft_store_data(t_token *list)
 {
 	char	*tmp;
 	char	*prompt;
+	int		fd;
 
 	prompt = "heredoc >";
 	tmp = NULL;
-	list->fd = open("./tmp/tmp", O_CREAT | O_RDWR | O_APPEND, 0777);
-	if (list->fd == -1)
+	fd = open("/tmp/heredoc", O_CREAT | O_RDWR | O_APPEND, 0777);
+	if (fd == -1)
 		printf("Error file opening\n");
 	else
 	{
 		tmp = readline(prompt);
 		while (ft_strcmp(list->value, tmp) != 1)
 		{
-			write(list->fd, tmp, ft_strlen(tmp));
-			write(list->fd, "\n", 1);
+			write(fd, tmp, ft_strlen(tmp));
+			write(fd, "\n", 1);
+			free(tmp);
 			tmp = readline(prompt);
 		}
 	}
-	close(list->fd);
+	close(fd);
 }
 
 void	ft_handle_heardoc(t_token *list)

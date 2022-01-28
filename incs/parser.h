@@ -6,7 +6,7 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 10:54:45 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/27 13:04:30 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/27 12:13:21 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 enum	e_node_type {
 	NODE_CMD = 0,
 	NODE_PIPE,
-	NODE_LIST,
 };
 
 enum	e_redir_type {
@@ -29,7 +28,6 @@ enum	e_redir_type {
 typedef struct s_redir {
 	char			*value;
 	int				redir_type;
-	int				fd_heredoc;
 	struct s_redir	*next;
 }				t_redir;
 
@@ -44,6 +42,5 @@ typedef struct s_ast {
 t_ast	*ft_create_ast(t_token *token_list);
 t_redir	*ft_add_redir_node(t_redir *redir_list, t_token *token_list);
 void	ft_free_ast(t_ast *ast_tree);
-void	ft_handle_quote(t_token *list);
 
 #endif

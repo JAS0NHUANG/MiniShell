@@ -6,11 +6,88 @@
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:32:58 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/27 14:38:18 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/28 21:19:09 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	g_exit_code;
+
+int	ft_check_syntax_error(t_token *input)
+{
+	int	i;
+
+	i = 0;
+	i = ft_check_token(input);
+	if (i == -1)
+	{
+		printf("Syntaxe Err0r: Minion Shell\n");
+		return (1);
+	}
+	else if (i == -2)
+		return (1);
+	return (0);
+}
+
+void	ft_handle_input(char *input, t_hashtable **env_ht)
+{
+	t_token	*token_list;
+	t_ast	*ast;
+	int		fd;
+
+	token_list = ft_lexer(input);
+	if (ft_check_syntax_error(token_list) == 0)
+	{
+		ft_expand_token_list(&token_list, *env_ht);
+		ft_handle_heardoc(token_list);
+		ast = ft_create_ast(token_list);
+		if (!ast->left && !ast->right)
+			ft_run_single_cmd(ast, env_ht, token_list);
+		else
+			ft_handle_pipe(ast, *env_ht);
+		if (ast)
+			ft_free_ast(ast);
+		fd = open("/tmp/heredoc", O_RDONLY | O_CREAT | O_TRUNC, 0777);
+		close(fd);
+	}
+	if (token_list)
+		ft_free_token_list(token_list);
+}
+
+void	ft_handle_sigint_main(int sg)
+{
+	if (sg == 2)
+	{
+		write(1, "\n", 1);
+		rl_on_new_line();
+		rl_redisplay();
+	}
+}
+
+void	ft_minishell_loop(char *prompt, t_hashtable **env_ht, char **input)
+{
+	while (1)
+	{
+		signal(SIGINT, &ft_handle_sigint_main);
+		signal(SIGQUIT, SIG_IGN);
+		*input = readline(prompt);
+		if (!*input)
+		{
+			printf("exit\n");
+			exit(0);
+		}
+		if (ft_strlen(*input) == 0)
+		{
+			free(*input);
+			continue ;
+		}
+		add_history(*input);
+		ft_handle_input(*input, env_ht);
+		if (*input)
+			free(*input);
+	}
+}
 
 static void	ft_print_title(void)
 {
@@ -25,99 +102,21 @@ static void	ft_print_title(void)
 	close(fd);
 }
 
-void	ft_tree2(t_ast *tree, t_hashtable *table, t_token *token_list)
-{
-	if (ft_strncmp("exit", tree->value[0], 5) == 0)
-		ft_exit(tree->value, tree, table, token_list);
-	if (ft_strncmp("export", tree->value[0], 7) == 0)
-		ft_export(tree->value, table);
-	else
-		ft_handle_pipe(tree, table);
-}
-
-void	ft_minishell_tree(t_hashtable *env_hashtable, t_token *token_list)
-{
-	t_ast	*ast_tree;
-	int		ret;
-
-	ast_tree = NULL;
-	ret = ft_check_pipe(token_list);
-	if (ret != 0)
-	{
-		if (ret == -1)
-			printf("Syntaxe Error : Minion Shell Err0r\n");
-		return ;
-	}
-	else
-	{
-		ft_handle_heardoc(token_list);
-		ast_tree = ft_create_ast(token_list);
-		if (!ast_tree->left && !ast_tree->right)
-			ft_tree2(ast_tree, env_hashtable, token_list);
-		else
-			ft_handle_pipe(ast_tree, env_hashtable);
-		if (ast_tree)
-			ft_free_ast(ast_tree);
-		if (token_list)
-			ft_free_token_list(token_list);
-	}
-}
-
-void	ft_minishell_loop(char *prompt, t_hashtable *env_hashtable)
-{
-	char	*input;
-	t_token	*token_list;
-
-	token_list = NULL;
-	while (1)
-	{
-		input = readline(prompt);
-		if (!input)
-		{
-			printf("exit\n");
-			exit(0);
-		}
-		if (ft_strlen(input) == 0)
-		{
-			free(input);
-			continue ;
-		}
-		add_history(input);
-		if (ft_check_quote(input) == 1)
-			printf("Syntaxe Error: Unclosed quote.\n");
-		else
-		{
-			token_list = ft_lexer(input);
-			ft_minishell_tree(env_hashtable, token_list);
-		}
-		free(input);
-	}
-}
-
-void	ft_handle_signal(int s)
-{
-	(void)s;
-	write(1, "\n", 1);
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-}
-
 int	main(int argc, char **argv, char **env)
 {
 	char		*prompt;
-	t_hashtable	*env_hashtable;
+	t_hashtable	*env_ht;
+	char		*input;
 
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, ft_handle_signal);
 	(void)argc;
 	(void)argv;
-	env_hashtable = ft_create_env_hashtable(env);
+	env_ht = ft_create_env_hashtable(env);
 	printf("\n");
 	prompt = "|( o)═( o)| >";
 	ft_print_title();
-	ft_minishell_loop(prompt, env_hashtable);
-	if (env_hashtable)
-		ft_free_hashtable(env_hashtable);
+	input = NULL;
+	ft_minishell_loop(prompt, &env_ht, &input);
+	if (env_ht)
+		ft_free_hashtable(env_ht);
 	return (0);
 }

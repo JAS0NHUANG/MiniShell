@@ -1,6 +1,5 @@
 # **************************************************************************** #
-#       COMANDS                                                                #
-# **************************************************************************** #
+#       COMANDS                                                                # # **************************************************************************** #
 CC			=	gcc
 RM			=	rm -rf
 AR			=	ar rcs
@@ -31,7 +30,7 @@ SRCS		=	minishell.c \
 				hashtable/ft_add_element.c \
 				hashtable/ft_delete_element.c \
 				hashtable/ft_get_value.c \
-				hashtable/ft_change_value.c \
+				hashtable/ft_ch_value.c \
 				hashtable/ft_monkey_hash.c \
 				hashtable/ft_free_hashtable.c \
 				env/ft_create_env_hashtable.c \
@@ -39,7 +38,9 @@ SRCS		=	minishell.c \
 				lexer/ft_lexer.c \
 				lexer/ft_token_list.c \
 				lexer/ft_get_token_len.c \
-				lexer/ft_check_quote.c \
+				lexer/ft_check_token.c \
+				lexer/ft_expansion.c \
+				lexer/ft_expand_token_list.c \
 				parser/ft_parser.c \
 				parser/ft_add_redir_node.c \
 				parser/ft_free_ast.c \
@@ -51,15 +52,13 @@ SRCS		=	minishell.c \
 				builtins/ft_exit.c \
 				builtins/ft_pwd.c \
 				execution/ft_pipe.c \
-				execution/ft_tools_pipe.c \
+				execution/ft_run_single_cmd.c \
+				execution/ft_execve_cmd.c \
 				execution/ft_execute_builtin.c \
-				redirection/ft_handle_redir.c \
 				redirection/ft_handle_heardoc.c \
+				redirection/ft_handle_redir.c \
 
 INCS		=	minishell.h \
-				hashtable.h \
-				lexer.h \
-				utils.h \
 
 # **************************************************************************** #
 #       LIBRARIES                                                              #
