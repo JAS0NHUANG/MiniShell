@@ -6,12 +6,12 @@
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:32:58 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/27 13:01:37 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/28 15:11:36 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+int	g_exit_code;
 
 void	ft_handle_input(char *input, t_hashtable **env_ht)
 {
@@ -19,6 +19,7 @@ void	ft_handle_input(char *input, t_hashtable **env_ht)
 	t_ast	*ast;
 
 	token_list = ft_lexer(input);
+	ft_expand_token_list(&token_list, *env_ht);
 	ast = ft_create_ast(token_list);
 	if (!ast->left && !ast->right)
 		ft_run_single_cmd(ast, env_ht, token_list);
@@ -56,11 +57,6 @@ void	ft_minishell_loop(char *prompt, t_hashtable **env_ht, char **input)
 			continue ;
 		}
 		add_history(*input);
-		if (ft_check_syntax_error(*input) == 1)
-		{
-			free(*input);
-			continue ;
-		}
 		ft_handle_input(*input, env_ht);
 		if (*input)
 			free(*input);

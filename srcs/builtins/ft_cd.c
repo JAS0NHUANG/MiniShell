@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 21:39:26 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/27 12:49:58 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/27 16:02:19 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,11 +86,11 @@ static int	ft_check_error(char **str_array)
 int	ft_cd(char **str_array, t_hashtable **env_table)
 {
 	if (ft_check_error(str_array))
-		return (1);
-	else
 	{
-		ft_do_cd(str_array, env_table);
-		return (0);
+		g_exit_code = 1;
+		return (1);
 	}
-	return (1);
+	ft_do_cd(str_array, env_table);
+	g_exit_code = 0;
+	return (0);
 }
