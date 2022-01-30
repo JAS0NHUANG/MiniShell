@@ -6,7 +6,7 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 15:48:37 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/28 22:03:14 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/30 13:11:31 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_element	*ft_create_element(char *key, char *value)
 		return (NULL);
 	new_element->key = ft_strdup(key);
 	new_element->value = ft_strdup(value);
-	free(key);
-	free(value);
+//	free(key);
+//	free(value);
 	return (new_element);
 }

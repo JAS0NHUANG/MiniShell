@@ -55,7 +55,7 @@ char	*ft_add_char(char *str, char c)
 	str_len = 0;
 	if (str)
 		str_len = ft_strlen(str);
-	result = malloc((str_len + 2) * sizeof(char));
+	result = ft_calloc(sizeof(char), str_len + 2);
 	if (!result)
 		return (NULL);
 	index = 0;
@@ -66,6 +66,7 @@ char	*ft_add_char(char *str, char c)
 	}
 	result[index] = c;
 	result[index + 1] = '\0';
+	free(str);
 	return (result);
 }
 

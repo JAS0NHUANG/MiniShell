@@ -6,7 +6,7 @@
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:32:58 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/28 21:19:09 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/30 14:52:23 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ void	ft_minishell_loop(char *prompt, t_hashtable **env_ht, char **input)
 		if (!*input)
 		{
 			printf("exit\n");
+			if (env_ht)
+				ft_free_hashtable(* env_ht);
 			exit(0);
 		}
 		if (ft_strlen(*input) == 0)

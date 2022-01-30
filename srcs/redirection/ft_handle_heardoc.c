@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 22:07:15 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/28 21:43:05 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/30 16:06:41 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	ft_strcmp(char *src, char *comp)
 	return (0);
 }
 
+
 void	ft_store_data(t_token *list)
 {
 	char	*tmp;
@@ -44,12 +45,23 @@ void	ft_store_data(t_token *list)
 	else
 	{
 		tmp = readline(prompt);
+/// PROMPT EOF
+		if (!tmp)
+		{
+			close(fd);
+			return ;
+		}
 		while (ft_strcmp(list->value, tmp) != 1)
 		{
 			write(fd, tmp, ft_strlen(tmp));
 			write(fd, "\n", 1);
 			free(tmp);
 			tmp = readline(prompt);
+			if (!tmp)
+			{
+				close(fd);
+				return ;
+			}
 		}
 		if (tmp)
 			free(tmp);
