@@ -6,7 +6,7 @@
 /*   By: jahuang <jahuang@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 06:59:43 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/31 12:11:40 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/31 13:57:48 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,17 @@ void	ft_substitute_exit_code(char **result)
 		free(holder);
 }
 
+void	ft_free_subsitute(char *key, char *result_holder)
+{
+	if (key)
+		free(key);
+	if (result_holder)
+		free(result_holder);
+}
+
 int	ft_substitute(char **result, char *word, t_hashtable *env_ht)
 {
-	int	index;
+	int		index;
 	char	*key;
 	char	*value;
 	char	*result_holder;
@@ -82,10 +90,7 @@ int	ft_substitute(char **result, char *word, t_hashtable *env_ht)
 	}
 	result_holder = *result;
 	*result = ft_strjoin(*result, value);
-	if (key)
-		free(key);
-	if (result_holder)
-		free(result_holder);
+	ft_free_subsitute(key, result_holder);
 	return (index);
 }
 
@@ -146,9 +151,9 @@ int	ft_double_quote(char **result, char *word, int index, t_hashtable *env_ht)
 	return (index);
 }
 
-char *ft_expansion(char *word, t_hashtable *env_ht)
+char	*ft_expansion(char *word, t_hashtable *env_ht)
 {
-	int	index;
+	int		index;
 	char	*result;
 
 	index = 0;

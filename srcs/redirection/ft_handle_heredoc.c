@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 22:07:15 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/31 11:04:25 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/31 13:49:32 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,30 @@ int	ft_strcmp(char *src, char *comp)
 	return (0);
 }
 
+int	ft_write_tmp_heredoc(int fd, char *tmp, char *prompt, t_token *list)
+{
+	tmp = readline(prompt);
+	if (!tmp)
+	{
+		close(fd);
+		return (0);
+	}
+	while (ft_strcmp(list->value, tmp) != 1)
+	{
+		write(fd, tmp, ft_strlen(tmp));
+		write(fd, "\n", 1);
+		free(tmp);
+		tmp = readline(prompt);
+		if (!tmp)
+		{
+			close(fd);
+			return (0);
+		}
+	}
+	if (tmp)
+		free(tmp);
+	return (1);
+}
 
 void	ft_store_data(t_token *list)
 {
@@ -44,27 +68,8 @@ void	ft_store_data(t_token *list)
 		printf("Error file opening\n");
 	else
 	{
-		tmp = readline(prompt);
-/// PROMPT EOF
-		if (!tmp)
-		{
-			close(fd);
+		if (ft_write_tmp_heredoc(fd, tmp, prompt, list) == 0)
 			return ;
-		}
-		while (ft_strcmp(list->value, tmp) != 1)
-		{
-			write(fd, tmp, ft_strlen(tmp));
-			write(fd, "\n", 1);
-			free(tmp);
-			tmp = readline(prompt);
-			if (!tmp)
-			{
-				close(fd);
-				return ;
-			}
-		}
-		if (tmp)
-			free(tmp);
 	}
 	close(fd);
 }

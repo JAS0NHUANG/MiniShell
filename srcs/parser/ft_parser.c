@@ -6,7 +6,7 @@
 /*   By: jahuang <jahuang@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 20:00:59 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/31 12:17:00 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/31 14:08:13 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	ft_count_element(t_token *token_list)
 	return (count);
 }
 
-t_ast	*ft_malloc_node(int nb_element)
+t_ast	*ft_malloc_node(int nb_element, t_token *token_list)
 {
 	t_ast	*node;
 
@@ -40,6 +40,9 @@ t_ast	*ft_malloc_node(int nb_element)
 	node->right = NULL;
 	node->value = ft_calloc(nb_element + 1, sizeof(char **));
 	node->redir_list = NULL;
+	node->node_type = NODE_CMD;
+	if (token_list->token_type == TOKEN_PIPE)
+		node->node_type = NODE_PIPE;
 	return (node);
 }
 
@@ -57,10 +60,7 @@ t_ast	*ft_create_ast_node(t_token *token_list, int nb_element)
 	int		index;
 
 	index = 0;
-	node = ft_malloc_node(nb_element);
-	node->node_type = NODE_CMD;
-	if (token_list->token_type == TOKEN_PIPE)
-		node->node_type = NODE_PIPE;
+	node = ft_malloc_node(nb_element, token_list);
 	while (nb_element-- > 0)
 	{
 		if (ft_is_redir(token_list->token_type) == 1)

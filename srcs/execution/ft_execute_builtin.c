@@ -6,11 +6,19 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 10:23:09 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/31 12:05:19 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/31 14:05:00 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	ft_exit_code(t_ast *tree, t_hashtable **table)
+{
+	g_exit_code = ft_cd(tree->value, table);
+	printf("exit cd\n");
+	exit(g_exit_code);
+	exit(0);
+}
 
 int	ft_execute_builtin(t_ast *tree, t_hashtable **table)
 {
@@ -18,12 +26,7 @@ int	ft_execute_builtin(t_ast *tree, t_hashtable **table)
 
 	cmd = tree->value[0];
 	if (ft_strncmp(cmd, "cd", ft_strlen(cmd)) == 0)
-	{
-		g_exit_code = ft_cd(tree->value, table);
-		printf("exit cd\n");
-		exit(g_exit_code);
-		exit(0);
-	}
+		ft_exit_code(tree, table);
 	else if (ft_strncmp(cmd, "echo", ft_strlen(cmd)) == 0)
 	{
 		ft_echo(tree->value);

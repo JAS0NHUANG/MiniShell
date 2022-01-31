@@ -6,11 +6,12 @@
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:32:58 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/31 12:33:24 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/31 13:27:05 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 int	g_exit_code;
 
 int	ft_check_syntax_error(t_token *input)
@@ -77,7 +78,7 @@ void	ft_minishell_loop(char *prompt, t_hashtable **env_ht, char **input)
 		{
 			printf("exit\n");
 			if (env_ht)
-				ft_free_hashtable(* env_ht);
+				ft_free_hashtable(*env_ht);
 			exit(0);
 		}
 		if (ft_strlen(*input) == 0)
@@ -103,7 +104,7 @@ void	ft_print_title(void)
 	close(fd);
 }
 
-int		main(int argc, char **argv, char **env)
+int	main(int argc, char **argv, char **env)
 {
 	char		*prompt;
 	t_hashtable	*env_ht;

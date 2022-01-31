@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 12:03:00 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/31 12:07:10 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/31 13:22:59 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_error_exit(char *exact_path)
 	char	*tmp;
 
 	path_len = ft_strlen(exact_path);
-	err_msg = NULL;;
+	err_msg = NULL;
 	err_msg = ft_strjoin("Minishell: ", exact_path);
 	tmp = err_msg;
 	err_msg = ft_strjoin(err_msg, " command not found\n");

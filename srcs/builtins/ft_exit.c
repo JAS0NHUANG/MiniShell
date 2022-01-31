@@ -6,12 +6,11 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 17:08:57 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/31 12:04:24 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/31 13:21:43 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 int	ft_isdigit_str(char *str)
 {
@@ -28,7 +27,6 @@ int	ft_isdigit_str(char *str)
 	}
 	return (1);
 }
-
 
 int	ft_convert_exit_code(char *str)
 {
