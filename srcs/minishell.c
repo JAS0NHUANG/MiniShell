@@ -6,7 +6,7 @@
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:32:58 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/28 15:11:36 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/31 04:43:56 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,6 @@ void	ft_handle_input(char *input, t_hashtable **env_ht)
 		ft_free_token_list(token_list);
 }
 
-int	ft_check_syntax_error(char *input)
-{
-	if (ft_check_quote(input) == 1)
-	{
-		printf("Syntaxe Error: Unclosed quote.\n");
-		return (1);
-	}
-	return (0);
-}
-
 void	ft_minishell_loop(char *prompt, t_hashtable **env_ht, char **input)
 {
 	while (1)
@@ -49,6 +39,8 @@ void	ft_minishell_loop(char *prompt, t_hashtable **env_ht, char **input)
 		if (!*input)
 		{
 			printf("exit\n");
+			if (*env_ht)
+				ft_free_hashtable(*env_ht);
 			exit(0);
 		}
 		if (ft_strlen(*input) == 0)
