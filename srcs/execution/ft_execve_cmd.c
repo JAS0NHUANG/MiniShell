@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 12:03:00 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/31 14:51:47 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/31 17:16:13 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_error_exit(char *exact_path)
 	char	*tmp;
 
 	path_len = ft_strlen(exact_path);
-	err_msg = NULL;;
+	err_msg = NULL;
 	err_msg = ft_strjoin("Minishell: ", exact_path);
 	tmp = err_msg;
 	err_msg = ft_strjoin(err_msg, " command not found\n");
@@ -89,7 +89,6 @@ void	ft_execution(t_ast *tree, char **paths_array)
 	if (paths_array)
 		ft_free_char_array(paths_array);
 }
-
 
 int	ft_execve_cmd(t_ast *tree, t_hashtable *table)
 {

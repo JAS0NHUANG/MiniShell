@@ -6,22 +6,11 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 18:02:08 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/31 15:00:35 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/31 17:58:20 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static void	ft_handle_sigint(int sg)
-{
-	if (sg == 2)
-	{
-		write(1, "\n", 1);
-		g_exit_code = 130;
-		return ;
-	}
-	return ;
-}
 
 void	ft_pipe_child(t_ast *tree, int *fd, t_hashtable *table)
 {
@@ -58,22 +47,15 @@ void	ft_pipe_parent(t_ast *tree, int *fd, t_hashtable *table)
 	waitpid(pid, &status, 0);
 }
 
-void	ft_execute_node(t_ast *tree, t_hashtable *table)
+static void	ft_handle_sigint(int sg)
 {
-	pid_t	pid;
-	int		i;
-
-	i = 0;
-	pid = fork();
-	if (pid == 0)
+	if (sg == 2)
 	{
-		if (tree->redir_list)
-			ft_handle_redir(tree);
-		i = ft_execute_builtin(tree, &table);
-		if (i != 0)
-			i = ft_execve_cmd(tree, table);
-		g_exit_code = i;
+		write(1, "\n", 1);
+		g_exit_code = 130;
+		return ;
 	}
+	return ;
 }
 
 void	ft_handle_pipe_2(t_ast *tree, int *fd, t_hashtable *table)

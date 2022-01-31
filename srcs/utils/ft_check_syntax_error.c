@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_create_element.c                                :+:      :+:    :+:   */
+/*   ft_check_syntax_error.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/31 15:48:37 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/31 13:24:37 by antton-t         ###   ########.fr       */
+/*   Created: 2022/01/31 17:26:50 by jahuang           #+#    #+#             */
+/*   Updated: 2022/01/31 17:27:33 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "hashtable.h"
 
-/*
-**	Create the node(struct) to be stored in the hash table array.
-*/
-
-t_element	*ft_create_element(char *key, char *value)
+int	ft_check_syntax_error(t_token *input)
 {
-	t_element	*new_element;
+	int	i;
 
-	new_element = malloc(sizeof(t_element) * 1);
-	if (!new_element)
-		return (NULL);
-	new_element->key = ft_strdup(key);
-	new_element->value = ft_strdup(value);
-	return (new_element);
+	i = 0;
+	i = ft_check_token(input);
+	if (i == -1)
+	{
+		printf("Syntaxe Err0r: Minion Shell\n");
+		return (1);
+	}
+	else if (i == -2)
+		return (1);
+	return (0);
 }

@@ -26,6 +26,8 @@ SRCS_DIR	=	srcs
 INCS_DIR	=	incs
 
 SRCS		=	minishell.c \
+				utils/ft_check_syntax_error.c \
+				utils/ft_print_title.c \
 				hashtable/ft_create_hashtable.c \
 				hashtable/ft_create_element.c \
 				hashtable/ft_add_element.c \
@@ -41,6 +43,7 @@ SRCS		=	minishell.c \
 				lexer/ft_get_token_len.c \
 				lexer/ft_check_token.c \
 				lexer/ft_expansion.c \
+				lexer/ft_substitution.c \
 				lexer/ft_expand_token_list.c \
 				parser/ft_parser.c \
 				parser/ft_add_redir_node.c \
@@ -53,6 +56,7 @@ SRCS		=	minishell.c \
 				builtins/ft_exit.c \
 				builtins/ft_pwd.c \
 				execution/ft_pipe.c \
+				execution/ft_execute_node.c \
 				execution/ft_run_single_cmd.c \
 				execution/ft_execve_cmd.c \
 				execution/ft_execute_builtin.c \

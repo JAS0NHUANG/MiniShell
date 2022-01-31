@@ -6,7 +6,7 @@
 /*   By: jahuang <jahuang@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 06:59:43 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/31 12:11:40 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/31 17:06:41 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,57 +39,7 @@ char	*ft_add_char(char *str, char c)
 	return (result);
 }
 
-void	ft_substitute_exit_code(char **result)
-{
-	char	*holder;
-	char	*exit_code_str;
-
-	holder = *result;
-	exit_code_str = ft_itoa(g_exit_code);
-	*result = ft_strjoin(*result, exit_code_str);
-	if (exit_code_str)
-		free(exit_code_str);
-	if (holder)
-		free(holder);
-}
-
-int	ft_substitute(char **result, char *word, t_hashtable *env_ht)
-{
-	int	index;
-	char	*key;
-	char	*value;
-	char	*result_holder;
-
-	index = 1;
-	key = NULL;
-	value = NULL;
-	if (word[index] == '?')
-	{
-		ft_substitute_exit_code(result);
-		index++;
-		return (index);
-	}
-	else
-	{
-		while (word[index] && word[index] != ' ' && \
-			word[index] != '"' && \
-			word[index] != 39 && word[index] != '$')
-		{
-			key = ft_add_char(key, word[index]);
-			index++;
-		}
-		value = ft_get_value(env_ht, key);
-	}
-	result_holder = *result;
-	*result = ft_strjoin(*result, value);
-	if (key)
-		free(key);
-	if (result_holder)
-		free(result_holder);
-	return (index);
-}
-
-int	ft_single_quote(char **result, char *word, int index)
+static int	ft_single_quote(char **result, char *word, int index)
 {
 	char	*holder;
 	char	*result_holder;
@@ -118,7 +68,8 @@ int	ft_single_quote(char **result, char *word, int index)
 	return (index);
 }
 
-int	ft_double_quote(char **result, char *word, int index, t_hashtable *env_ht)
+static int	ft_double_quote(char **result, char *word, int index
+	, t_hashtable *env_ht)
 {
 	int	in_quote_len;
 
@@ -146,9 +97,9 @@ int	ft_double_quote(char **result, char *word, int index, t_hashtable *env_ht)
 	return (index);
 }
 
-char *ft_expansion(char *word, t_hashtable *env_ht)
+char	*ft_expansion(char *word, t_hashtable *env_ht)
 {
-	int	index;
+	int		index;
 	char	*result;
 
 	index = 0;

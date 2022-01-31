@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_create_element.c                                :+:      :+:    :+:   */
+/*   ft_print_title.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/31 15:48:37 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/31 13:24:37 by antton-t         ###   ########.fr       */
+/*   Created: 2022/01/31 17:24:02 by jahuang           #+#    #+#             */
+/*   Updated: 2022/01/31 17:25:22 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "hashtable.h"
 
-/*
-**	Create the node(struct) to be stored in the hash table array.
-*/
-
-t_element	*ft_create_element(char *key, char *value)
+void	ft_print_title(void)
 {
-	t_element	*new_element;
+	char	buffer[2048 + 1];
+	int		fd;
+	int		ret;
 
-	new_element = malloc(sizeof(t_element) * 1);
-	if (!new_element)
-		return (NULL);
-	new_element->key = ft_strdup(key);
-	new_element->value = ft_strdup(value);
-	return (new_element);
+	fd = open("./others/prompt_string.txt", O_RDONLY);
+	ret = read(fd, buffer, 2048);
+	buffer[ret] = '\0';
+	printf("%s\n", buffer);
+	close(fd);
 }

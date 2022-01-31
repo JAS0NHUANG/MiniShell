@@ -6,10 +6,9 @@
 /*   By: jahuang <jahuang@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 06:59:39 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/30 06:59:51 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/31 13:17:55 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "libft.h"
 
@@ -28,7 +27,7 @@ static void	ft_itoa_writer(char *result, int nbr_len, unsigned int nbr)
 	ft_itoa_writer(result, nbr_len - 1, nbr / 10);
 }
 
-char		*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	unsigned int	n_holder;
 	int				negatif;

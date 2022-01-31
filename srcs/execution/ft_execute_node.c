@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_create_element.c                                :+:      :+:    :+:   */
+/*   ft_execute_node.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/31 15:48:37 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/31 13:24:37 by antton-t         ###   ########.fr       */
+/*   Created: 2022/01/31 17:19:22 by jahuang           #+#    #+#             */
+/*   Updated: 2022/01/31 17:20:56 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "hashtable.h"
 
-/*
-**	Create the node(struct) to be stored in the hash table array.
-*/
-
-t_element	*ft_create_element(char *key, char *value)
+void	ft_execute_node(t_ast *tree, t_hashtable *table)
 {
-	t_element	*new_element;
+	pid_t	pid;
+	int		i;
 
-	new_element = malloc(sizeof(t_element) * 1);
-	if (!new_element)
-		return (NULL);
-	new_element->key = ft_strdup(key);
-	new_element->value = ft_strdup(value);
-	return (new_element);
+	i = 0;
+	pid = fork();
+	if (pid == 0)
+	{
+		if (tree->redir_list)
+			ft_handle_redir(tree);
+		i = ft_execute_builtin(tree, &table);
+		if (i != 0)
+			i = ft_execve_cmd(tree, table);
+		g_exit_code = i;
+	}
 }

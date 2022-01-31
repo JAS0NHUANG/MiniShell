@@ -6,28 +6,13 @@
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:32:58 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/31 14:55:06 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/31 17:27:32 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 int	g_exit_code;
-
-int	ft_check_syntax_error(t_token *input)
-{
-	int	i;
-
-	i = 0;
-	i = ft_check_token(input);
-	if (i == -1)
-	{
-		printf("Syntaxe Err0r: Minion Shell\n");
-		return (1);
-	}
-	else if (i == -2)
-		return (1);
-	return (0);
-}
 
 void	ft_handle_input(char *input, t_hashtable **env_ht)
 {
@@ -79,7 +64,7 @@ void	ft_minishell_loop(char *prompt, t_hashtable **env_ht, char **input)
 		{
 			printf("exit\n");
 			if (env_ht)
-				ft_free_hashtable(* env_ht);
+				ft_free_hashtable(*env_ht);
 			exit(0);
 		}
 		if (ft_strlen(*input) == 0)
@@ -92,20 +77,7 @@ void	ft_minishell_loop(char *prompt, t_hashtable **env_ht, char **input)
 	}
 }
 
-void	ft_print_title(void)
-{
-	char	buffer[2048 + 1];
-	int		fd;
-	int		ret;
-
-	fd = open("./others/prompt_string.txt", O_RDONLY);
-	ret = read(fd, buffer, 2048);
-	buffer[ret] = '\0';
-	printf("%s\n", buffer);
-	close(fd);
-}
-
-int		main(int argc, char **argv, char **env)
+int	main(int argc, char **argv, char **env)
 {
 	char		*prompt;
 	t_hashtable	*env_ht;
