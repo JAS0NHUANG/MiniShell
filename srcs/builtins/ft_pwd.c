@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 21:40:57 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/31 14:10:33 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/31 18:14:51 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ int	ft_pwd(char **av)
 		return (EXIT_FAILURE);
 	}
 	else
-		printf("%s\n", str);
+	{
+		ft_putstr_fd(str, 1);
+		ft_putstr_fd("\n", 1);
+	}
 	free(str);
 	g_exit_code = 0;
 	return (EXIT_SUCCESS);
