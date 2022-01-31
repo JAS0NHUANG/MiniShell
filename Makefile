@@ -76,10 +76,10 @@ OBJS		=	$(addprefix $(SRCS_DIR)/,$(SRCS:.c=.o))
 			$(CC) $(CFLAGS) -I $(INCS_DIR) -c $< -o $@
 
 $(NAME)		:	$(OBJS) $(LIBFT_A)
-			$(CC) -o $@ $(OBJS) -I $(INCS_DIR) $(LIBFT_A) $(READLINE)
+			$(CC) -o $@ $(OBJS) -I $(INCS_DIR) $(LIBFT_A) $(READLINE) $(CFLAGS)
 
 $(LIBFT_A)		:
-					make -C $(LIBFT_DIR) $(LIBFT_FLAGS)
+					make -C $(LIBFT_DIR) $(LIBFT_FLAGS) $(CFLAGS)
 					mv $(LIBFT_DIR)/$(LIBFT_A) .
 
 all			:	$(NAME)

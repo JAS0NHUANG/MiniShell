@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 17:08:57 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/31 12:04:24 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/31 14:39:09 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ void	ft_exit(char **str, t_ast *ast, t_hashtable *ht, t_token *token_list)
 	{
 		if (ft_isdigit_str(str[1]) && str[2])
 		{
-			printf("exit: too many arguments\n");
+			ft_putstr_fd("exit: too many arguments\n", 2);
+			g_exit_code = 1;
 			return ;
 		}
 		else if (!ft_isdigit_str(str[1]))

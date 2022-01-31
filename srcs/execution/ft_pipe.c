@@ -6,11 +6,22 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 18:02:08 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/31 12:08:02 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/31 15:00:35 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	ft_handle_sigint(int sg)
+{
+	if (sg == 2)
+	{
+		write(1, "\n", 1);
+		g_exit_code = 130;
+		return ;
+	}
+	return ;
+}
 
 void	ft_pipe_child(t_ast *tree, int *fd, t_hashtable *table)
 {
@@ -78,16 +89,6 @@ void	ft_handle_pipe_2(t_ast *tree, int *fd, t_hashtable *table)
 		ft_pipe_parent(tree, fd, table);
 }
 
-static void	ft_handle_sigint(int sg)
-{
-	if (sg == 2)
-	{
-		write(1, "\n", 1);
-		return ;
-	}
-	return ;
-}
-
 void	ft_handle_pipe(t_ast *tree, t_hashtable *table)
 {
 	int		status;
@@ -104,7 +105,8 @@ void	ft_handle_pipe(t_ast *tree, t_hashtable *table)
 			ft_execute_node(tree, table);
 	}
 	waitpid(-1, &status, 0);
-	g_exit_code = WEXITSTATUS(status);
+	if (WIFEXITED(status))
+		g_exit_code = WEXITSTATUS(status);
 	close(fd[0]);
 	close(fd[1]);
 }

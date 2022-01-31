@@ -79,7 +79,10 @@ t_hashtable	*ft_do_export(char **argv, t_hashtable *env_ht)
 	{
 		export_type = ft_export_type(argv[index]);
 		if (export_type == 0)
+		{
+			g_exit_code = 1;
 			ft_print_error(argv[index]);
+		}
 		key_value = ft_get_key_value(argv[index], export_type);
 		if (export_type == 1)
 			env_ht = ft_add_element(env_ht, key_value[0], key_value[1]);
@@ -98,8 +101,10 @@ t_hashtable	*ft_export(char **argv, t_hashtable *env_ht)
 	if (!argv[1])
 	{
 		ft_print_env(env_ht, 1);
+		g_exit_code = 0;
 		return (env_ht);
 	}
 	env_ht = ft_do_export(argv, env_ht);
+	g_exit_code = 0;
 	return (env_ht);
 }

@@ -6,11 +6,22 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 12:03:00 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/31 12:07:10 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/31 14:51:47 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	ft_handle_sigint(int sg)
+{
+	if (sg == 2)
+	{
+		write(1, "\n", 1);
+		g_exit_code = 130;
+		return ;
+	}
+	return ;
+}
 
 void	ft_error_exit(char *exact_path)
 {
@@ -55,6 +66,7 @@ void	ft_execution(t_ast *tree, char **paths_array)
 	int		result;
 	char	*exact_path;
 
+	signal(SIGINT, &ft_handle_sigint);
 	result = 0;
 	exact_path = ft_exact_path(tree->value[0], paths_array);
 	if (!exact_path && tree->value[0])
@@ -77,6 +89,7 @@ void	ft_execution(t_ast *tree, char **paths_array)
 	if (paths_array)
 		ft_free_char_array(paths_array);
 }
+
 
 int	ft_execve_cmd(t_ast *tree, t_hashtable *table)
 {

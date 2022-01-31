@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 15:09:57 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/30 04:25:15 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/31 16:29:09 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_echo(char **src)
 
 	n = 0;
 	i = 1;
-	while (ft_echo_n(src[i]))
+	if (ft_echo_n(src[i]))
 	{
 		n = 1;
 		i++;
@@ -57,4 +57,5 @@ void	ft_echo(char **src)
 	}
 	if (n == 0)
 		printf("\n");
+	g_exit_code = 0;
 }
