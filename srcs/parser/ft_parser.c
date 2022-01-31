@@ -6,7 +6,7 @@
 /*   By: jahuang <jahuang@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 20:00:59 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/27 11:22:41 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/31 12:17:00 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,8 @@ t_ast	*ft_create_ast_node(t_token *token_list, int nb_element)
 		}
 		else
 		{
-			node->value[index] = ft_strdup(token_list->value);
+			if (token_list->value)
+				node->value[index] = ft_strdup(token_list->value);
 			index++;
 		}
 		token_list = token_list->next;

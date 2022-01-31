@@ -6,12 +6,11 @@
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:32:58 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/31 11:09:10 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/31 12:33:24 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 int	g_exit_code;
 
 int	ft_check_syntax_error(t_token *input)
@@ -37,6 +36,8 @@ void	ft_handle_input(char *input, t_hashtable **env_ht)
 	int		fd;
 
 	token_list = ft_lexer(input);
+	if (input)
+		free(input);
 	if (ft_check_syntax_error(token_list) == 0)
 	{
 		ft_expand_token_list(&token_list, *env_ht);
@@ -86,12 +87,10 @@ void	ft_minishell_loop(char *prompt, t_hashtable **env_ht, char **input)
 		}
 		add_history(*input);
 		ft_handle_input(*input, env_ht);
-		if (*input)
-			free(*input);
 	}
 }
 
-static void	ft_print_title(void)
+void	ft_print_title(void)
 {
 	char	buffer[2048 + 1];
 	int		fd;
@@ -104,7 +103,7 @@ static void	ft_print_title(void)
 	close(fd);
 }
 
-int	main(int argc, char **argv, char **env)
+int		main(int argc, char **argv, char **env)
 {
 	char		*prompt;
 	t_hashtable	*env_ht;

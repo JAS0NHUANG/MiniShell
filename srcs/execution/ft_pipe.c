@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 18:02:08 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/31 11:19:31 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/31 12:08:02 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	ft_handle_pipe_2(t_ast *tree, int *fd, t_hashtable *table)
 
 	stay = fork();
 	if (stay < 0)
-		printf("FORK fail ERROR\n");
+		write(2, "Minishell: Error: Failed creating fork.\n", 40);
 	if (stay == 0)
 		ft_pipe_child(tree->right, fd, table);
 	else
@@ -95,7 +95,7 @@ void	ft_handle_pipe(t_ast *tree, t_hashtable *table)
 
 	signal(SIGINT, &ft_handle_sigint);
 	if (pipe(fd) == -1)
-		ft_putstr_fd("Minishell: Error pipe creation\n", 2);
+		write(2, "Minishell: Error: Failed creating pipe.\n", 40);
 	else
 	{
 		if (tree->node_type == NODE_PIPE)

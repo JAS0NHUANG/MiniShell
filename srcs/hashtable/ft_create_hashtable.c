@@ -6,7 +6,7 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/31 15:47:54 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/20 15:07:11 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/30 03:35:30 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ t_hashtable	*ft_create_hashtable(int length)
 	new_hashtable->length = length;
 	new_hashtable->element_array = malloc(sizeof(t_element) * length);
 	if (!new_hashtable->element_array)
+	{
+		free(new_hashtable);
 		return (NULL);
+	}
 	while (index < length)
 	{
 		new_hashtable->element_array[index] = NULL;

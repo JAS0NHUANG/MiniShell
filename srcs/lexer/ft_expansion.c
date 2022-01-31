@@ -1,48 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_expansion.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jahuang <jahuang@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/30 06:59:43 by jahuang           #+#    #+#             */
+/*   Updated: 2022/01/31 12:11:40 by jahuang          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
-
-static int	ft_count_len(unsigned int nbr)
-{
-	if (nbr < 10)
-		return (1);
-	return (1 + ft_count_len(nbr / 10));
-}
-
-static void	ft_itoa_writer(char *result, int nbr_len, unsigned int nbr)
-{
-	result[nbr_len - 1] = (char)(nbr % 10) + '0';
-	if (nbr < 10)
-		return ;
-	ft_itoa_writer(result, nbr_len - 1, nbr / 10);
-}
-
-char	*ft_itoa(int n)
-{
-	unsigned int	n_holder;
-	int				negatif;
-	int				nbr_len;
-	char			*result;
-
-	negatif = 1;
-	nbr_len = 0;
-	if (n < 0)
-	{
-		negatif = -1;
-		nbr_len = 1;
-	}
-	n_holder = n * negatif;
-	if ((n_holder > 2147483648) || \
-		(n_holder > 2147483647 && negatif == 1))
-		return (NULL);
-	nbr_len += ft_count_len(n_holder);
-	result = (char *)malloc((nbr_len + 1) * sizeof(char));
-	if (!result)
-		return (NULL);
-	ft_itoa_writer(result, nbr_len, n_holder);
-	if (negatif < 0)
-		result[0] = '-';
-	result[nbr_len] = '\0';
-	return (result);
-}
 
 char	*ft_add_char(char *str, char c)
 {
@@ -66,13 +34,28 @@ char	*ft_add_char(char *str, char c)
 	}
 	result[index] = c;
 	result[index + 1] = '\0';
-	free(str);
+	if (str)
+		free(str);
 	return (result);
+}
+
+void	ft_substitute_exit_code(char **result)
+{
+	char	*holder;
+	char	*exit_code_str;
+
+	holder = *result;
+	exit_code_str = ft_itoa(g_exit_code);
+	*result = ft_strjoin(*result, exit_code_str);
+	if (exit_code_str)
+		free(exit_code_str);
+	if (holder)
+		free(holder);
 }
 
 int	ft_substitute(char **result, char *word, t_hashtable *env_ht)
 {
-	int		index;
+	int	index;
 	char	*key;
 	char	*value;
 	char	*result_holder;
@@ -82,8 +65,9 @@ int	ft_substitute(char **result, char *word, t_hashtable *env_ht)
 	value = NULL;
 	if (word[index] == '?')
 	{
-		value = ft_strdup(ft_itoa(g_exit_code));
+		ft_substitute_exit_code(result);
 		index++;
+		return (index);
 	}
 	else
 	{
@@ -98,9 +82,11 @@ int	ft_substitute(char **result, char *word, t_hashtable *env_ht)
 	}
 	result_holder = *result;
 	*result = ft_strjoin(*result, value);
+	if (key)
+		free(key);
 	if (result_holder)
 		free(result_holder);
-	return (index--);
+	return (index);
 }
 
 int	ft_single_quote(char **result, char *word, int index)
@@ -160,9 +146,9 @@ int	ft_double_quote(char **result, char *word, int index, t_hashtable *env_ht)
 	return (index);
 }
 
-char	*ft_expansion(char *word, t_hashtable *env_ht)
+char *ft_expansion(char *word, t_hashtable *env_ht)
 {
-	int		index;
+	int	index;
 	char	*result;
 
 	index = 0;

@@ -6,7 +6,7 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 14:56:03 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/28 21:08:44 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/31 12:08:28 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	ft_expand_token_list(t_token **token_list, t_hashtable *env_ht)
 {
-	t_token	*token_holder;
-	char	*value_holder;
+	t_token *token_holder;
+	char *value_holder;
 
 	token_holder = *token_list;
 	value_holder = NULL;
