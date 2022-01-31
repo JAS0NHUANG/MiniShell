@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 12:03:00 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/31 03:31:22 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/31 11:47:57 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,10 @@ void	ft_execution(t_ast *tree, char **paths_array)
 		result = execve(exact_path, tree->value, NULL);
 		if (result == -1)
 		{
-			perror("Minishell: ");
-			exit(1);
+			ft_putstr_fd(exact_path, 2);
+			perror(": Minishell");
+			free(exact_path);
+			exit(126);
 		}
 	}
 	if (exact_path)
