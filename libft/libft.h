@@ -6,7 +6,7 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 13:59:08 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/21 13:58:51 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/31 03:52:35 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,8 @@ int		ft_isdigit(int c);
 char	**ft_split(char const *s, char c);
 void	ft_free_char_array(char **char_array);
 int		ft_atoi(const char *str);
+char	*ft_itoa(int n);
+void	*ft_calloc(size_t count, size_t size);
+void	*ft_memset(void *s, int c, size_t n);
 
 #endif

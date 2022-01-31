@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 12:03:00 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/27 13:09:46 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/31 03:31:22 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,21 @@
 
 void	ft_error_exit(char *exact_path)
 {
-		ft_putstr_fd("Minishell: ", 2);
-		ft_putstr_fd(exact_path, 2);
-		ft_putstr_fd(": command not found\n", 2);
-		exit (127);
+        int             path_len;
+        char    *err_msg;
+        char    *tmp;
+
+        path_len = ft_strlen(exact_path);
+        err_msg = NULL;;
+        err_msg = ft_strjoin("Minishell: ", exact_path);
+        tmp = err_msg;
+        err_msg = ft_strjoin(err_msg, " command not found\n");
+        write(2, err_msg, 30 + path_len);
+        if (exact_path)
+                free(exact_path);
+        free(tmp);
+        free(err_msg);
+        exit (127);
 }
 
 char	*ft_exact_path(char *cmd, char **paths_array)
@@ -44,19 +55,25 @@ void	ft_execution(t_ast *tree, char **paths_array)
 	int		result;
 	char	*exact_path;
 
+	result = 0;
 	exact_path = ft_exact_path(tree->value[0], paths_array);
-	if (!exact_path)
+	if (!exact_path && tree->value[0])
 		exact_path = ft_strdup(tree->value[0]);
-	if (access(exact_path, F_OK) != 0)
+	if (exact_path && access(exact_path, F_OK) != 0)
 		ft_error_exit(exact_path);
-	result = execve(exact_path, tree->value, NULL);
-	if (result == -1)
+	if (exact_path)
 	{
-		perror("Minishell: ");
-		exit(1);
+		result = execve(exact_path, tree->value, NULL);
+		if (result == -1)
+		{
+			perror("Minishell: ");
+			exit(1);
+		}
 	}
 	if (exact_path)
 		free(exact_path);
+	if (paths_array)
+		ft_free_char_array(paths_array);
 }
 
 int	ft_execve_cmd(t_ast *tree, t_hashtable *table)
