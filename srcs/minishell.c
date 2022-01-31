@@ -6,7 +6,7 @@
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:32:58 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/30 14:52:23 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/31 11:09:10 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_handle_input(char *input, t_hashtable **env_ht)
 	if (ft_check_syntax_error(token_list) == 0)
 	{
 		ft_expand_token_list(&token_list, *env_ht);
-		ft_handle_heardoc(token_list);
+		ft_handle_heredoc(token_list);
 		ast = ft_create_ast(token_list);
 		if (!ast->left && !ast->right)
 			ft_run_single_cmd(ast, env_ht, token_list);

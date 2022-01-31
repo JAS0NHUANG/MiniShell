@@ -55,7 +55,7 @@ SRCS		=	minishell.c \
 				execution/ft_run_single_cmd.c \
 				execution/ft_execve_cmd.c \
 				execution/ft_execute_builtin.c \
-				redirection/ft_handle_heardoc.c \
+				redirection/ft_handle_heredoc.c \
 				redirection/ft_handle_redir.c \
 
 INCS		=	minishell.h \

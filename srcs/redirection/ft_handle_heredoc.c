@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_handle_heardoc.c                                :+:      :+:    :+:   */
+/*   ft_handle_heredoc.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 22:07:15 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/30 16:06:41 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/31 11:04:25 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	ft_store_data(t_token *list)
 	close(fd);
 }
 
-void	ft_handle_heardoc(t_token *list)
+void	ft_handle_heredoc(t_token *list)
 {
 	t_token	*tmp;
 
