@@ -6,13 +6,13 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 10:04:16 by jahuang           #+#    #+#             */
-/*   Updated: 2022/02/01 04:19:48 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/02/01 12:57:30 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_run_single_cmd(t_ast *ast, t_hashtable **ht, t_token *list, 
+void	ft_run_single_cmd(t_ast *ast, t_hashtable **ht, t_token *list,
 		char **envp)
 {
 	char	*cmd;

@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 12:03:00 by antton-t          #+#    #+#             */
-/*   Updated: 2022/02/01 04:23:52 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/02/01 13:06:15 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	ft_execution(t_ast *tree, char **p_array, char **envp)
 	exact_path = ft_exact_path(tree->value[0], p_array);
 	if (!exact_path && tree->value[0])
 		exact_path = ft_strdup(tree->value[0]);
-	if (exact_path && access(exact_path, F_OK) != 0)
+	if (exact_path && exact_path[0] != '.' && access(exact_path, X_OK) != 0)
 		ft_error_exit(exact_path);
 	if (exact_path)
 	{

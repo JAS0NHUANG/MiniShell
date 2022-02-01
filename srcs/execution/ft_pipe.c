@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 18:02:08 by antton-t          #+#    #+#             */
-/*   Updated: 2022/02/01 04:16:52 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/02/01 12:58:05 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,13 @@ static void	ft_handle_signal(int sg)
 	}
 	if (sg == 3)
 	{
-		write(0, "     quit \n", 11);
 		g_exit_code = 131;
 		return ;
 	}
 	return ;
 }
 
-void	ft_pipe_child(t_ast *tree, int *fd, t_hashtable *ht, char** envp)
+void	ft_pipe_child(t_ast *tree, int *fd, t_hashtable *ht, char **envp)
 {
 	int	i;
 

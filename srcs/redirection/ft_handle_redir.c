@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 22:07:23 by antton-t          #+#    #+#             */
-/*   Updated: 2022/02/01 02:50:59 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/02/01 12:45:36 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,11 @@ void	ft_append_out(char *file)
 
 	fd = open(file, O_WRONLY | O_APPEND | O_CREAT, 0644);
 	if (fd == -1)
+	{
 		printf("Minishell: %s: Error file\n", file);
+		g_exit_code = 1;
+		exit(1);
+	}
 	else
 	{
 		dup2(fd, STDOUT_FILENO);
@@ -49,9 +53,12 @@ void	ft_redir_in(char *file)
 	int		fd;
 
 	fd = open(file, O_RDONLY, 0);
-	printf("fd: %d\n", fd);
 	if (fd == -1)
+	{
 		printf("Minishell: %s: Error file\n", file);
+		g_exit_code = 1;
+		exit(1);
+	}
 	else
 	{
 		dup2(fd, 0);
