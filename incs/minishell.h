@@ -6,7 +6,7 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 21:11:15 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/31 12:01:44 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/02/01 04:06:57 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,7 @@ extern int	g_exit_code;
 
 t_hashtable	*ft_create_env_hashtable(char **env);
 void		ft_print_env(t_hashtable *env_hashtable, int is_export);
+void		ft_print_title(void);
+int			ft_check_syntax_error(t_token *input);
 
 #endif

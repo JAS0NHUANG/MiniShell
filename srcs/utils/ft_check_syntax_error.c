@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_add_element.c                                   :+:      :+:    :+:   */
+/*   ft_check_syntax_error.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/27 12:15:31 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/31 14:02:40 by jahuang          ###   ########.fr       */
+/*   Created: 2022/01/31 17:26:50 by jahuang           #+#    #+#             */
+/*   Updated: 2022/01/31 17:27:33 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "hashtable.h"
 #include "minishell.h"
 
-t_hashtable	*ft_add_element(t_hashtable *ht, char *key, char *value)
+int	ft_check_syntax_error(t_token *input)
 {
-	int	hash;
+	int	i;
 
-	hash = ft_monkey_hash(key, ht->length);
-	while (ht->element_array[hash])
+	i = 0;
+	i = ft_check_token(input);
+	if (i == -1)
 	{
-		if (ft_strncmp(ht->element_array[hash]->key, key, ft_strlen(key)) == 0)
-		{
-			ht = ft_ch_value(ht, key, value, 0);
-			return (ht);
-		}
-		hash = (hash + 1) % ht->length;
+		printf("Syntaxe Err0r: Minion Shell\n");
+		return (1);
 	}
-	ht->element_array[hash] = ft_create_element(key, value);
-	return (ht);
+	else if (i == -2)
+		return (1);
+	return (0);
 }

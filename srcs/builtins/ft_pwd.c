@@ -6,13 +6,13 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 21:40:57 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/25 12:20:00 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/31 18:14:51 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_pwd(void)
+int	ft_pwd(char **av)
 {
 	char	*str;
 
@@ -20,11 +20,20 @@ int	ft_pwd(void)
 	str = getcwd(str, BUFFER_SIZE);
 	if (str == NULL)
 	{
-		write(1, "cd: An error occured while getting cwd\n", 39);
+		ft_putstr_fd("Minishell: Error getting cwd\n", 2);
+		return (EXIT_FAILURE);
+	}
+	if (av[1])
+	{
+		ft_putstr_fd("Minishell: pwd: too many arguments\n", 2);
 		return (EXIT_FAILURE);
 	}
 	else
-		printf("%s\n", str);
+	{
+		ft_putstr_fd(str, 1);
+		ft_putstr_fd("\n", 1);
+	}
 	free(str);
+	g_exit_code = 0;
 	return (EXIT_SUCCESS);
 }

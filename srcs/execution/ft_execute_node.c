@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_add_element.c                                   :+:      :+:    :+:   */
+/*   ft_execute_node.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/27 12:15:31 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/31 14:02:40 by jahuang          ###   ########.fr       */
+/*   Created: 2022/01/31 17:19:22 by jahuang           #+#    #+#             */
+/*   Updated: 2022/02/01 04:18:39 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "hashtable.h"
 #include "minishell.h"
 
-t_hashtable	*ft_add_element(t_hashtable *ht, char *key, char *value)
+void	ft_execute_node(t_ast *tree, t_hashtable *table, char **envp)
 {
-	int	hash;
+	pid_t	pid;
+	int		i;
 
-	hash = ft_monkey_hash(key, ht->length);
-	while (ht->element_array[hash])
+	i = 0;
+	pid = fork();
+	if (pid == 0)
 	{
-		if (ft_strncmp(ht->element_array[hash]->key, key, ft_strlen(key)) == 0)
-		{
-			ht = ft_ch_value(ht, key, value, 0);
-			return (ht);
-		}
-		hash = (hash + 1) % ht->length;
+		if (tree->redir_list)
+			ft_handle_redir(tree);
+		i = ft_execute_builtin(tree, &table);
+		if (i != 0)
+			i = ft_execve_cmd(tree, table, envp);
+		g_exit_code = i;
 	}
-	ht->element_array[hash] = ft_create_element(key, value);
-	return (ht);
 }

@@ -6,7 +6,7 @@
 /*   By: jahuang <jahuang@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 11:04:18 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/27 12:19:45 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/31 14:23:02 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void	ft_writer(char **result, char *s, char c)
 
 	index = 0;
 	word_index = 0;
-	while (index < ft_strlen(s))
+	while (index < (size_t)ft_strlen(s))
 	{
 		if (s[index] != c)
 		{

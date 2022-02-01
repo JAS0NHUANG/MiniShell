@@ -6,7 +6,7 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 12:27:10 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/27 12:27:27 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/31 14:02:39 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ t_hashtable	*ft_ch_value(t_hashtable *ht, char *key, char *value, int is_apnd)
 
 	element = ft_get_element(ht, key);
 	if (!element)
+	{
+		ht = ft_add_element(ht, key, value);
 		return (ht);
+	}
 	value_holder = element->value;
 	if (is_apnd)
 		element->value = ft_strjoin(element->value, value);

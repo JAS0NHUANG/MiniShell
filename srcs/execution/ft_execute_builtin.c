@@ -6,7 +6,7 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 10:23:09 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/31 14:05:00 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/01/31 16:57:08 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	ft_execute_builtin(t_ast *tree, t_hashtable **table)
 	else if (ft_strncmp(cmd, "exit", ft_strlen(cmd)) == 0)
 		exit(0);
 	else if (ft_strncmp(cmd, "pwd", ft_strlen(cmd)) == 0)
-		exit(ft_pwd());
+		exit(ft_pwd(tree->value));
 	else if (ft_strncmp(cmd, "unset", ft_strlen(cmd)) == 0)
 		exit(0);
 	else

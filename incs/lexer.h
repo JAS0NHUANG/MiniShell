@@ -6,7 +6,7 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 21:03:52 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/31 12:01:30 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/01/31 17:15:21 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,7 @@ int			ft_get_token_len(char *input);
 int			ft_check_token(t_token *list);
 char		*ft_expansion(char *word, t_hashtable *env_ht);
 int			ft_expand_token_list(t_token **token_list, t_hashtable *env_ht);
+int			ft_substitute(char **result, char *word, t_hashtable *env_ht);
+char		*ft_add_char(char *str, char c);
 
 #endif

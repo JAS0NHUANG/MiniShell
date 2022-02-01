@@ -6,11 +6,22 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 12:03:00 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/31 13:22:59 by antton-t         ###   ########.fr       */
+/*   Updated: 2022/02/01 11:35:21 by antton-t         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	ft_handle_sigint(int sg)
+{
+	if (sg == 2)
+	{
+		write(1, "\n", 1);
+		g_exit_code = 130;
+		return ;
+	}
+	return ;
+}
 
 void	ft_error_exit(char *exact_path)
 {
@@ -50,20 +61,21 @@ char	*ft_exact_path(char *cmd, char **paths_array)
 	return (NULL);
 }
 
-void	ft_execution(t_ast *tree, char **paths_array)
+void	ft_execution(t_ast *tree, char **p_array, char **envp)
 {
 	int		result;
 	char	*exact_path;
 
+	signal(SIGINT, &ft_handle_sigint);
 	result = 0;
-	exact_path = ft_exact_path(tree->value[0], paths_array);
+	exact_path = ft_exact_path(tree->value[0], p_array);
 	if (!exact_path && tree->value[0])
 		exact_path = ft_strdup(tree->value[0]);
-	if (exact_path && access(exact_path, F_OK) != 0)
+	if (exact_path && access(exact_path, X_OK) != 0)
 		ft_error_exit(exact_path);
 	if (exact_path)
 	{
-		result = execve(exact_path, tree->value, NULL);
+		result = execve(exact_path, tree->value, envp);
 		if (result == -1)
 		{
 			ft_putstr_fd(exact_path, 2);
@@ -74,11 +86,11 @@ void	ft_execution(t_ast *tree, char **paths_array)
 	}
 	if (exact_path)
 		free(exact_path);
-	if (paths_array)
-		ft_free_char_array(paths_array);
+	if (p_array)
+		ft_free_char_array(p_array);
 }
 
-int	ft_execve_cmd(t_ast *tree, t_hashtable *table)
+int	ft_execve_cmd(t_ast *tree, t_hashtable *table, char **envp)
 {
 	char	*paths_str;
 	char	**paths_array;
@@ -101,6 +113,6 @@ int	ft_execve_cmd(t_ast *tree, t_hashtable *table)
 	}
 	else
 		ft_error_exit(tree->value[0]);
-	ft_execution(tree, paths_array);
+	ft_execution(tree, paths_array, envp);
 	return (1);
 }
