@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 12:03:00 by antton-t          #+#    #+#             */
-/*   Updated: 2022/02/01 13:06:15 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/02/01 14:49:05 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	ft_error_exit(char *exact_path)
 	char	*tmp;
 
 	path_len = ft_strlen(exact_path);
+	if (path_len == 0)
+		exit (0);
 	err_msg = NULL;
 	err_msg = ft_strjoin("Minishell: ", exact_path);
 	tmp = err_msg;
@@ -48,7 +50,7 @@ char	*ft_exact_path(char *cmd, char **paths_array)
 	char	*tmp;
 
 	i = 0;
-	if (!cmd)
+	if (!cmd || cmd[0] == '\0')
 		return (NULL);
 	while (paths_array[i])
 	{
@@ -111,6 +113,8 @@ int	ft_execve_cmd(t_ast *tree, t_hashtable *table, char **envp)
 			i++;
 		}
 	}
+	else if (access(tree->value[0], F_OK) == 0)
+		execve(tree->value[0], tree->value, envp);
 	else
 		ft_error_exit(tree->value[0]);
 	ft_execution(tree, paths_array, envp);

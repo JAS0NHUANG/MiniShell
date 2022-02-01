@@ -6,7 +6,7 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 10:04:16 by jahuang           #+#    #+#             */
-/*   Updated: 2022/02/01 12:57:30 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/02/01 14:38:42 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	ft_run_single_cmd(t_ast *ast, t_hashtable **ht, t_token *list,
 	char	*cmd;
 
 	cmd = ast->value[0];
+	if (cmd[0] == '\0' || !cmd)
+		return ;
 	if (ft_strncmp("exit", cmd, ft_strlen(cmd)) == 0)
 		ft_exit(ast->value, ast, *ht, list);
 	else if (ft_strncmp("export", cmd, ft_strlen(cmd)) == 0)

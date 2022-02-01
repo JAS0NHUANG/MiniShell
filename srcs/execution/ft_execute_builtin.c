@@ -6,7 +6,7 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 10:23:09 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/31 16:57:08 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/02/01 14:40:54 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	ft_execute_builtin(t_ast *tree, t_hashtable **table)
 	char	*cmd;
 
 	cmd = tree->value[0];
+	if (!cmd || cmd[0] == '\0')
+		return (1);
 	if (ft_strncmp(cmd, "cd", ft_strlen(cmd)) == 0)
 		ft_exit_code(tree, table);
 	else if (ft_strncmp(cmd, "echo", ft_strlen(cmd)) == 0)

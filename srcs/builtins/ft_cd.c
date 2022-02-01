@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 21:39:26 by antton-t          #+#    #+#             */
-/*   Updated: 2022/02/01 12:04:09 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/02/01 15:35:20 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static void	ft_update_pwd(t_hashtable **env_table, char *old_pwd)
 	pwd = NULL;
 	pwd = getcwd(pwd, BUFFER_SIZE);
 	*env_table = ft_ch_value(*env_table, "PWD", pwd, 0);
-	*env_table = ft_ch_value(*env_table, "OLDPWD", old_pwd, 0);
+	if (old_pwd)
+		*env_table = ft_ch_value(*env_table, "OLDPWD", old_pwd, 0);
 	if (pwd)
 		free(pwd);
 }
@@ -30,7 +31,7 @@ static void	ft_do_cd(char **str_array, t_hashtable **env_table)
 
 	old_pwd = NULL;
 	old_pwd = getcwd(old_pwd, BUFFER_SIZE);
-	if (access(old_pwd, F_OK) == -1)
+	if (access(str_array[1], F_OK) == -1)
 	{
 		ft_putstr_fd("permission denied\n", 2);
 		return ;
