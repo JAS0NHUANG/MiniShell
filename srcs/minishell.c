@@ -6,7 +6,7 @@
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:32:58 by antton-t          #+#    #+#             */
-/*   Updated: 2022/02/01 03:05:42 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/02/01 04:14:03 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	g_exit_code;
 
-void	ft_handle_input(char *input, t_hashtable **env_ht)
+void	ft_handle_input(char *input, t_hashtable **env_ht, char **envp)
 {
 	t_token	*token_list;
 	t_ast	*ast;
@@ -29,9 +29,9 @@ void	ft_handle_input(char *input, t_hashtable **env_ht)
 		ft_handle_heredoc(token_list);
 		ast = ft_create_ast(token_list);
 		if (!ast->left && !ast->right)
-			ft_run_single_cmd(ast, env_ht, token_list);
+			ft_run_single_cmd(ast, env_ht, token_list, envp);
 		else
-			ft_handle_pipe(ast, *env_ht);
+			ft_handle_pipe(ast, *env_ht, envp);
 		if (ast)
 			ft_free_ast(ast);
 		fd = open("/tmp/heredoc", O_RDONLY | O_CREAT | O_TRUNC, 0777);
@@ -58,8 +58,11 @@ void	ft_handle_signal_main(int sg)
 	}
 }
 
-void	ft_minishell_loop(char *prompt, t_hashtable **env_ht, char **input)
+void	ft_minishell_loop(t_hashtable **env_ht, char **input, char **envp)
 {
+	char		*prompt;
+
+	prompt = "\033[0;33m|( o)═( o)|\033[0;m >";
 	while (1)
 	{
 		signal(SIGINT, &ft_handle_signal_main);
@@ -78,13 +81,12 @@ void	ft_minishell_loop(char *prompt, t_hashtable **env_ht, char **input)
 			continue ;
 		}
 		add_history(*input);
-		ft_handle_input(*input, env_ht);
+		ft_handle_input(*input, env_ht, envp);
 	}
 }
 
 int	main(int argc, char **argv, char **env)
 {
-	char		*prompt;
 	t_hashtable	*env_ht;
 	char		*input;
 
@@ -92,10 +94,9 @@ int	main(int argc, char **argv, char **env)
 	(void)argv;
 	env_ht = ft_create_env_hashtable(env);
 	printf("\n");
-	prompt = "\033[0;33m|( o)═( o)|\033[0;m >";
 	ft_print_title();
 	input = NULL;
-	ft_minishell_loop(prompt, &env_ht, &input);
+	ft_minishell_loop(&env_ht, &input, env);
 	if (env_ht)
 		ft_free_hashtable(env_ht);
 	return (0);

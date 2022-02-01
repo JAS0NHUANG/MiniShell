@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 18:02:08 by antton-t          #+#    #+#             */
-/*   Updated: 2022/02/01 01:54:26 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/02/01 04:16:52 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	ft_handle_signal(int sg)
 	return ;
 }
 
-void	ft_pipe_child(t_ast *tree, int *fd, t_hashtable *table)
+void	ft_pipe_child(t_ast *tree, int *fd, t_hashtable *ht, char** envp)
 {
 	int	i;
 
@@ -39,13 +39,13 @@ void	ft_pipe_child(t_ast *tree, int *fd, t_hashtable *table)
 	close(fd[0]);
 	if (tree->redir_list)
 		ft_handle_redir(tree);
-	i = ft_execute_builtin(tree, &table);
+	i = ft_execute_builtin(tree, &ht);
 	if (i != 0)
-		i = ft_execve_cmd(tree, table);
+		i = ft_execve_cmd(tree, ht, envp);
 	g_exit_code = i;
 }
 
-void	ft_pipe_parent(t_ast *tree, int *fd, t_hashtable *table)
+void	ft_pipe_parent(t_ast *tree, int *fd, t_hashtable *ht, char **envp)
 {
 	pid_t	pid;
 	int		status;
@@ -55,7 +55,7 @@ void	ft_pipe_parent(t_ast *tree, int *fd, t_hashtable *table)
 	if (pid == 0)
 	{
 		dup2(fd[1], STDOUT_FILENO);
-		ft_handle_pipe(tree->left, table);
+		ft_handle_pipe(tree->left, ht, envp);
 		close(fd[1]);
 		exit(0);
 	}
@@ -64,7 +64,7 @@ void	ft_pipe_parent(t_ast *tree, int *fd, t_hashtable *table)
 	waitpid(pid, &status, 0);
 }
 
-void	ft_handle_pipe_2(t_ast *tree, int *fd, t_hashtable *table)
+void	ft_handle_pipe_2(t_ast *tree, int *fd, t_hashtable *ht, char **envp)
 {
 	pid_t	stay;
 
@@ -72,12 +72,12 @@ void	ft_handle_pipe_2(t_ast *tree, int *fd, t_hashtable *table)
 	if (stay < 0)
 		write(2, "Minishell: Error: Failed creating fork.\n", 40);
 	if (stay == 0)
-		ft_pipe_child(tree->right, fd, table);
+		ft_pipe_child(tree->right, fd, ht, envp);
 	else
-		ft_pipe_parent(tree, fd, table);
+		ft_pipe_parent(tree, fd, ht, envp);
 }
 
-void	ft_handle_pipe(t_ast *tree, t_hashtable *table)
+void	ft_handle_pipe(t_ast *tree, t_hashtable *ht, char **envp)
 {
 	int		status;
 	int		fd[2];
@@ -89,9 +89,9 @@ void	ft_handle_pipe(t_ast *tree, t_hashtable *table)
 	else
 	{
 		if (tree->node_type == NODE_PIPE)
-			ft_handle_pipe_2(tree, fd, table);
+			ft_handle_pipe_2(tree, fd, ht, envp);
 		else
-			ft_execute_node(tree, table);
+			ft_execute_node(tree, ht, envp);
 	}
 	waitpid(-1, &status, 0);
 	if (WIFEXITED(status))

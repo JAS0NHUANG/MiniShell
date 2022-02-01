@@ -6,13 +6,13 @@
 /*   By: jahuang <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/31 17:19:22 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/31 17:20:56 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/02/01 04:18:39 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_execute_node(t_ast *tree, t_hashtable *table)
+void	ft_execute_node(t_ast *tree, t_hashtable *table, char **envp)
 {
 	pid_t	pid;
 	int		i;
@@ -25,7 +25,7 @@ void	ft_execute_node(t_ast *tree, t_hashtable *table)
 			ft_handle_redir(tree);
 		i = ft_execute_builtin(tree, &table);
 		if (i != 0)
-			i = ft_execve_cmd(tree, table);
+			i = ft_execve_cmd(tree, table, envp);
 		g_exit_code = i;
 	}
 }
