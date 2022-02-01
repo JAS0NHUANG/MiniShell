@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 22:07:23 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/31 16:58:01 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/02/01 02:50:59 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,11 @@ void	ft_redir_out(char *file)
 
 	fd = open(file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
+	{
 		printf("Minishell: %s: Error file\n", file);
+		g_exit_code = 1;
+		exit(1);
+	}
 	else
 	{
 		dup2(fd, STDOUT_FILENO);

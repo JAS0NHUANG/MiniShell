@@ -6,11 +6,28 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 18:02:08 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/31 17:58:20 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/02/01 01:54:26 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	ft_handle_signal(int sg)
+{
+	if (sg == 2)
+	{
+		write(1, "\n", 2);
+		g_exit_code = 130;
+		return ;
+	}
+	if (sg == 3)
+	{
+		write(0, "     quit \n", 11);
+		g_exit_code = 131;
+		return ;
+	}
+	return ;
+}
 
 void	ft_pipe_child(t_ast *tree, int *fd, t_hashtable *table)
 {
@@ -47,17 +64,6 @@ void	ft_pipe_parent(t_ast *tree, int *fd, t_hashtable *table)
 	waitpid(pid, &status, 0);
 }
 
-static void	ft_handle_sigint(int sg)
-{
-	if (sg == 2)
-	{
-		write(1, "\n", 1);
-		g_exit_code = 130;
-		return ;
-	}
-	return ;
-}
-
 void	ft_handle_pipe_2(t_ast *tree, int *fd, t_hashtable *table)
 {
 	pid_t	stay;
@@ -76,7 +82,8 @@ void	ft_handle_pipe(t_ast *tree, t_hashtable *table)
 	int		status;
 	int		fd[2];
 
-	signal(SIGINT, &ft_handle_sigint);
+	signal(SIGINT, &ft_handle_signal);
+	signal(SIGQUIT, &ft_handle_signal);
 	if (pipe(fd) == -1)
 		write(2, "Minishell: Error: Failed creating pipe.\n", 40);
 	else

@@ -6,7 +6,7 @@
 /*   By: antton-t <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:32:58 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/31 17:27:32 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/02/01 03:05:42 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_handle_input(char *input, t_hashtable **env_ht)
 		ft_free_token_list(token_list);
 }
 
-void	ft_handle_sigint_main(int sg)
+void	ft_handle_signal_main(int sg)
 {
 	if (sg == 2)
 	{
@@ -51,14 +51,19 @@ void	ft_handle_sigint_main(int sg)
 		rl_redisplay();
 		g_exit_code = 130;
 	}
+	if (sg == 3)
+	{
+		write(1, "\b\b  \b\b", 6);
+		return ;
+	}
 }
 
 void	ft_minishell_loop(char *prompt, t_hashtable **env_ht, char **input)
 {
 	while (1)
 	{
-		signal(SIGINT, &ft_handle_sigint_main);
-		signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, &ft_handle_signal_main);
+		signal(SIGQUIT, &ft_handle_signal_main);
 		*input = readline(prompt);
 		if (!*input)
 		{
@@ -87,7 +92,7 @@ int	main(int argc, char **argv, char **env)
 	(void)argv;
 	env_ht = ft_create_env_hashtable(env);
 	printf("\n");
-	prompt = "|( o)═( o)| >";
+	prompt = "\033[0;33m|( o)═( o)|\033[0;m >";
 	ft_print_title();
 	input = NULL;
 	ft_minishell_loop(prompt, &env_ht, &input);
