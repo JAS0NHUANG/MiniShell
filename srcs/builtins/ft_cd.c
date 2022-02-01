@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 21:39:26 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/31 16:56:17 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/02/01 12:04:09 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@ static void	ft_do_cd(char **str_array, t_hashtable **env_table)
 
 	old_pwd = NULL;
 	old_pwd = getcwd(old_pwd, BUFFER_SIZE);
+	if (access(old_pwd, F_OK) == -1)
+	{
+		ft_putstr_fd("permission denied\n", 2);
+		return ;
+	}
 	if (chdir(str_array[1]) == -1)
 	{
 		if (old_pwd)

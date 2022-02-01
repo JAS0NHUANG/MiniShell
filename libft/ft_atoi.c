@@ -6,16 +6,16 @@
 /*   By: jahuang <jahuang@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 14:01:59 by jahuang           #+#    #+#             */
-/*   Updated: 2022/01/25 11:08:46 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/02/01 12:30:24 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+long	ft_atoi(const char *str)
 {
-	int		negatif;
-	size_t	result;
+	int			negatif;
+	long long	result;
 
 	negatif = 1;
 	result = 0;

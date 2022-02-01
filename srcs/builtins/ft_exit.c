@@ -6,7 +6,7 @@
 /*   By: antton-t <antton-t@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 17:08:57 by antton-t          #+#    #+#             */
-/*   Updated: 2022/01/31 16:56:34 by jahuang          ###   ########.fr       */
+/*   Updated: 2022/02/01 12:29:36 by jahuang          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ int	ft_convert_exit_code(char *str)
 {
 	long	nb;
 
+	if (ft_strlen(str) > 19)
+	{
+		printf("exit: %s: numeric argument required\n", str);
+		exit(2);
+	}
 	nb = ft_atoi((const char *)str);
 	if (nb < 0)
 		nb = 256 - (-nb % 256);
